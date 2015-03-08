@@ -12,8 +12,8 @@ exports.create = {
         {
             'name.first': 'Admin',
             'name.last': 'User',
-            email: 'webmaster@fiat-punto.ru',
-            password: 'vinoKINOdomin0',
+            email: 'webmaster@4window.ru',
+            password: 'password',
             isAdmin: true
         }
     ]

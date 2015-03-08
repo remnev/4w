@@ -15,8 +15,8 @@ expressBem.engine('.server.bh.js', require('../express-bem-bh/lib/engines/bh')({
 }));
 
 keystone.init({
-    name: 'fiat-punto.ru',
-    brand: 'fiat-punto.ru',
+    name: '4window.ru',
+    brand: '4window.ru',
     favicon: 'public/favicon.ico',
     'view engine': '.server.bh.js',
     'auto update': true,
@@ -24,8 +24,8 @@ keystone.init({
     auth: true,
     'user model': 'User',
     // TODO: get from .env
-    'cookie secret': 'gT-N?^">Pa3hk5i!}B,3>[sRlDFJs7&HKU`?neN4gK,#3PA`c)1c(;7Ri7OP.gt4',
-    port: 3333
+    'cookie secret': 'gT+N?^">Pa3hk5i!}B,3>[sRlDFJs7&HKU`?neN4gK,#3PA`c)1c(;7Ri7OP.gt4',
+    port: 4444
 });
 
 keystone.import('models');
