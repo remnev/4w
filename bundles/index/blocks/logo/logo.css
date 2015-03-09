@@ -1,0 +1,20 @@
+.logo {
+    margin-top: 80px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    text-align: center;
+    color: #fff;
+}
+
+.logo .image {
+    width: 120px;
+}
+
+.logo__name {
+    font-size: 48px;
+}
+
+.logo__title {
+    font-size: 28px;
+    font-weight: normal;
+    margin: 0;
+}
