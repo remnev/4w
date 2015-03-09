@@ -1,0 +1,9 @@
+.main-menu {
+    float: left;
+}
+
+.main-menu .link {
+    text-decoration: none;
+    color: #000;
+    margin-right: 50px;
+}
