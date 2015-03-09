@@ -1,0 +1,9 @@
+.background_type_home {
+    left: 50%;
+    right: -.5px;
+    background-image: url('background_type_home.jpg');
+}
+
+.background_type_home:after {
+    background-color: rgba(71, 125, 111, .7);
+}

@@ -1,0 +1,22 @@
+.background {
+    position: fixed;
+    top: -.5px;
+    bottom: -.5px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    overflow: hidden;
+    -webkit-filter: blur(1px);
+    filter: blur(1px);
+    filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='1'%20/></filter></svg>#blur");
+    z-index: -10;
+}
+
+.background:after {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    content: '';
+}

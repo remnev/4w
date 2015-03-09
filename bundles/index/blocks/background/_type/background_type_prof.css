@@ -1,0 +1,9 @@
+.background_type_prof {
+    left: -.5px;
+    right: 50%;
+    background-image: url('background_type_prof.jpg');
+}
+
+.background_type_prof:after {
+    background-color: rgba(86, 111, 150, .7);
+}
