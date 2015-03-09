@@ -1,0 +1,13 @@
+.contacts {
+    float: right;
+}
+
+.contacts__phone,
+.contacts__operation-time {
+    display: inline;
+}
+
+.contacts__operation-time {
+    font-size: 12px;
+    font-style: italic;
+}
