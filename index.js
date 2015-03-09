@@ -32,6 +32,7 @@ keystone.import('models');
 
 keystone.set('routes', function (app) {
     app.get('/demo', controllers.demo);
+    app.get('/', controllers.index);
 });
 
 // Configure the navigation bar in Keystone's Admin UI
