@@ -1,0 +1,15 @@
+.products {
+    width: 420px;
+}
+
+.products .link {
+    text-decoration: none;
+}
+
+.products_type_prof {
+    float: left;
+}
+
+.products_type_home {
+    float: right;
+}

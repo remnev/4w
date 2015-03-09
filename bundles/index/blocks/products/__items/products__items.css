@@ -1,0 +1,31 @@
+.products__items {
+    margin-top: 40px;
+}
+
+.products__item {
+    position: relative;
+    color: #fff;
+    height: 260px;
+    display: inline-block;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.products__item .image {
+    max-width: 100%;
+}
+
+.products__product-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background-color: rgba(0, 0, 0, .7);
+    line-height: 40px;
+    overflow: hidden;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    padding: 0 10px;
+    letter-spacing: .02em;
+}
