@@ -25,7 +25,7 @@ keystone.init({
     'user model': 'User',
     // TODO: get from .env
     'cookie secret': 'gT+N?^">Pa3hk5i!}B,3>[sRlDFJs7&HKU`?neN4gK,#3PA`c)1c(;7Ri7OP.gt4',
-    port: 4444
+    port: process.env.PORT
 });
 
 keystone.import('models');
