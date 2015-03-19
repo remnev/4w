@@ -1,6 +1,6 @@
 ({
     shouldDeps: [
-        {block: 'image'},
+        {block: 'logo'},
         {block: 'jquery'},
         {
             block: 'events',

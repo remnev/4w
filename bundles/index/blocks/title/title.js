@@ -5,7 +5,7 @@ modules.define(
 ['events__channels', 'jquery'],
 function (provide, channel, $, BEMDOM) {
 
-BEMDOM.decl('logo', {
+BEMDOM.decl('title', {
     onSetMod: {
         js: {
             inited: function () {

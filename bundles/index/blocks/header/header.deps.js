@@ -2,7 +2,7 @@
     shouldDeps: [
         {block: 'main-menu'},
         {block: 'contacts'},
-        {block: 'logo'},
+        {block: 'title'},
         {
             block: 'events',
             elem: 'channels'

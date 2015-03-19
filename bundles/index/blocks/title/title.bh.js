@@ -2,23 +2,19 @@
 
 module.exports = function (bh) {
 
-    bh.match('logo', function (ctx) {
+    bh.match('title', function (ctx) {
         var data = ctx.tParam('data').logo;
 
         ctx
             .js(true)
             .content([
-                {
-                    block: 'image',
-                    url: '/public/images/logo.svg',
-                    alt: '4window logo'
-                },
+                {block: 'logo'},
                 {
                     elem: 'name',
                     content: data.name
                 },
                 {
-                    elem: 'title',
+                    elem: 'description',
                     content: data.title,
                     tag: 'h1'
                 }

@@ -16,7 +16,7 @@ module.exports = function (bh) {
                         ]
                     }
                 },
-                {block: 'logo'}
+                {block: 'title'}
             ]);
     });
 
