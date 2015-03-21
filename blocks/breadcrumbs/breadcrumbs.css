@@ -1,0 +1,41 @@
+.breadcrumbs {
+    font-size: 10px;
+    font-family: Arial, sans-serif;
+    line-height: 20px;
+    width: 960px;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 1px;
+    padding-bottom: 1px;
+}
+
+.breadcrumbs:before {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(to right, #fff, #6481b0, #fff);
+    bottom: 0;
+}
+
+.breadcrumbs .link {
+    color: #fa0a0a;
+    padding-right: 14px;
+    position: relative;
+}
+
+.breadcrumbs .link:after {
+    position: absolute;
+    right: 5px;
+    content: '/';
+    color: #000;
+}
+
+.breadcrumbs .link:last-child:after {
+    content: '';
+}
+
+.breadcrumbs .link_active {
+    color: #000;
+    text-decoration: none;
+}
