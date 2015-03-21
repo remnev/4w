@@ -4,6 +4,10 @@
 
 .main-menu .link {
     text-decoration: none;
-    color: #000;
+    color: #333;
     margin-right: 50px;
+}
+
+.main-menu .link:hover {
+    color: #000;
 }
