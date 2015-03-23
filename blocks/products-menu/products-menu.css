@@ -1,0 +1,35 @@
+.products-menu__category {
+    margin-bottom: 40px;
+}
+
+.products-menu__categoryName {
+    color: #000;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.products-menu__categoryName:hover {
+    text-decoration: underline;
+}
+
+.products-menu__link {
+    display: block;
+}
+
+.products-menu__link .link {
+    color: #fa0a0a;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 30px;
+    margin-left: 10px;
+}
+
+.products-menu__link_active .link {
+    color: #000;
+    text-decoration: none;
+    margin-left: 0;
+    padding-left: 7px;
+    border-left: 3px solid #6481b0;
+}
+
