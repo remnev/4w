@@ -1,0 +1,14 @@
+.content {
+    margin: 40px auto 0;
+    width: 960px;
+}
+
+.content__left-column {
+    width: 230px;
+    display: inline-block;
+}
+
+.content__right-column {
+    width: 730px;
+    display: inline-block;
+}
