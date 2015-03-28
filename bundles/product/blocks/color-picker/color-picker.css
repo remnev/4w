@@ -1,0 +1,97 @@
+.color-picker__header {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    letter-spacing: .02em;
+    position: relative;
+    margin-left: 20px;
+}
+
+.color-picker__header:before {
+    position: absolute;
+    content: '1';
+    width: 20px;
+    height: 20px;
+    border: 2px solid #6481b0;
+    left: -30px;
+    top: -3px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.color-picker__title {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.color-picker__colors {
+    margin-top: 8px;
+}
+
+.color-picker__color {
+    overflow: hidden;
+    display: inline-block;
+    margin-bottom: -6px;
+    position: relative;
+    cursor: pointer;
+}
+
+.color-picker__color_active {
+    box-shadow: 0 1px 1px 0 #000;
+}
+
+.color-picker__color_active:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border: 3px solid #fa0a0a;
+}
+
+.color-picker__color_inactive {
+    opacity: .6;
+}
+
+.color-picker__color .image {
+    width: 100%;
+}
+
+.color-picker__color_size_l {
+    width: 144px;
+    height: 80px;
+}
+
+.color-picker__color_size_s {
+    width: 60px;
+    height: 32px;
+}
+
+.color-picker__color_no-laminate {
+    width: 142px;
+    height: 78px;
+    border: 1px solid #e5e5e5;
+}
+
+.color-picker__color_no-laminate.color-picker__color_active {
+    border-color: #fa0a0a;
+}
+
+.color-picker__colorCode {
+    background-color: rgba(255, 255, 255, .8);
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    left: 5px;
+    line-height: 12px;
+    padding: 1px 4px;
+    position: absolute;
+    top: 5px;
+}
+
+.color-picker__pickedColor {
+    display: inline;
+    font-weight: bold;
+}
