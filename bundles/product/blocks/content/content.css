@@ -6,9 +6,26 @@
 .content__left-column {
     width: 230px;
     display: inline-block;
+    vertical-align: top;
 }
 
 .content__right-column {
-    width: 730px;
+    width: 720px;
     display: inline-block;
+    vertical-align: top;
+    margin-left: 10px;
+}
+
+.content__header {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 24px;
+    line-height: 24px;
+    letter-spacing: .02em;
+    margin: 0;
+}
+
+.content__description {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin-top: 20px;
 }
