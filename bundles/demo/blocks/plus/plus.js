@@ -5,18 +5,18 @@ modules.define(
 ['events__channels'],
 function (provide, channel, BEMDOM) {
 
-BEMDOM.decl('plus', {
-    onSetMod: {
-        js: {
-            inited: function () {
-                this.bindTo('click', function () {
-                    channel('main').emit('addTask');
-                });
+    BEMDOM.decl('plus', {
+        onSetMod: {
+            js: {
+                inited: function () {
+                    this.bindTo('click', function () {
+                        channel('main').emit('addTask');
+                    });
+                }
             }
         }
-    }
-});
+    });
 
-provide(BEMDOM);
+    provide(BEMDOM);
 
 });

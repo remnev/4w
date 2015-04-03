@@ -5,4 +5,4 @@
         {elem: 'title'},
         {elem: 'items'}
     ]
-})
+});

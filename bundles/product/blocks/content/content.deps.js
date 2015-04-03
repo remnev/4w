@@ -3,4 +3,4 @@
         {block: 'products-menu'},
         {block: 'filter'}
     ]
-}])
+}]);

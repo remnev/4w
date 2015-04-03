@@ -116,11 +116,11 @@ gulp.task('clean', function () {
         var deferred = vow.defer();
 
         del(patterns, function (err, res) {
-             if (err) {
-                 deferred.reject(err);
-             } else {
-                 deferred.resolve(res);
-             }
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(res);
+            }
         });
 
         return deferred.promise();

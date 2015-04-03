@@ -4,4 +4,4 @@
         {elem: 'main'},
         {block: 'breadcrumbs'}
     ]
-}])
+}]);

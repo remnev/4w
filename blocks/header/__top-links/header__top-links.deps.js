@@ -5,4 +5,4 @@
             mods: {pseudo: true}
         }
     ]
-}])
+}]);

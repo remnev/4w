@@ -8,4 +8,4 @@
             elem: 'channels'
         }
     ]
-})
+});
