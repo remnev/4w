@@ -1,6 +1,10 @@
 ([{
     shouldDeps: [
         {block: 'image'},
-        {block: 'jquery'}
+        {block: 'jquery'},
+        {
+            block: 'events',
+            elem: 'channels'
+        }
     ]
-}])
+}]);
