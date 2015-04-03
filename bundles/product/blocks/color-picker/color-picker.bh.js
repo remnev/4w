@@ -30,7 +30,8 @@ module.exports = function (bh) {
                         mods: {'no-laminate': true},
                         attrs: {
                             'data-title': 'Белый',
-                            'data-code': 915205
+                            'data-code': 915205,
+                            'data-no-laminate': true
                         },
                         content: {
                             elem: 'colorCode',
