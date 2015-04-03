@@ -15,7 +15,7 @@ module.exports = function (bh) {
                     {
                         elem: 'header',
                         tag: 'h1',
-                        content: data.name + ' ' + data.article
+                        content: data.name
                     },
                     {
                         elem: 'description',
