@@ -1,8 +1,7 @@
 ([{
     shouldDeps: [
-        {block: 'color-picker'}/*,
-        {block: 'width-picker'},
-        {block: 'calculator'},
-        {block: 'button'}*/
+        {block: 'color-picker'},
+        {block: 'size-picker'},
+        {block: 'number-picker'}
     ]
-}])
+}]);
