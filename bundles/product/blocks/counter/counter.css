@@ -1,0 +1,44 @@
+.counter__decrease,
+.counter__increase {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #e6e9ed;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: 40%;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.counter__decrease:hover,
+.counter__increase:hover {
+    border-color: #b5b7ba;
+}
+
+.counter__decrease:active,
+.counter__increase:active {
+    background-color: #f2f6fa;
+}
+
+.counter__decrease {
+    background-position: 4px center;
+    background-image: url(counter__decrease.svg);
+}
+
+.counter__increase {
+    background-position: 6px center;
+    background-image: url(counter__increase.svg);
+}
+
+.counter input {
+    vertical-align: middle;
+    display: inline-block;
+    margin: 0 5px;
+    height: 22px;
+    width: 36px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    text-align: right;
+    color: #000;
+}
