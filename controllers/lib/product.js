@@ -12,30 +12,251 @@ module.exports = function (req, res) {
 
     var products = [
         {
-            slug: 'flat-strips',
-            name: 'Нащельники',
-            article: 'FLR20LK',
+            slug: 'flat-strips-on-roll',
+            name: 'Нащельник в рулоне',
             description: [
-                'В рулоне 50 м. Материал ПВХ (твердый и мягкий). Самоклеящиеся пенообразная клейкая лента.',
+                'В рулоне 50 м. Материал ПВХ (твердый и мягкий). Самоклеящаяся пенообразная клейкая лента.',
                 'Примененяется для внутренней и внешней отделки окон, лоджий, дверей. Гарантированное приклеивание к',
                 'поверхности ПВХ до -15С.'
-            ].join(' ')
+            ].join(' '),
+            articles: [
+                {
+                    name: 'FLR20LK',
+                    price: {
+                        pure: 20,
+                        laminate: 35
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '20'
+                    }
+                },
+                {
+                    name: 'FLR30LK',
+                    price: {
+                        pure: 30,
+                        laminate: 45
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '30'
+                    }
+                },
+                {
+                    name: 'FLR40LK',
+                    price: {
+                        pure: 35,
+                        laminate: 40
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '40'
+                    }
+                },
+                {
+                    name: 'FLR50LK',
+                    price: {
+                        pure: 40,
+                        laminate: 48
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '50'
+                    }
+                },
+                {
+                    name: 'FLR60LK',
+                    price: {
+                        pure: 42,
+                        laminate: 50
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '60'
+                    }
+                },
+                {
+                    name: 'FLR70LK',
+                    price: {
+                        pure: 50,
+                        laminate: 60
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '70'
+                    }
+                },
+                {
+                    name: 'FLR80LK',
+                    price: {
+                        pure: 55,
+                        laminate: 58
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '80'
+                    }
+                },
+                {
+                    name: 'FLR90LK',
+                    price: {
+                        pure: 64,
+                        laminate: 70
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '90'
+                    }
+                },
+                {
+                    name: 'FLR100LK',
+                    price: {
+                        pure: 70,
+                        laminate: 80
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '100'
+                    }
+                }
+            ]
         },
         {
             slug: 'decorative-window-bars',
-            name: 'Фальш-переплеты'
+            name: 'Фальш-переплеты',
+            article: 'G%d',
+            description: ['В одной упаковке 12 пятиметровых хлыстов. Материал ПВХ (твердый и мягкий).',
+                'Самоклеящаяся пенообразная клейкая лента. Наклеивается непосредственно на стеклопакет.'
+            ].join(' '),
+            articles: [
+                {
+                    name: 'G27',
+                    price: {
+                        pure: 20,
+                        laminate: 35
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '27x8'
+                    }
+                },
+                {
+                    name: 'G47',
+                    price: {
+                        pure: 40,
+                        laminate: 55
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '47x8'
+                    }
+                },
+                {
+                    name: 'G77',
+                    price: {
+                        pure: 50,
+                        laminate: 55
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '77x8'
+                    }
+                },
+                {
+                    name: 'G2610',
+                    price: {
+                        pure: 60,
+                        laminate: 65
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '26x10'
+                    }
+                }
+            ]
         },
         {
             slug: 'angles',
-            name: 'Уголки'
-        },
-        {
-            slug: 'profiles',
-            name: 'Профили'
+            name: 'Уголки',
+            description: ['В рулоне 50 м. Материал ПВХ (твердый или твердый и мягкий). Самоклеящаяся пенообразная',
+                'клейкая лента.',
+                'Примененяется для внутренней и внешней отделки окон, лоджий, дверей. Гарантированное приклеивание к'
+            ].join(' '),
+            articles: [
+                {
+                    name: 'WKL15',
+                    price: {
+                        pure: 20,
+                        laminate: 35
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '15x15'
+                    }
+                },
+                {
+                    name: 'WKL25',
+                    price: {
+                        pure: 30,
+                        laminate: 35
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '25x25'
+                    }
+                },
+                {
+                    name: 'WKL30',
+                    price: {
+                        pure: 38,
+                        laminate: 42
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '30x30'
+                    }
+                },
+                {
+                    name: 'WKL40',
+                    price: {
+                        pure: 45,
+                        laminate: 50
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '40x20'
+                    }
+                },
+                {
+                    name: 'WKL35',
+                    price: {
+                        pure: 50,
+                        laminate: 55
+                    },
+                    size: {
+                        units: 'мм',
+                        value: '35x35'
+                    }
+                }
+            ]
         },
         {
             slug: 'pens',
-            name: 'Карандаши'
+            name: 'Карандаши',
+            description: ['Внутри пигментный лак на акриловой основе. Используется для внутренних и внешних работ.',
+                'Наносится на пластиковые, деревянные и металлические поверхности. Быстро высыхает,',
+                'устойчив к ультрафиолетовому излучению, водонепроницаем.'
+            ].join(' '),
+            articles: [
+                {
+                    name: 'KFP',
+                    price: {
+                        pure: 200,
+                        laminate: null
+                    },
+                    size: null
+                }
+            ]
         }
     ];
 
@@ -89,8 +310,8 @@ module.exports = function (req, res) {
             slug: 'prof',
             links: [
                 {
-                    slug: 'flat-strips',
-                    name: 'Нащельники'
+                    slug: 'flat-strips-on-roll',
+                    name: 'Нащельник в рулоне'
                 },
                 {
                     slug: 'decorative-window-bars',
@@ -99,10 +320,6 @@ module.exports = function (req, res) {
                 {
                     slug: 'angles',
                     name: 'Уголки'
-                },
-                {
-                    slug: 'profiles',
-                    name: 'Профили'
                 },
                 {
                     slug: 'pens',
