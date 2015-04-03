@@ -1,0 +1,79 @@
+.size-picker {
+    margin-top: 40px;
+}
+
+.size-picker__header {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    letter-spacing: .02em;
+    position: relative;
+    margin-left: 20px;
+}
+
+.size-picker__header:before {
+    position: absolute;
+    content: counter(list);
+    counter-increment: list;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #6481b0;
+    left: -30px;
+    top: -3px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.size-picker_picked .size-picker__header:before {
+    background-color: #6481b0;
+    color: #fff;
+    font-weight: bold;
+}
+
+.size-picker .radio-group {
+    margin-top: 20px;
+    display: block;
+}
+
+.size-picker .radio__control {
+    display: none;
+}
+
+.size-picker .button__control {
+    display: inline-block;
+    height: 26px;
+    width: 80px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    border: 1px solid #6481b0;
+    border-right: none;
+    background-color: #fff;
+    cursor: pointer;
+    padding: 0;
+}
+
+.size-picker .radio:first-child .button__control {
+    border-radius: 2px 0 0 2px;
+}
+
+.size-picker .radio:last-child .button__control {
+    border-right: 1px solid #6481b0;
+    width: 79px;
+    border-radius: 0 2px 2px 0;
+}
+
+.size-picker .radio_hovered .button__control {
+    background-color: #d9e6fa;
+}
+
+.size-picker .radio_checked .button__control {
+    color: #fff;
+    background-color: #6481b0;
+}
+
+.size-picker__pickedSize {
+    display: inline;
+    font-weight: bold;
+}
