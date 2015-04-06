@@ -9,13 +9,14 @@ function (provide, channel, BEMDOM) {
         onSetMod: {
             js: {
                 inited: function () {
+                    this.filter = this.findBlockOutside('filter');
                     this.counter = this.findBlockInside('counter');
                     this.price = this.elem('price').bem('input');
                     this.coast = this.elem('coast').bem('input');
                     this.orderDesc = this.elem('order-description');
 
                     this.pickedColor = null;
-                    this.pickedArticle = null;
+                    this.pickedArticle = this.filter.params.singleArticle;
                     this.pickedNumber = 1;
 
                     this.counter.on('change', this.numberChangeHandler, this);
@@ -117,7 +118,9 @@ function (provide, channel, BEMDOM) {
 
             item.text(this.params.productName);
             color.text('Цвет ' + this.pickedColor.title + ' (' + this.pickedColor.code + ')');
-            size.text('Размеры ' + this.pickedArticle.size.value + this.pickedArticle.size.units);
+            if (this.pickedArticle.size) {
+                size.text('Размеры ' + this.pickedArticle.size.value + this.pickedArticle.size.units);
+            }
             number.text('В количестве ' + this.pickedNumber + 'шт');
             coast.text('На сумму ' + this.coast.getVal() + '₽');
 

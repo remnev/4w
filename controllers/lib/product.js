@@ -252,7 +252,7 @@ module.exports = function (req, res) {
                     name: 'KFP',
                     price: {
                         pure: 200,
-                        laminate: null
+                        laminate: 200
                     },
                     size: null
                 }
