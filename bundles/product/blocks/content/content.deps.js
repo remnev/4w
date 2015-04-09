@@ -1,6 +1,7 @@
 ([{
     shouldDeps: [
         {block: 'products-menu'},
-        {block: 'filter'}
+        {block: 'filter'},
+        {block: 'photo-slider'}
     ]
 }]);

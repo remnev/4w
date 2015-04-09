@@ -25,7 +25,8 @@ module.exports = function (bh) {
                     {
                         elem: 'about-product',
                         content: data.aboutProduct
-                    }
+                    },
+                    {block: 'photo-slider'}
                 ]
             }
         ]);

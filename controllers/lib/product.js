@@ -129,7 +129,12 @@ module.exports = function (req, res) {
                 '<p>С внутренней стороны профиля находится пенообразная клейкая лента для приклеивания к поверхности.',
                 'Мы предлагаем нащельник в рулонах длиной 50 метров. Вы можете выбрать любую ширину профиля от 20 до',
                 '100 мм. Так же вы можете выбрать любой цвет из палитры Renolit.</p>'
-            ].join(' ')
+            ].join(' '),
+            photos: [
+                '/public/images/products/flat-strips-on-roll/1.jpg',
+                '/public/images/products/flat-strips-on-roll/2.jpg',
+                '/public/images/products/flat-strips-on-roll/3.jpg'
+            ]
         },
         {
             slug: 'decorative-window-bars',
