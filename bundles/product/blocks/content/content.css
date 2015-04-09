@@ -29,3 +29,19 @@
     font-size: 14px;
     margin-top: 20px;
 }
+
+.content__about-product {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin-top: 40px;
+}
+
+.content__about-product h2 {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+}
+
+.content__about-product h3 {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+}

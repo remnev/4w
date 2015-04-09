@@ -21,7 +21,11 @@ module.exports = function (bh) {
                         elem: 'description',
                         content: data.description
                     },
-                    {block: 'filter'}
+                    {block: 'filter'},
+                    {
+                        elem: 'about-product',
+                        content: data.aboutProduct
+                    }
                 ]
             }
         ]);
