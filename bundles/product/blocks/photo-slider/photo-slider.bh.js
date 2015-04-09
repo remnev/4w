@@ -4,6 +4,10 @@ module.exports = function (bh) {
     bh.match('photo-slider', function (ctx) {
         var photos = ctx.tParam('data').currentProduct.photos;
 
+        if (photos.length < 1) {
+            return;
+        }
+
         ctx
             .js(true)
             .content([

@@ -189,7 +189,8 @@ module.exports = function (req, res) {
                     }
                 }
             ],
-            aboutProduct: ''
+            aboutProduct: '',
+            photos: []
         },
         {
             slug: 'angles',
@@ -255,7 +256,8 @@ module.exports = function (req, res) {
                     }
                 }
             ],
-            aboutProduct: ''
+            aboutProduct: '',
+            photos: []
         },
         {
             slug: 'pens',
@@ -274,7 +276,8 @@ module.exports = function (req, res) {
                     size: null
                 }
             ],
-            aboutProduct: ''
+            aboutProduct: '',
+            photos: []
         }
     ];
 
