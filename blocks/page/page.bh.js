@@ -32,7 +32,17 @@ module.exports = function (bh) {
             content: [
                 {block: 'header'},
                 {block: 'content'},
-                {block: 'footer'}
+                {block: 'footer'},
+                {
+                    block: 'yandex-metrica',
+                    params: {
+                        id: 29668245,
+                        webvisor: true,
+                        clickmap: true,
+                        trackLinks: true,
+                        accurateTrackBounce: true
+                    }
+                }
             ]
         };
     });

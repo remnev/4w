@@ -179,6 +179,10 @@ function getLevels(config) {
             path: 'vendors/bem-components/desktop.blocks',
             check: false
         },
+        {
+            path: 'vendors/bem-stat-counters/common.blocks',
+            check: false
+        },
         'blocks',
         'bundles'
     ];
