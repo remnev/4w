@@ -52,6 +52,7 @@
     background-color: #fff;
     cursor: pointer;
     padding: 0;
+    outline: none;
 }
 
 .size-picker .radio:first-child .button__control {

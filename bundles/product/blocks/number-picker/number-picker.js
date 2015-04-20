@@ -14,6 +14,7 @@ function (provide, channel, BEMDOM) {
                     this.price = this.elem('price').bem('input');
                     this.coast = this.elem('coast').bem('input');
                     this.orderDesc = this.elem('order-description');
+                    this.submit = this.elem('submit');
 
                     this.pickedColor = null;
                     this.pickedArticle = this.filter.params.singleArticle;
@@ -25,6 +26,9 @@ function (provide, channel, BEMDOM) {
                     channel('color-picker').on('colorClear', this.colorClearHandler, this);
                     channel('size-picker').on('sizeChange', this.sizeChangeHandler, this);
                 }
+            },
+            picked: function () {
+                this.toggleMod(this.submit, 'active');
             }
         },
 

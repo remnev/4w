@@ -70,7 +70,7 @@ module.exports = function (bh) {
                 },
                 {
                     elem: 'submit',
-                    content: 'Отправить заказ'
+                    content: 'В заказ'
                 }
             ]);
     });
