@@ -7,7 +7,7 @@ var techs = {
     borschik: require('enb-borschik/techs/borschik'),
     deps: require('enb/techs/deps'),
     files: require('enb/techs/files'),
-    css: require('enb/techs/css'),
+    stylusWithAutoprefixer: require('enb-stylus/techs/css-stylus-with-autoprefixer'),
     js: require('enb/techs/js'),
     bhClientModule: require('enb-bh/techs/bh-client-module'),
     bhServer: require('enb-bh/techs/bh-server'),
@@ -60,7 +60,14 @@ module.exports = function (config) {
                     dirsTarget: '?.browser.dirs'
                 }
             ],
-            techs.css,
+            [techs.stylusWithAutoprefixer, {
+                browsers: [
+                    'last 2 versions',
+                    'ie 10',
+                    'ff 24',
+                    'opera 12.16'
+                ]
+            }],
             [
                 techs.js,
                 {

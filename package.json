@@ -23,7 +23,8 @@
     "enb": "0.13.11",
     "enb-bh": "0.4.1",
     "enb-borschik": "1.4.0",
-    "enb-modules": "0.2.0"
+    "enb-modules": "0.2.0",
+    "enb-stylus": "^1.2.3"
   },
   "engines": {
     "node": ">=0.10.22",
