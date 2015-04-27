@@ -219,7 +219,7 @@ function (provide, channel, bh, $, BEMDOM) {
                 coast += item.number * item.price;
             });
 
-            this.elem('add-to-order-modal-coast-value').text(coast + ' руб.');
+            this.elem('add-to-order-modal-coast-value').text(coast + '₽');
 
             return this;
         },
