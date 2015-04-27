@@ -21,6 +21,7 @@ function (provide, channel, BEMDOM) {
                     this.pickedNumber = 1;
 
                     this.counter.on('change', this.numberChangeHandler, this);
+                    this.bindTo(this.submit, 'click', this.submitClickHandler);
 
                     channel('color-picker').on('colorChange', this.colorChangeHandler, this);
                     channel('color-picker').on('colorClear', this.colorClearHandler, this);
@@ -133,6 +134,18 @@ function (provide, channel, BEMDOM) {
             } else {
                 laminate.text('Неламинированный');
             }
+        },
+
+        submitClickHandler: function () {
+            var data = {
+                productName: this.params.productName,
+                color: this.pickedColor.title + ' (' + this.pickedColor.code + ')',
+                size: this.pickedArticle.size.value + this.pickedArticle.size.units,
+                number: this.pickedNumber,
+                price: this.price.getVal()
+            };
+
+            channel('number-picker').emit('submitClick', data);
         }
     });
 
