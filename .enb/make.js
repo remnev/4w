@@ -187,6 +187,14 @@ function getLevels(config) {
             check: false
         },
         {
+            path: 'vendors/bem-components/design/common.blocks',
+            check: false
+        },
+        {
+            path: 'vendors/bem-components/design/desktop.blocks',
+            check: false
+        },
+        {
             path: 'vendors/bem-stat-counters/common.blocks',
             check: false
         },
