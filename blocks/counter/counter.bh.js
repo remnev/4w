@@ -9,7 +9,7 @@ module.exports = function (bh) {
                 {
                     block: 'input',
                     mods: {disabled: true},
-                    val: 1
+                    val: ctx.json().val || 1
                 },
                 {elem: 'increase'}
             ]);
