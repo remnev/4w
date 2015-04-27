@@ -1,0 +1,78 @@
+.order
+    &__add-to-order-modal
+        .modal__content
+            padding: 20px
+            width: 800px
+
+    &__add-to-order-modal-title
+        text-align: center
+        font-size: 18px
+        font-family: 'Helvetica Neue', sans-serif
+
+    &__add-to-order-modal-items
+        margin-top: 20px
+        font-size: 14px
+        font-family: Arial, sans-serif
+        width: 100%
+        counter-reset: list
+        border-collapse: collapse
+
+        td
+            vertical-align: top
+            padding-top: 20px
+
+        thead
+            td
+                padding-bottom: 10px
+                border-bottom: 1px solid #6481b0
+                text-align: center
+
+    &__add-to-order-modal-controls
+        margin-top: 40px
+        text-align: right
+        
+    &__add-to-order-modal-continue-control
+        margin-right: 40px !important
+
+    &__add-to-order-modal-counter
+        width: 100px
+        text-align: center
+        margin: 0 auto
+
+    &__add-to-order-modal-price
+        display: block
+        width: 76px
+        margin: 0 auto
+
+        .input__control
+            font-size: 16px
+            height: 22px
+            width: 60px
+            text-align: right
+
+    &__add-to-order-modal-item-title
+        margin-left: 2em
+        position: relative
+
+        &:before
+            content: counter(list)'. '
+            counter-increment: list
+            position: absolute
+            left: -3em
+            min-width: 2em
+            text-align: right
+
+    &__add-to-order-modal-coast-wrapper
+        margin-top: 20px
+        border-top: 1px solid #6481b0
+        padding-top: 10px
+        font-family: Arial, sans-serif
+        font-size: 14px
+        text-align: right
+
+    &__add-to-order-modal-coast-title
+        display: inline-block
+
+    &__add-to-order-modal-coast-value
+        display: inline-block
+        margin-left: 1em

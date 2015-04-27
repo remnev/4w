@@ -7,7 +7,8 @@ module.exports = function (bh) {
                 block: 'link',
                 mods: {pseudo: true},
                 content: 'Войти'
-            }
+            },
+            {block: 'order'}
         ]);
     });
 };
