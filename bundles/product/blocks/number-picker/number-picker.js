@@ -140,7 +140,7 @@ function (provide, channel, BEMDOM) {
             var data = {
                 productName: this.params.productName,
                 color: this.pickedColor.title + ' (' + this.pickedColor.code + ')',
-                size: this.pickedArticle.size.value + this.pickedArticle.size.units,
+                size: this.pickedArticle.size ? this.pickedArticle.size.value + this.pickedArticle.size.units : null,
                 number: this.pickedNumber,
                 price: this.price.getVal()
             };
