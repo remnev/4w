@@ -137,7 +137,13 @@ function (provide, channel, BEMDOM) {
         },
 
         submitClickHandler: function () {
-            var data = {
+            var data;
+
+            if (!this.hasMod(this.submit, 'active')) {
+                return;
+            }
+
+            data = {
                 productName: this.params.productName,
                 color: this.pickedColor.title + ' (' + this.pickedColor.code + ')',
                 size: this.pickedArticle.size ? this.pickedArticle.size.value + this.pickedArticle.size.units : null,
