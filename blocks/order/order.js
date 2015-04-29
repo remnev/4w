@@ -56,6 +56,19 @@ function (provide, channel, bh, $, BEMDOM) {
                                         },
                                         mix: {
                                             block: 'order',
+                                            elem: 'clear-order'
+                                        },
+                                        text: 'Очистить заказ'
+                                    },
+                                    {
+                                        block: 'button',
+                                        mods: {
+                                            theme: 'islands',
+                                            size: 'm',
+                                            view: 'pseudo'
+                                        },
+                                        mix: {
+                                            block: 'order',
                                             elem: 'add-to-order-modal-continue-control'
                                         },
                                         text: 'Продолжить выбор товара'
@@ -105,7 +118,8 @@ function (provide, channel, bh, $, BEMDOM) {
 
                     this
                         .bindTo(this.addToOrderContinueControl, 'click', this.addToOrderContinueControlClickHandler)
-                        .bindTo('modalOpener', 'click', this.showAddToOrderModal);
+                        .bindTo('modalOpener', 'click', this.showAddToOrderModal)
+                        .bindTo('clear-order', 'click', this.clearOrderHandler);
 
                     channel('number-picker').on('submitClick', this.addToOrder, this);
                     channel('order').on('delete-item', this.deleteFromOrder, this);
@@ -168,7 +182,7 @@ function (provide, channel, bh, $, BEMDOM) {
         },
 
         getOrderItems: function () {
-            return JSON.parse(localStorage.getItem('order:items'));
+            return JSON.parse(localStorage.getItem('order:items')) || [];
         },
 
         setOrderItem: function (data) {
@@ -191,6 +205,12 @@ function (provide, channel, bh, $, BEMDOM) {
             items.splice(itemId, 1);
 
             localStorage.setItem('order:items', JSON.stringify(items));
+
+            return this;
+        },
+
+        deleteOrderItems: function () {
+            localStorage.removeItem('order:items');
 
             return this;
         },
@@ -245,6 +265,13 @@ function (provide, channel, bh, $, BEMDOM) {
             this.addToOrderModal.delMod('visible');
         },
 
+        clearOrderHandler: function () {
+            this
+                .deleteOrderItems()
+                .reCalcCoast()
+                .addToOrderModal.delMod('visible');
+        },
+
         reCalcCoast: function () {
             var coast = this.getOrderCoast();
             var number = this.getOrderItems().length;
@@ -263,8 +290,13 @@ function (provide, channel, bh, $, BEMDOM) {
 
         getOrderCoast: function () {
             var coast = 0;
+            var items = this.getOrderItems();
 
-            this.getOrderItems().forEach(function (item) {
+            if (!items.length) {
+                return coast;
+            }
+
+            items.forEach(function (item) {
                 coast += item.number * item.price;
             });
 
