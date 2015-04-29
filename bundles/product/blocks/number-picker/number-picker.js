@@ -126,8 +126,8 @@ function (provide, channel, BEMDOM) {
             if (this.pickedArticle.size) {
                 size.text('Размеры ' + this.pickedArticle.size.value + this.pickedArticle.size.units);
             }
-            number.text('В количестве ' + this.pickedNumber + 'шт');
-            coast.text('На сумму ' + this.coast.getVal() + '₽');
+            number.text('В количестве ' + this.pickedNumber + ' шт');
+            coast.text('На сумму ' + this.coast.getVal() + ' ₽');
 
             if (this.pickedColor.isLaminate) {
                 laminate.text('Ламинированный');
