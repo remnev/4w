@@ -26,6 +26,14 @@
         {
             block: 'item-deleter',
             tech: 'bh'
+        },
+        {
+            block: 'link',
+            mods: {
+                theme: 'islands',
+                pseudo: true
+            },
+            tech: 'bh'
         }
     ]
 }, {
@@ -53,6 +61,13 @@
         },
         {block: 'input'},
         {block: 'item-deleter'},
-        {block: 'jquery'}
+        {block: 'jquery'},
+        {
+            block: 'link',
+            mods: {
+                theme: 'islands',
+                pseudo: true
+            }
+        }
     ]
 }]);

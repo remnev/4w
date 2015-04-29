@@ -9,7 +9,8 @@ function (provide, channel, bh, $, BEMDOM) {
         onSetMod: {
             js: {
                 inited: function () {
-                    var addToOrderModalBemjson = bh.apply({
+                    var orderItems = this.getOrderItems();
+                    var bemjson = [{
                         block: 'modal',
                         mods: {theme: 'islands'},
                         mix: {
@@ -75,15 +76,36 @@ function (provide, channel, bh, $, BEMDOM) {
                                 ]
                             }
                         ]
-                    });
+                    }];
+                    var itemName;
+                    var coast = this.getOrderCoast();
 
-                    BEMDOM.append(this.domElem, addToOrderModalBemjson);
+                    if (orderItems.length) {
+                        itemName = this.getItemNameByNumber(orderItems.length);
+
+                        bemjson.push({
+                            block: 'link',
+                            mods: {
+                                theme: 'islands',
+                                pseudo: true
+                            },
+                            mix: {
+                                block: 'order',
+                                elem: 'modalOpener'
+                            },
+                            content: 'В заказе ' + orderItems.length + ' ' + itemName + ' на ' + coast + ' ₽'
+                        });
+                    }
+
+                    BEMDOM.append(this.domElem, bh.apply(bemjson));
 
                     this.addToOrderModal = this.elem('add-to-order-modal').bem('modal');
                     this.addToOrderModalItems = this.elem('add-to-order-modal-items');
                     this.addToOrderContinueControl = this.elem('add-to-order-modal-continue-control');
 
-                    this.bindTo(this.addToOrderContinueControl, 'click', this.addToOrderContinueControlClickHandler);
+                    this
+                        .bindTo(this.addToOrderContinueControl, 'click', this.addToOrderContinueControlClickHandler)
+                        .bindTo('modalOpener', 'click', this.showAddToOrderModal);
 
                     channel('number-picker').on('submitClick', this.addToOrder, this);
                     channel('order').on('delete-item', this.deleteFromOrder, this);
@@ -213,15 +235,29 @@ function (provide, channel, bh, $, BEMDOM) {
         },
 
         reCalcCoast: function () {
+            var coast = this.getOrderCoast();
+            var number = this.getOrderItems().length;
+            var itemName = this.getItemNameByNumber(number);
+
+            this.elem('add-to-order-modal-coast-value').text(coast + ' ₽');
+
+            if (number) {
+                this.elem('modalOpener').text('В заказе ' + number + ' ' + itemName + ' на ' + coast + ' ₽');
+            } else {
+                this.elem('modalOpener').text('');
+            }
+
+            return this;
+        },
+
+        getOrderCoast: function () {
             var coast = 0;
 
             this.getOrderItems().forEach(function (item) {
                 coast += item.number * item.price;
             });
 
-            this.elem('add-to-order-modal-coast-value').text(coast + '₽');
-
-            return this;
+            return coast;
         },
 
         changeItemNumberHandler: function (e, data) {
@@ -238,6 +274,18 @@ function (provide, channel, bh, $, BEMDOM) {
             this.showAddToOrderModal();
 
             return this;
+        },
+
+        getItemNameByNumber: function (number) {
+            var itemName = 'товаров';
+
+            if (number === 1) {
+                itemName = 'товар';
+            } else if (number > 1 && number < 5) {
+                itemName = 'товара';
+            }
+
+            return itemName;
         }
     });
 
