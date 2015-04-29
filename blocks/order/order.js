@@ -120,8 +120,19 @@ function (provide, channel, bh, $, BEMDOM) {
         },
 
         deleteFromOrder: function (e, data) {
-            this.deleteOrderItem(data)
-                .showAddToOrderModal();
+            this.deleteOrderItem(data);
+
+            if (!this.getOrderItems().length) {
+                this
+                    .reCalcCoast()
+                    .addToOrderModal.delMod('visible');
+
+                return this;
+            }
+
+            this.showAddToOrderModal();
+
+            return this;
         },
 
         showAddToOrderModal: function () {
