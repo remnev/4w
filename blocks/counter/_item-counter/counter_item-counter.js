@@ -10,11 +10,18 @@ function (provide, channel, $, BEMDOM) {
             this
                 .liveInitOnEvent('increase decrease', 'pointerover')
                 .liveBindTo('increase decrease', 'click', function () {
-                    var itemId = this
+                    var itemId;
+                    var data;
+
+                    if (!this.hasMod('item-counter')) {
+                        return;
+                    }
+
+                    itemId = this
                         .domElem
                         .closest('.order__add-to-order-modal-item')
                         .index();
-                    var data = {
+                    data = {
                         itemId: itemId,
                         val: this.getVal()
                     };
