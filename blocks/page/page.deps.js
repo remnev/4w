@@ -3,6 +3,7 @@
         {block: 'header'},
         {block: 'content'},
         {block: 'footer'},
-        {block: 'yandex-metrica'}
+        {block: 'yandex-metrica'},
+        {block: 'checkouter'}
     ]
 }]);

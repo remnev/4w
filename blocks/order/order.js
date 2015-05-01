@@ -82,7 +82,7 @@ function (provide, channel, bh, $, BEMDOM) {
                                         },
                                         mix: {
                                             block: 'order',
-                                            elem: 'add-to-order-modal-issue-control'
+                                            elem: 'checkout-control'
                                         },
                                         text: 'Оформить'
                                     }
@@ -119,7 +119,8 @@ function (provide, channel, bh, $, BEMDOM) {
                     this
                         .bindTo(this.addToOrderContinueControl, 'click', this.addToOrderContinueControlClickHandler)
                         .bindTo('modalOpener', 'click', this.showAddToOrderModal)
-                        .bindTo('clear-order', 'click', this.clearOrderHandler);
+                        .bindTo('clear-order', 'click', this.clearOrderHandler)
+                        .bindTo('checkout-control', 'click', this.checkoutControlClickHandler);
 
                     channel('number-picker').on('submitClick', this.addToOrder, this);
                     channel('order').on('delete-item', this.deleteFromOrder, this);
@@ -270,6 +271,12 @@ function (provide, channel, bh, $, BEMDOM) {
                 .deleteOrderItems()
                 .reCalcCoast()
                 .addToOrderModal.delMod('visible');
+        },
+
+        checkoutControlClickHandler: function () {
+            this.addToOrderModal.delMod('visible');
+
+            channel('order').emit('checkout');
         },
 
         reCalcCoast: function () {

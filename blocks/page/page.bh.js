@@ -33,6 +33,7 @@ module.exports = function (bh) {
                 {block: 'header'},
                 {block: 'content'},
                 {block: 'footer'},
+                {block: 'checkouter'},
                 {
                     block: 'yandex-metrica',
                     params: {
