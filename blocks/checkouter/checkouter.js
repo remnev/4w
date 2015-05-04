@@ -40,6 +40,10 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                                                         size: 's',
                                                         type: 'button'
                                                     },
+                                                    mix: {
+                                                        block: 'checkouter',
+                                                        elem: 'type-of-getting'
+                                                    },
                                                     val: 'dim',
                                                     options: [
                                                         {
@@ -263,8 +267,11 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                     BEMDOM.append(this.domElem, bh.apply(bemjson));
 
                     this.modal = this.elem('modal').bem('modal');
+                    this.typeOfGettingRG = this.elem('type-of-getting').bem('radio-group');
 
                     this.bindTo('close-modal', 'click', this.closeModal);
+
+                    this.typeOfGettingRG.on('change', this.typeOfGettingRGChangeHandler);
 
                     channel('order').on('checkout', this.checkoutHandler, this);
                 }
@@ -277,6 +284,10 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
 
         closeModal: function () {
             this.modal.delMod('visible');
+        },
+
+        typeOfGettingRGChangeHandler: function () {
+            channel('checkouter').emit('typeOfGettingRGChange', this.typeOfGettingRG.getVal());
         }
     }));
 
