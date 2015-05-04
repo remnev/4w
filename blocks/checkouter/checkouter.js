@@ -79,6 +79,10 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                                                         size: 's',
                                                         type: 'button'
                                                     },
+                                                    mix: {
+                                                        block: 'checkouter',
+                                                        elem: 'type-of-payment'
+                                                    },
                                                     val: 'cc',
                                                     options: [
                                                         {
@@ -268,10 +272,11 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
 
                     this.modal = this.elem('modal').bem('modal');
                     this.typeOfGettingRG = this.elem('type-of-getting').bem('radio-group');
+                    this.typeOfPaymentRG = this.elem('type-of-payment').bem('radio-group');
 
                     this.bindTo('close-modal', 'click', this.closeModal);
 
-                    this.typeOfGettingRG.on('change', this.typeOfGettingRGChangeHandler);
+                    this.typeOfGettingRG.on('change', this.typeOfGettingRGChangeHandler, this);
 
                     channel('order').on('checkout', this.checkoutHandler, this);
                 }
@@ -287,7 +292,24 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
         },
 
         typeOfGettingRGChangeHandler: function () {
-            channel('checkouter').emit('typeOfGettingRGChange', this.typeOfGettingRG.getVal());
+            var disabledRadio;
+
+            if (this.typeOfGettingRG.getVal() === 'dbtc') {
+                this.typeOfPaymentRG
+                    .setVal('cc')
+                    .findBlocksInside('radio')
+                    .filter(function (radio) {
+                        return radio.getVal() === 'cache';
+                    })[0]
+                    .setMod('disabled');
+            } else {
+                disabledRadio = this.typeOfPaymentRG
+                    .findBlockInside({block: 'radio', modName: 'disabled', modVal: true});
+
+                if (disabledRadio) {
+                    disabledRadio.delMod('disabled');
+                }
+            }
         }
     }));
 
