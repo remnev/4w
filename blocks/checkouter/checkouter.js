@@ -6,6 +6,16 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
         onSetMod: {
             js: {
                 inited: function () {
+                    var addressPlaceholders = {
+                        dim: 'Улица, дом, подъезд',
+                        cym: '',
+                        dbtc: 'Город'
+                    };
+                    var deliveryDateTitles = {
+                        dim: 'Дата доставки',
+                        cym: 'Дата самовывоза',
+                        dbtc: 'Дата отгрузки в ТК'
+                    };
                     var bemjson = {
                         block: 'modal',
                         mods: {theme: 'islands'},
@@ -102,8 +112,9 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                                         tag: 'tr',
                                         content: [
                                             {
+                                                elem: 'delivery-date-td',
                                                 tag: 'td',
-                                                content: 'Дата доставки'
+                                                content: deliveryDateTitles.dim
                                             },
                                             {
                                                 tag: 'td',
@@ -134,6 +145,7 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                                         ]
                                     },
                                     {
+                                        elem: 'address-tr',
                                         tag: 'tr',
                                         content: [
                                             {
@@ -144,11 +156,15 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                                                 tag: 'td',
                                                 content: {
                                                     block: 'input',
+                                                    mix: {
+                                                        block: 'checkouter',
+                                                        elem: 'address-input'
+                                                    },
                                                     mods: {
                                                         theme: 'islands',
                                                         size: 's'
                                                     },
-                                                    placeholder: 'Город, улица, дом'
+                                                    placeholder: addressPlaceholders.dim
                                                 }
                                             }
                                         ]
@@ -270,9 +286,14 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
 
                     BEMDOM.append(this.domElem, bh.apply(bemjson));
 
+                    this.addressTr = this.elem('address-tr');
+                    this.addressInput = this.elem('address-input').bem('input');
+                    this.addressPlaceholders = addressPlaceholders;
                     this.modal = this.elem('modal').bem('modal');
                     this.typeOfGettingRG = this.elem('type-of-getting').bem('radio-group');
                     this.typeOfPaymentRG = this.elem('type-of-payment').bem('radio-group');
+                    this.deliveryDateTd = this.elem('delivery-date-td');
+                    this.deliveryDateTitles = deliveryDateTitles;
 
                     this.bindTo('close-modal', 'click', this.closeModal);
 
@@ -293,8 +314,9 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
 
         typeOfGettingRGChangeHandler: function () {
             var disabledRadio;
+            var typeOfGetting = this.typeOfGettingRG.getVal();
 
-            if (this.typeOfGettingRG.getVal() === 'dbtc') {
+            if (typeOfGetting === 'dbtc') {
                 this.typeOfPaymentRG
                     .setVal('cc')
                     .findBlocksInside('radio')
@@ -310,6 +332,16 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                     disabledRadio.delMod('disabled');
                 }
             }
+
+            if (this.typeOfGettingRG.getVal() === 'cym') {
+                this.setMod(this.addressTr, 'invisible');
+            } else {
+                this.delMod(this.addressTr, 'invisible');
+            }
+
+            this.addressInput.elem('control').attr('placeholder', this.addressPlaceholders[typeOfGetting]);
+
+            this.deliveryDateTd.text(this.deliveryDateTitles[typeOfGetting]);
         }
     }));
 
