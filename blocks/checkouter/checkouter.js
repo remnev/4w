@@ -16,6 +16,7 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                         cym: 'Дата самовывоза',
                         dbtc: 'Дата отгрузки в ТК'
                     };
+                    var closestDateToDeliver = this.getClosestDateToDeliver();
                     var bemjson = {
                         block: 'modal',
                         mods: {theme: 'islands'},
@@ -125,15 +126,11 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                                                         theme: 'islands',
                                                         size: 's'
                                                     },
-                                                    val: new Date(),
+                                                    val: closestDateToDeliver,
                                                     options: [
                                                         {
-                                                            val: new Date(),
-                                                            text: new Date().toLocaleString('ru', {
-                                                                year: 'numeric',
-                                                                month: 'long',
-                                                                day: 'numeric'
-                                                            })
+                                                            val: closestDateToDeliver,
+                                                            text: closestDateToDeliver
                                                         },
                                                         {
                                                             val: 'another',
@@ -342,6 +339,32 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
             this.addressInput.elem('control').attr('placeholder', this.addressPlaceholders[typeOfGetting]);
 
             this.deliveryDateTd.text(this.deliveryDateTitles[typeOfGetting]);
+        },
+
+        getClosestDateToDeliver: function () {
+            var orderItems = this.findBlockOutside('page').findBlockInside('order').getOrderItems();
+            var maxRemainingTimeForItem = 2; // in days
+            var closestDate = new Date();
+
+            orderItems.every(checkColorType);
+
+            closestDate.setDate(closestDate.getDate() + maxRemainingTimeForItem);
+
+            return closestDate.toLocaleString('ru', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            function checkColorType(item) {
+                if (!item.color.isMainColor) {
+                    maxRemainingTimeForItem = 10;
+
+                    return false;
+                }
+
+                return true;
+            }
         }
     }));
 

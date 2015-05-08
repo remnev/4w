@@ -145,7 +145,10 @@ function (provide, channel, BEMDOM) {
 
             data = {
                 productName: this.params.productName,
-                color: this.pickedColor.title + ' (' + this.pickedColor.code + ')',
+                color: {
+                    name: this.pickedColor.title + ' (' + this.pickedColor.code + ')',
+                    isMainColor: this.pickedColor.isMainColor
+                },
                 size: this.pickedArticle.size ? this.pickedArticle.size.value + this.pickedArticle.size.units : null,
                 number: this.pickedNumber,
                 price: this.price.getVal()

@@ -32,7 +32,8 @@ function (provide, $, channel, BEMDOM) {
                         channel('color-picker').emit('colorChange', {
                             title: title,
                             code: code,
-                            isLaminate: elem.data('no-laminate') ? false : true
+                            isLaminate: elem.data('no-laminate') == true,
+                            isMainColor: this.hasMod(elem, 'size', 'l')
                         });
                     },
                     '': function () {

@@ -227,7 +227,7 @@ function (provide, channel, bh, $, BEMDOM) {
                         content: {
                             block: 'order',
                             elem: 'add-to-order-modal-item-title',
-                            content: data.productName + ', ' + data.color + (data.size ? ', ' + data.size : '')
+                            content: data.productName + ', ' + data.color.name + (data.size ? ', ' + data.size : '')
                         }
                     },
                     {
