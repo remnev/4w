@@ -3,6 +3,8 @@
 modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function (provide, BEMDOM, channel, bh) {
 
     provide(BEMDOM.decl(this.name, {
+        deliveryDateAnotherValue: '',
+
         onSetMod: {
             js: {
                 inited: function () {
@@ -119,12 +121,16 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                                             },
                                             {
                                                 tag: 'td',
-                                                content: {
+                                                content: [{
                                                     block: 'select',
                                                     mods: {
                                                         mode: 'radio',
                                                         theme: 'islands',
                                                         size: 's'
+                                                    },
+                                                    mix: {
+                                                        block: 'checkouter',
+                                                        elem: 'delivery-date'
                                                     },
                                                     val: closestDateToDeliver,
                                                     options: [
@@ -133,11 +139,32 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                                                             text: closestDateToDeliver
                                                         },
                                                         {
+                                                            val: this.addNumOfDaysToDate(1, closestDateToDeliver),
+                                                            text: this.addNumOfDaysToDate(1, closestDateToDeliver)
+                                                        },
+                                                        {
+                                                            val: this.addNumOfDaysToDate(2, closestDateToDeliver),
+                                                            text: this.addNumOfDaysToDate(2, closestDateToDeliver)
+                                                        },
+                                                        {
                                                             val: 'another',
-                                                            text: 'Другая дата'
+                                                            text: 'Другая дата (позже предложенных)'
                                                         }
                                                     ]
-                                                }
+                                                },
+                                                {
+                                                    block: 'input',
+                                                    mods: {
+                                                        theme: 'islands',
+                                                        size: 's'
+                                                    },
+                                                    mix: {
+                                                        block: 'checkouter',
+                                                        elem: 'delivery-date-another',
+                                                        mods: {hidden: true}
+                                                    },
+                                                    placeholder: 'ДД.ММ.ГГГГ'
+                                                }]
                                             }
                                         ]
                                     },
@@ -290,11 +317,16 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                     this.typeOfGettingRG = this.elem('type-of-getting').bem('radio-group');
                     this.typeOfPaymentRG = this.elem('type-of-payment').bem('radio-group');
                     this.deliveryDateTd = this.elem('delivery-date-td');
+                    this.deliveryDateSelect = this.elem('delivery-date').bem('select');
                     this.deliveryDateTitles = deliveryDateTitles;
+                    this.deliveryDateAnother = this.elem('delivery-date-another');
+                    this.deliveryDateAnotherInput = this.elem('delivery-date-another').bem('input');
 
                     this.bindTo('close-modal', 'click', this.closeModal);
 
                     this.typeOfGettingRG.on('change', this.typeOfGettingRGChangeHandler, this);
+                    this.deliveryDateSelect.on('change', this.deliveryDateChange, this);
+                    this.deliveryDateAnotherInput.on('change', this.deliveryDateAnotherInputChange, this);
 
                     channel('order').on('checkout', this.checkoutHandler, this);
                 }
@@ -365,7 +397,119 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
 
                 return true;
             }
+        },
+
+        addNumOfDaysToDate: function (num, date) {
+            var newDate = parseInt(date.substr(1, 1), 10) + num;
+
+            return date.substr(0, 1) + newDate + date.substr(2, date.length);
+        },
+
+        deliveryDateChange: function () {
+            var val = this.deliveryDateSelect.getVal();
+
+            if (val === 'another') {
+                this.delMod(this.deliveryDateAnother, 'hidden');
+
+                return;
+            }
+
+            this.setMod(this.deliveryDateAnother, 'hidden');
+        },
+
+        /* eslint-disable complexity, no-fallthrough */
+        deliveryDateAnotherInputChange: function () {
+            var val = this.deliveryDateAnotherInput.getVal();
+
+            switch (val.length) {
+                case 0:
+                    this.deliveryDateAnotherValue = '';
+
+                    return;
+                case 1:
+                    if (/^\d$/.test(val)) {
+                        this.deliveryDateAnotherValue = val;
+
+                        return;
+                    }
+
+                case 2:
+                    if (/^\d{2}$/.test(val)) {
+                        if (this.deliveryDateAnotherValue.length === 1) {
+                            this.deliveryDateAnotherInput.setVal(val + '.');
+                        }
+
+                        this.deliveryDateAnotherValue = val;
+
+                        return;
+                    }
+
+                case 3:
+                    if (/^\d{2}\.$/.test(val)) {
+                        this.deliveryDateAnotherValue = val;
+
+                        return;
+                    }
+
+                case 4:
+                    if (/^\d{2}\.\d$/.test(val)) {
+                        this.deliveryDateAnotherValue = val;
+
+                        return;
+                    }
+
+                case 5:
+                    if (/^\d{2}\.\d{2}$/.test(val)) {
+                        if (this.deliveryDateAnotherValue.length === 4) {
+                            this.deliveryDateAnotherInput.setVal(val + '.');
+                        }
+
+                        this.deliveryDateAnotherValue = val;
+
+                        return;
+                    }
+
+                case 6:
+                    if (/^\d{2}\.\d{2}\.$/.test(val)) {
+                        this.deliveryDateAnotherValue = val;
+
+                        return;
+                    }
+
+                case 7:
+                    if (/^\d{2}\.\d{2}\.\d$/.test(val)) {
+                        this.deliveryDateAnotherValue = val;
+
+                        return;
+                    }
+
+                case 8:
+                    if (/^\d{2}\.\d{2}\.\d{2}$/.test(val)) {
+                        this.deliveryDateAnotherValue = val;
+
+                        return;
+                    }
+
+                case 9:
+                    if (/^\d{2}\.\d{2}\.\d{3}$/.test(val)) {
+                        this.deliveryDateAnotherValue = val;
+
+                        return;
+                    }
+
+                case 10:
+                    if (/^\d{2}\.\d{2}\.\d{4}$/.test(val)) {
+                        this.deliveryDateAnotherValue = val;
+
+                        return;
+                    }
+
+                default:
+            }
+
+            this.deliveryDateAnotherInput.setVal(this.deliveryDateAnotherValue);
         }
+        /* eslint-enable complexity, no-fallthrough */
     }));
 
 });
