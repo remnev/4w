@@ -323,6 +323,7 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                     this.deliveryDateAnotherInput = this.elem('delivery-date-another').bem('input');
 
                     this.bindTo('close-modal', 'click', this.closeModal);
+                    this.bindTo('back-to-order', 'click', this.returnToOrder);
 
                     this.typeOfGettingRG.on('change', this.typeOfGettingRGChangeHandler, this);
                     this.deliveryDateSelect.on('change', this.deliveryDateChange, this);
@@ -339,6 +340,8 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
 
         closeModal: function () {
             this.modal.delMod('visible');
+
+            return this;
         },
 
         typeOfGettingRGChangeHandler: function () {
@@ -508,8 +511,17 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
             }
 
             this.deliveryDateAnotherInput.setVal(this.deliveryDateAnotherValue);
-        }
+        },
         /* eslint-enable complexity, no-fallthrough */
+
+        returnToOrder: function () {
+            this
+                .closeModal()
+                .findBlockOutside('page')
+                .findBlockInside('order')
+                .addToOrderModal
+                .setMod('visible');
+        }
     }));
 
 });
