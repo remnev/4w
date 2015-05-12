@@ -1,9 +1,15 @@
 'use strict';
 
-modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function (provide, BEMDOM, channel, bh) {
+modules.define('checkouter',
+['i-bem__dom', 'events__channels', 'bh', 'jquery'],
+function (provide, BEMDOM, channel, bh, $) {
 
     provide(BEMDOM.decl(this.name, {
         deliveryDateAnotherValue: '',
+        deliveryDateValue: '',
+        deliveryAddress: '',
+        buyerNameValue: '',
+        phoneValue: '',
 
         onSetMod: {
             js: {
@@ -204,6 +210,10 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                                                 tag: 'td',
                                                 content: {
                                                     block: 'input',
+                                                    mix: {
+                                                        block: 'checkouter',
+                                                        elem: 'buyer-name-input'
+                                                    },
                                                     mods: {
                                                         theme: 'islands',
                                                         size: 's'
@@ -226,6 +236,10 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                                                     mods: {
                                                         theme: 'islands',
                                                         size: 's'
+                                                    },
+                                                    mix: {
+                                                        block: 'checkouter',
+                                                        elem: 'phone-input'
                                                     },
                                                     placeholder: '+7 (XXX) XXX-XX-XX'
                                                 }
@@ -295,7 +309,8 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                                         mods: {
                                             theme: 'islands',
                                             size: 'm',
-                                            view: 'action'
+                                            view: 'action',
+                                            disabled: true
                                         },
                                         mix: {
                                             block: 'checkouter',
@@ -311,6 +326,7 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                     BEMDOM.append(this.domElem, bh.apply(bemjson));
 
                     this.addressTr = this.elem('address-tr');
+                    this.address = this.elem('address-input');
                     this.addressInput = this.elem('address-input').bem('input');
                     this.addressPlaceholders = addressPlaceholders;
                     this.modal = this.elem('modal').bem('modal');
@@ -321,13 +337,23 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                     this.deliveryDateTitles = deliveryDateTitles;
                     this.deliveryDateAnother = this.elem('delivery-date-another');
                     this.deliveryDateAnotherInput = this.elem('delivery-date-another').bem('input');
+                    this.buyerName = this.elem('buyer-name-input');
+                    this.buyerNameInput = this.elem('buyer-name-input').bem('input');
+                    this.phone = this.elem('phone-input');
+                    this.phoneInput = this.elem('phone-input').bem('input');
+                    this.nextButton = this.elem('next').bem('button');
 
                     this.bindTo('close-modal', 'click', this.closeModal);
                     this.bindTo('back-to-order', 'click', this.returnToOrder);
 
                     this.typeOfGettingRG.on('change', this.typeOfGettingRGChangeHandler, this);
                     this.deliveryDateSelect.on('change', this.deliveryDateChange, this);
-                    this.deliveryDateAnotherInput.on('change', this.deliveryDateAnotherInputChange, this);
+                    this.deliveryDateAnotherInput
+                        .on('change', this.deliveryDateAnotherInputChange, this)
+                        .bindTo('control', 'blur', $.proxy(this.deliveryDateAnotherInputBlur, this));
+                    this.addressInput.bindTo('control', 'blur', $.proxy(this.addressInputBlur, this));
+                    this.buyerNameInput.bindTo('control', 'blur', $.proxy(this.buyerNameInputBlur, this));
+                    this.phoneInput.bindTo('control', 'blur', $.proxy(this.phoneInputBlur, this));
 
                     channel('order').on('checkout', this.checkoutHandler, this);
                 }
@@ -414,10 +440,16 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
             if (val === 'another') {
                 this.delMod(this.deliveryDateAnother, 'hidden');
 
+                this.deliveryDateValue = '';
+
                 return;
             }
 
-            this.setMod(this.deliveryDateAnother, 'hidden');
+            this
+                .setMod(this.deliveryDateAnother, 'hidden')
+                .checkInputs();
+
+            this.deliveryDateValue = val;
         },
 
         /* eslint-disable complexity, no-fallthrough */
@@ -511,8 +543,69 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
             }
 
             this.deliveryDateAnotherInput.setVal(this.deliveryDateAnotherValue);
+
+            this.checkInputs();
         },
         /* eslint-enable complexity, no-fallthrough */
+
+        deliveryDateAnotherInputBlur: function () {
+            var val = this.deliveryDateAnotherInput.getVal();
+
+            if (/\d{2}\.\d{2}\.\d{4}/.test(val) || val === '') {
+                this.deliveryDateAnotherValue = val;
+
+                this.delMod(this.deliveryDateAnother, 'wrong');
+
+                return;
+            }
+
+            this.deliveryDateAnotherValue = '';
+            this
+                .setMod(this.deliveryDateAnother, 'wrong')
+                .checkInputs();
+        },
+
+        addressInputBlur: function () {
+            var val = this.addressInput.getVal();
+
+            this.deliveryAddress = val;
+
+            if (val === '') {
+                this.setMod(this.address, 'wrong');
+            } else {
+                this.delMod(this.address, 'wrong');
+            }
+
+            this.checkInputs();
+        },
+
+        buyerNameInputBlur: function () {
+            var val = this.buyerNameInput.getVal();
+
+            this.buyerNameValue = val;
+
+            if (val === '') {
+                this.setMod(this.buyerName, 'wrong');
+            } else {
+                this.delMod(this.buyerName, 'wrong');
+            }
+
+            this.checkInputs();
+        },
+
+        phoneInputBlur: function () {
+            var val = this.phoneInput.getVal();
+
+            this.phoneValue = val;
+
+            if (val === '') {
+                this.setMod(this.phone, 'wrong');
+            } else {
+                this.delMod(this.phone, 'wrong');
+            }
+
+            this.checkInputs();
+        },
 
         returnToOrder: function () {
             this
@@ -521,6 +614,32 @@ modules.define('checkouter', ['i-bem__dom', 'events__channels', 'bh'], function 
                 .findBlockInside('order')
                 .addToOrderModal
                 .setMod('visible');
+        },
+
+        checkInputs: function () {
+            var typeOfGetting = this.typeOfGettingRG.getVal();
+
+            if (typeOfGetting === 'cym'
+                && (this.deliveryDateValue || this.deliveryDateAnotherValue)
+                && this.buyerNameValue
+                && this.phoneValue) {
+
+                this.nextButton.delMod('disabled');
+
+                return;
+            }
+
+            if ((this.deliveryDateValue || this.deliveryDateAnotherValue)
+                && this.deliveryAddress
+                && this.buyerNameValue
+                && this.phoneValue) {
+
+                this.nextButton.delMod('disabled');
+
+                return;
+            }
+
+            this.nextButton.setMod('disabled');
         }
     }));
 

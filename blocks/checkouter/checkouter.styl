@@ -42,9 +42,20 @@
         &_invisible
             display: none
 
+    &__address-input
+    &__buyer-name-input
+    &__phone-input
+        &_wrong
+            background: rgba(250, 10, 10, .6)
+            box-shadow: 0 0 0 1px #fa0a0a, inset 0 0 0 1px #fa0a0a
+
     &__delivery-date-another
         margin-left: 20px !important
         width: 128px !important
 
         &_hidden
             visibility: hidden
+
+        &_wrong
+            background: rgba(250, 10, 10, .6)
+            box-shadow: 0 0 0 1px #fa0a0a, inset 0 0 0 1px #fa0a0a

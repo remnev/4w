@@ -10,7 +10,8 @@
             mods: {
                 theme: 'islands',
                 size: 'm',
-                view: ['pseudo', 'action']
+                view: ['pseudo', 'action'],
+                disabled: true
             },
             tech: 'bh'
         },
@@ -65,7 +66,8 @@
             mods: {
                 theme: 'islands',
                 size: 'm',
-                view: ['pseudo', 'action']
+                view: ['pseudo', 'action'],
+                disabled: true
             }
         },
         {
@@ -97,6 +99,7 @@
                 theme: 'islands',
                 size: 's'
             }
-        }
+        },
+        {block: 'jquery'}
     ]
 }]);
