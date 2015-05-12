@@ -343,6 +343,8 @@ function (provide, BEMDOM, channel, bh, $) {
                     this.phoneInput = this.elem('phone-input').bem('input');
                     this.nextButton = this.elem('next').bem('button');
 
+                    this.deliveryDateValue = closestDateToDeliver;
+
                     this.bindTo('close-modal', 'click', this.closeModal);
                     this.bindTo('back-to-order', 'click', this.returnToOrder);
 
