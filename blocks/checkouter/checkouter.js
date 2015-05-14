@@ -629,11 +629,11 @@ function (provide, BEMDOM, channel, bh, $) {
         phoneInputBlur: function () {
             var val = this.phoneInput.getVal();
 
-            this.phoneValue = val;
-
-            if (val === '') {
+            if (val === '' || val.length < 5 || !/\d/.test(val)) {
                 this.setMod(this.phone, 'wrong');
             } else {
+                this.phoneValue = val;
+
                 this.delMod(this.phone, 'wrong');
             }
 
@@ -643,11 +643,11 @@ function (provide, BEMDOM, channel, bh, $) {
         emailInputBlur: function () {
             var val = this.emailInput.getVal();
 
-            this.emailValue = val;
-
-            if (val === '') {
+            if (val === '' || !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(val)) {
                 this.setMod(this.email, 'wrong');
             } else {
+                this.emailValue = val;
+
                 this.delMod(this.email, 'wrong');
             }
 
