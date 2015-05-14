@@ -10,6 +10,7 @@ function (provide, BEMDOM, channel, bh, $) {
         deliveryAddress: '',
         buyerNameValue: '',
         phoneValue: '',
+        emailValue: '',
 
         onSetMod: {
             js: {
@@ -258,6 +259,30 @@ function (provide, BEMDOM, channel, bh, $) {
                                 content: [
                                     {
                                         tag: 'td',
+                                        content: 'Электронная почта'
+                                    },
+                                    {
+                                        tag: 'td',
+                                        content: {
+                                            block: 'input',
+                                            mods: {
+                                                theme: 'islands',
+                                                size: 's'
+                                            },
+                                            mix: {
+                                                block: 'checkouter',
+                                                elem: 'email-input'
+                                            },
+                                            placeholder: 'name@example.ru'
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                tag: 'tr',
+                                content: [
+                                    {
+                                        tag: 'td',
                                         content: 'Комментарий к заказу'
                                     },
                                     {
@@ -348,6 +373,8 @@ function (provide, BEMDOM, channel, bh, $) {
             this.buyerNameInput = this.findElem('buyer-name-input').bem('input');
             this.phone = this.findElem('phone-input');
             this.phoneInput = this.findElem('phone-input').bem('input');
+            this.email = this.findElem('email-input');
+            this.emailInput = this.findElem('email-input').bem('input');
             this.nextButton = this.findElem('next').bem('button');
             this.closeModalElem = this.findElem('close-modal');
             this.backToOrder = this.findElem('back-to-order');
@@ -365,6 +392,7 @@ function (provide, BEMDOM, channel, bh, $) {
             this.addressInput.bindTo('control', 'blur', $.proxy(this.addressInputBlur, this));
             this.buyerNameInput.bindTo('control', 'blur', $.proxy(this.buyerNameInputBlur, this));
             this.phoneInput.bindTo('control', 'blur', $.proxy(this.phoneInputBlur, this));
+            this.emailInput.bindTo('control', 'blur', $.proxy(this.emailInputBlur, this));
 
             this.modal.setMod('visible');
         },
@@ -612,6 +640,20 @@ function (provide, BEMDOM, channel, bh, $) {
             this.checkInputs();
         },
 
+        emailInputBlur: function () {
+            var val = this.emailInput.getVal();
+
+            this.emailValue = val;
+
+            if (val === '') {
+                this.setMod(this.email, 'wrong');
+            } else {
+                this.delMod(this.email, 'wrong');
+            }
+
+            this.checkInputs();
+        },
+
         returnToOrder: function () {
             this
                 .closeModal()
@@ -627,7 +669,8 @@ function (provide, BEMDOM, channel, bh, $) {
             if (typeOfGetting === 'cym'
                 && (this.deliveryDateValue || this.deliveryDateAnotherValue)
                 && this.buyerNameValue
-                && this.phoneValue) {
+                && this.phoneValue
+                && this.emailValue) {
 
                 this.nextButton.delMod('disabled');
 
@@ -637,7 +680,8 @@ function (provide, BEMDOM, channel, bh, $) {
             if ((this.deliveryDateValue || this.deliveryDateAnotherValue)
                 && this.deliveryAddress
                 && this.buyerNameValue
-                && this.phoneValue) {
+                && this.phoneValue
+                && this.emailValue) {
 
                 this.nextButton.delMod('disabled');
 
