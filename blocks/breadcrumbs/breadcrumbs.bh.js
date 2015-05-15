@@ -3,16 +3,15 @@
 module.exports = function (bh) {
     bh.match('breadcrumbs', function (ctx) {
         var data = ctx.tParam('data');
-        var currentProduct = data.currentProduct;
 
         ctx.content(data.breadcrumbs.map(generateItemBemjson));
 
-        function generateItemBemjson(data) {
+        function generateItemBemjson(data, i, arr) {
             return {
                 block: 'link',
                 url: data.url,
                 mods: {
-                    active: data.url.indexOf(currentProduct.slug) !== -1 ? true : false
+                    active: i === arr.length - 1
                 },
                 content: data.title
             };
