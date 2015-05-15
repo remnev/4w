@@ -27,7 +27,7 @@ module.exports = function (req, res) {
     ];
 
     locals.contacts = {
-        phone: ' 8 (495) 790-23-44',
+        phone: ' 8 (495) 134-74-47',
         operationTime: 'ежедневно с 9 до 20'
     };
 

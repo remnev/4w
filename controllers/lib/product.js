@@ -307,7 +307,7 @@ module.exports = function (req, res) {
     ];
 
     locals.company = {
-        phone: '8 (495) 780-23-44'
+        phone: '8 (495) 134-74-47'
     };
 
     locals.breadcrumbs = [
