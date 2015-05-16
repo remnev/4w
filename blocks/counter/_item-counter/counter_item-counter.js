@@ -8,7 +8,7 @@ function (provide, channel, $, BEMDOM) {
     BEMDOM.decl({block: 'counter', modName: 'item-counter'}, {}, {
         live: function () {
             this
-                .liveInitOnEvent('increase decrease', 'pointerover')
+                .liveInitOnEvent('pointerover')
                 .liveBindTo('increase decrease', 'click', function () {
                     var itemId;
                     var data;
