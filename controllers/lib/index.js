@@ -42,18 +42,23 @@ module.exports = function (req, res) {
             items: [
                 {
                     title: 'Нащельники',
-                    slug: 'naschelnik',
+                    slug: 'flat-strips-on-roll',
                     photo: '/public/images/products/naschelnik.jpg'
                 },
                 {
                     title: 'Фальш-переплеты',
-                    slug: 'faslh-pereplet',
+                    slug: 'decorative-window-bars',
                     photo: '/public/images/products/faslh-pereplet.jpg'
                 },
                 {
                     title: 'Уголки',
-                    slug: 'ugolok',
+                    slug: 'angles',
                     photo: '/public/images/products/ugolok.jpg'
+                },
+                {
+                    title: 'Карандаши',
+                    slug: 'pens',
+                    photo: '/public/images/products/pens.jpg'
                 }
             ]
         },
