@@ -6,6 +6,8 @@ modules.define(
 function (provide, BEMDOM) {
 
     BEMDOM.decl('counter', {
+        previousValue: 1,
+
         onSetMod: {
             js: {
                 inited: function () {
@@ -13,6 +15,10 @@ function (provide, BEMDOM) {
 
                     this.bindTo('decrease', 'click', this.decreaseVal);
                     this.bindTo('increase', 'click', this.increaseVal);
+
+                    this.input
+                        .on('change', this.inputChangeHandler, this)
+                        .bindTo('control', 'focus', this.inputFocusHandler);
                 }
             }
         },
@@ -41,6 +47,24 @@ function (provide, BEMDOM) {
             this.emit('change');
 
             return this;
+        },
+
+        inputChangeHandler: function () {
+            var val = this.getVal();
+
+            if (isNaN(val) || val < 1) {
+                this.setVal(this.previousValue);
+
+                return;
+            }
+
+            this.setVal(val);
+
+            this.previousValue = val;
+        },
+
+        inputFocusHandler: function () {
+            this.findElem('control').select();
         }
     });
 
