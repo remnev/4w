@@ -29,7 +29,7 @@
             font-weight: bold
 
     &__form
-        margin-top: 20px
+        margin-top: 38px
         width: 430px
         display: inline-block
         vertical-align: top
@@ -49,6 +49,25 @@
     &__number
         display: inline-block
         vertical-align: top
+        position: relative
+
+        &:after
+            position: absolute
+            font-family: Arial, sans-serif
+            font-size: 11px
+            top: -20px
+
+    &__number:after
+        content: 'Количество:'
+        left: 15px
+
+    &__price:after
+        content: 'Цена за шт в ₽:'
+        left: 25px
+
+    &__coast:after
+        content: 'Стоимость в ₽:'
+        left: 25px
 
     &__price
     &__coast
