@@ -41,6 +41,7 @@ keystone.set('routes', function (app) {
     app.get('/demo', controllers.demo);
     app.get('/', controllers.index);
     app.get('/products/:productSlug', controllers.product);
+    app.get('/contacts', controllers.contacts);
 });
 
 // Configure the navigation bar in Keystone's Admin UI
