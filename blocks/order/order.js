@@ -321,7 +321,7 @@ function (provide, channel, bh, $, BEMDOM) {
 
             localStorage.setItem('order:items', JSON.stringify(items));
 
-            this.showAddToOrderModal();
+            this.reCalcCoast();
 
             return this;
         },
