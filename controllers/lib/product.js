@@ -291,6 +291,14 @@ module.exports = function (req, res) {
     locals.bundleName = bundleName;
     locals.bemjson = {block: 'root'};
 
+    locals.seo = {
+        title: currentProduct.name + ' — цены, цвета, описание, купить в магазине 4window',
+        description: [
+            currentProduct.name + ': описание, фото, цвета, рамеры. Легко заказать на сайте или по телефону. ',
+            'Бесплатный самовывоз или выгодная доставка.'
+        ].join('')
+    };
+
     locals.mainMenu = [
         {
             title: 'Продукция',

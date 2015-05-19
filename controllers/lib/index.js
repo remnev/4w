@@ -11,6 +11,14 @@ module.exports = function (req, res) {
     locals.bundleName = bundleName;
     locals.bemjson = {block: 'root'};
 
+    locals.seo = {
+        title: 'Магазин оконных принадлежностей — 4window',
+        description: [
+            'В магазине 4window вы можете купить все виды оконных принадлежностей: нащельник, фальш-переплет, уголки, ',
+            'карандаши и средства для ухода за окнами. Высокое качество, удобный интерфейс и низкие цены.'
+        ].join('')
+    };
+
     locals.mainMenu = [
         {
             title: 'Продукция',

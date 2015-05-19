@@ -11,6 +11,12 @@ module.exports = function (req, res) {
     locals.bundleName = bundleName;
     locals.bemjson = {block: 'root'};
 
+    locals.seo = {
+        title: 'Как добраться — контакты магазина 4window',
+        description:
+            'Схема проезда в магазин оконных принадлежностей 4window. Посмотреть на карте. Распечатать схему проезда.'
+    };
+
     locals.mainMenu = [
         {
             title: 'Продукция',

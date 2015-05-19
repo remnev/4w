@@ -10,7 +10,7 @@ module.exports = function (bh) {
 
         return {
             block: 'page',
-            title: 'title will be here',
+            title: data.seo.title,
             favicon: '/public/favicon.ico',
             head: [
                 {
@@ -25,7 +25,7 @@ module.exports = function (bh) {
                     elem: 'meta',
                     attrs: {
                         name: 'description',
-                        content: ''
+                        content: data.seo.description
                     }
                 }
             ],
