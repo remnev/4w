@@ -44,7 +44,7 @@ function (provide, BEMDOM, channel, bh, $) {
                     {
                         block: 'checkouter',
                         elem: 'title',
-                        content: 'Оформление заказа'
+                        content: 'Параметры заказа'
                     },
                     {
                         block: 'checkouter',
@@ -383,6 +383,7 @@ function (provide, BEMDOM, channel, bh, $) {
 
             this.bindTo(this.closeModalElem, 'click', this.closeModal);
             this.bindTo(this.backToOrder, 'click', this.returnToOrder);
+            this.nextButton.bindTo('click', this.showConfirmOrderModal.bind(this));
 
             this.typeOfGettingRG.on('change', this.typeOfGettingRGChangeHandler, this);
             this.deliveryDateSelect.on('change', this.deliveryDateChange, this);
@@ -689,6 +690,12 @@ function (provide, BEMDOM, channel, bh, $) {
             }
 
             this.nextButton.setMod('disabled');
+        },
+
+        showConfirmOrderModal: function () {
+            this.closeModal();
+
+            channel('order').emit('confirm');
         }
     }));
 

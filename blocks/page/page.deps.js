@@ -4,6 +4,7 @@
         {block: 'content'},
         {block: 'footer'},
         {block: 'yandex-metrica'},
-        {block: 'checkouter'}
+        {block: 'checkouter'},
+        {block: 'confirmer'}
     ]
 }]);
