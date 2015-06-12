@@ -11,7 +11,7 @@ module.exports = function (bh) {
         ctx.content([
             {
                 block: 'link',
-                url: '/products/prof/',
+                url: '/products/#prof',
                 content: {
                     block: 'products',
                     elem: 'title',
@@ -34,7 +34,7 @@ module.exports = function (bh) {
         ctx.content([
             {
                 block: 'link',
-                url: '/products/home/',
+                url: '/products/#home',
                 content: {
                     block: 'products',
                     elem: 'title',

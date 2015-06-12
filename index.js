@@ -40,6 +40,9 @@ keystone.pre('routes', function (req, res, next) {
 keystone.set('routes', function (app) {
     app.get('/demo', controllers.demo);
     app.get('/', controllers.index);
+    app.get('/products', function (req, res) {
+        res.redirect('/products/flat-strips-on-roll');
+    });
     app.get('/products/:productSlug', controllers.product);
     app.get('/contacts', controllers.contacts);
     app.get('/delivery', controllers.delivery);
