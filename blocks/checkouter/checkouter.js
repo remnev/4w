@@ -72,20 +72,7 @@ function (provide, BEMDOM, channel, bh, $) {
                                                 elem: 'type-of-getting'
                                             },
                                             val: 'dim',
-                                            options: [
-                                                {
-                                                    val: 'dim',
-                                                    text: 'Доставка по Москве'
-                                                },
-                                                {
-                                                    val: 'cym',
-                                                    text: 'Самовывоз со склада в Москве'
-                                                },
-                                                {
-                                                    val: 'dbtc',
-                                                    text: 'Доставка транспортной компанией'
-                                                }
-                                            ]
+                                            options: this.getTypeOfGettingOptions()
                                         }
                                     }
                                 ]
@@ -111,16 +98,7 @@ function (provide, BEMDOM, channel, bh, $) {
                                                 elem: 'type-of-payment'
                                             },
                                             val: 'cc',
-                                            options: [
-                                                {
-                                                    val: 'cc',
-                                                    text: 'Пластиковая карта'
-                                                },
-                                                {
-                                                    val: 'cache',
-                                                    text: 'Наличные'
-                                                }
-                                            ]
+                                            options: this.getTypeOfPaymentOptions()
                                         }
                                     }
                                 ]
@@ -293,6 +271,10 @@ function (provide, BEMDOM, channel, bh, $) {
                                                 theme: 'islands',
                                                 size: 's'
                                             },
+                                            mix: {
+                                                block: 'checkouter',
+                                                elem: 'commentary-textarea'
+                                            },
                                             attrs: {
                                                 rows: 5
                                             },
@@ -375,6 +357,7 @@ function (provide, BEMDOM, channel, bh, $) {
             this.phoneInput = this.findElem('phone-input').bem('input');
             this.email = this.findElem('email-input');
             this.emailInput = this.findElem('email-input').bem('input');
+            this.commentaryTextarea = this.findElem('commentary-textarea').bem('textarea');
             this.nextButton = this.findElem('next').bem('button');
             this.closeModalElem = this.findElem('close-modal');
             this.backToOrder = this.findElem('back-to-order');
@@ -426,9 +409,13 @@ function (provide, BEMDOM, channel, bh, $) {
             }
 
             if (this.typeOfGettingRG.getVal() === 'cym') {
-                this.setMod(this.addressTr, 'invisible');
+                this
+                    .setMod(this.addressTr, 'invisible')
+                    .deliveryAddress = '';
             } else {
-                this.delMod(this.addressTr, 'invisible');
+                this
+                    .delMod(this.addressTr, 'invisible')
+                    .deliveryAddress = this.addressInput.getVal();
             }
 
             this.addressInput.findElem('control').attr('placeholder', this.addressPlaceholders[typeOfGetting]);
@@ -696,6 +683,102 @@ function (provide, BEMDOM, channel, bh, $) {
             this.closeModal();
 
             channel('order').emit('confirm');
+        },
+
+        getPickedParams: function () {
+            var pickedParams = [
+                {
+                    title: 'Общая стоимость (руб.)',
+                    value: this
+                        .findBlockOutside('page')
+                        .findBlockInside('order')
+                        .getOrderCoast() + (this.typeOfGettingRG.getVal() === 'dim' ? 500 : 0)
+                },
+                {
+                    title: 'Получение товара',
+                    value: this
+                        .getTypeOfGettingOptions()
+                        .filter(function (option) {
+                            if (option.val === this.typeOfGettingRG.getVal()) {
+                                return true;
+                            }
+                        }, this)[0]
+                        .text
+                },
+                {
+                    title: 'Оплата',
+                    value: this
+                        .getTypeOfPaymentOptions()
+                        .filter(function (option) {
+                            if (option.val === this.typeOfPaymentRG.getVal()) {
+                                return true;
+                            }
+                        }, this)[0]
+                        .text
+                },
+                {
+                    title: 'Дата доставки/самовывоза',
+                    value: (this.deliveryDateValue || this.deliveryDateAnotherValue)
+                        .toLocaleString('ru', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        })
+                },
+                this.deliveryAddress ? {
+                    title: 'Адрес доставки',
+                    value: this.deliveryAddress
+                } : null,
+                {
+                    title: 'Имя получателя',
+                    value: this.buyerNameValue
+                },
+                {
+                    title: 'Мобильный телефон',
+                    value: this.phoneValue
+                },
+                {
+                    title: 'Электронная почта',
+                    value: this.emailValue
+                },
+                {
+                    title: 'Комментарий к заказу',
+                    value: this.commentaryTextarea.getVal()
+                }
+
+            ];
+
+            return pickedParams;
+        },
+
+        getTypeOfGettingOptions: function () {
+            return [
+                {
+                    val: 'dim',
+                    text: 'Доставка по Москве'
+                },
+                {
+                    val: 'cym',
+                    text: 'Самовывоз со склада в Москве'
+                },
+                {
+                    val: 'dbtc',
+                    text: 'Доставка транспортной компанией'
+                }
+            ];
+        },
+
+        getTypeOfPaymentOptions: function () {
+            return [
+                {
+                    val: 'cc',
+                    text: 'Пластиковая карта'
+                },
+                {
+                    val: 'cache',
+                    text: 'Наличные'
+                }
+            ];
         }
     }));
 

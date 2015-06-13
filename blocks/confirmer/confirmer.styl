@@ -28,7 +28,7 @@
     &__close-modal
         margin-right: 20px !important
 
-    &__items-list
+    &__order-items
         margin-top: 20px
         font-family: Arial, sans-serif
         font-size: 14px
@@ -43,3 +43,25 @@
         td
             vertical-align: top
             padding-top: 20px
+
+    &__order-item-title
+        margin-left: 2em
+        position: relative
+
+        &:before
+            content: counter(list)'. '
+            counter-increment: list
+            position: absolute
+            left: -3em
+            min-width: 2em
+            text-align: right
+
+    &__params-list
+        margin-top: 30px
+        font-family: Arial, sans-serif
+        font-size: 14px
+
+        td
+            vertical-align: top
+            padding-top: 10px
+            padding-right: 40px

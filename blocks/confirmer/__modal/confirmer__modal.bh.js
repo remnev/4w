@@ -17,7 +17,7 @@ module.exports = function (bh) {
                 },
                 {
                     block: 'confirmer',
-                    elem: 'items-list',
+                    elem: 'order-items',
                     tag: 'table',
                     content: [
                         {
@@ -41,16 +41,15 @@ module.exports = function (bh) {
                                 }
                             ]
                         },
-                        ctx.json().orderItems,
-                        ctx.json().delivery
+                        ctx.json().orderItemsBemjson,
+                        ctx.json().orderDeliveryItemBemjson
                     ]
                 },
                 {
                     block: 'confirmer',
                     elem: 'params-list',
                     tag: 'table',
-                    content: [
-                    ]
+                    content: ctx.json().orderParamsBemjson
                 },
                 {
                     block: 'confirmer',

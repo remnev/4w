@@ -14,23 +14,29 @@ function (provide, BEMDOM, channel, bh) {
         },
 
         confirmHandler: function () {
+            var orderBlock = this
+                .findBlockOutside('page')
+                .findBlockInside('order');
+            var checkouterBlock = this
+                .findBlockOutside('page')
+                .findBlockInside('checkouter');
+
             BEMDOM.update(this.domElem, bh.apply({
                 block: 'confirmer',
                 elem: 'modal',
-                orderItems: this
-                    .findBlockOutside('page')
-                    .findBlockInside('order')
+                orderItemsBemjson: orderBlock
                     .getOrderItems()
                     .map(this.generateOrderItemBemjson),
-                delivery: this
-                    .findBlockOutside('page')
-                    .findBlockInside('checkouter')
+                orderDeliveryItemBemjson: checkouterBlock
                     .typeOfGettingRG
                     .getVal() === 'dim' ? this.generateOrderItemBemjson({
                         productName: 'Доставка в пределах МКАД',
                         number: 1,
                         price: 500
-                    }) : ''
+                    }) : '',
+                orderParamsBemjson: checkouterBlock
+                    .getPickedParams()
+                    .map(this.generateOrderParamBemjson)
             }));
 
             this.modal = this.findElem('modal').bem('modal');
@@ -61,14 +67,14 @@ function (provide, BEMDOM, channel, bh) {
         generateOrderItemBemjson: function (data) {
             return {
                 block: 'confirmer',
-                elem: 'item',
+                elem: 'order-item',
                 tag: 'tr',
                 content: [
                     {
                         tag: 'td',
                         content: {
                             block: 'confirmer',
-                            elem: 'item-title',
+                            elem: 'order-item-title',
                             content: data.productName +
                                 (data.color ? ', ' + data.color.name + (data.size ? ', ' + data.size : '') : '')
                         }
@@ -77,7 +83,7 @@ function (provide, BEMDOM, channel, bh) {
                         tag: 'td',
                         content: {
                             block: 'confirmer',
-                            elem: 'item-count',
+                            elem: 'order-item-count',
                             content: data.number
                         }
                     },
@@ -85,7 +91,7 @@ function (provide, BEMDOM, channel, bh) {
                         tag: 'td',
                         content: {
                             block: 'confirmer',
-                            elem: 'item-price',
+                            elem: 'order-item-price',
                             content: data.price
                         }
                     },
@@ -93,9 +99,31 @@ function (provide, BEMDOM, channel, bh) {
                         tag: 'td',
                         content: {
                             block: 'confirmer',
-                            elem: 'item-coast',
+                            elem: 'order-item-coast',
                             content: data.number * data.price
                         }
+                    }
+                ]
+            };
+        },
+
+        generateOrderParamBemjson: function (data) {
+            if (!data) {
+                return null;
+            }
+
+            return {
+                block: 'confirmer',
+                elem: 'order-param',
+                tag: 'tr',
+                content: [
+                    {
+                        tag: 'td',
+                        content: data.title
+                    },
+                    {
+                        tag: 'td',
+                        content: data.value
                     }
                 ]
             };
