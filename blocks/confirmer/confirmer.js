@@ -14,117 +14,24 @@ function (provide, BEMDOM, channel, bh) {
         },
 
         confirmHandler: function () {
-            var bemjson = {
-                block: 'modal',
-                mods: {theme: 'islands'},
-                mix: {
-                    block: 'confirmer',
-                    elem: 'modal'
-                },
-                content: [
-                    {
-                        block: 'confirmer',
-                        elem: 'title',
-                        content: 'Подтверждение заказа'
-                    },
-                    {
-                        block: 'confirmer',
-                        elem: 'items-list',
-                        tag: 'table',
-                        content: [
-                            {
-                                tag: 'thead',
-                                content: [
-                                    {
-                                        tag: 'td',
-                                        content: 'Наименование'
-                                    },
-                                    {
-                                        tag: 'td',
-                                        content: 'Количество (шт.)'
-                                    },
-                                    {
-                                        tag: 'td',
-                                        content: 'Цена (руб.)'
-                                    },
-                                    {
-                                        tag: 'td',
-                                        content: 'Стоимость (руб.)'
-                                    }
-                                ]
-                            },
-                            this
-                                .findBlockOutside('page')
-                                .findBlockInside('order')
-                                .getOrderItems()
-                                .map(this.generateOrderItemBemjson),
-                            this
-                                .findBlockOutside('page')
-                                .findBlockInside('checkouter')
-                                .typeOfGettingRG
-                                .getVal() === 'dim' ? this.generateOrderItemBemjson({
-                                    productName: 'Доставка в пределах МКАД',
-                                    number: 1,
-                                    price: 500
-                                }) : ''
-                        ]
-                    },
-                    {
-                        block: 'confirmer',
-                        elem: 'params-list',
-                        tag: 'table',
-                        content: [
-                        ]
-                    },
-                    {
-                        block: 'confirmer',
-                        elem: 'controls',
-                        content: [
-                            {
-                                block: 'button',
-                                mods: {
-                                    theme: 'islands',
-                                    size: 'm',
-                                    view: 'pseudo'
-                                },
-                                mix: {
-                                    block: 'confirmer',
-                                    elem: 'close-modal'
-                                },
-                                text: 'Закрыть окно'
-                            },
-                            {
-                                block: 'button',
-                                mods: {
-                                    theme: 'islands',
-                                    size: 'm',
-                                    view: 'pseudo'
-                                },
-                                mix: {
-                                    block: 'confirmer',
-                                    elem: 'back-to-checkout'
-                                },
-                                text: 'Назад к параметрам заказа'
-                            },
-                            {
-                                block: 'button',
-                                mods: {
-                                    theme: 'islands',
-                                    size: 'm',
-                                    view: 'action'
-                                },
-                                mix: {
-                                    block: 'confirmer',
-                                    elem: 'confirm'
-                                },
-                                text: 'Подтвердить заказ'
-                            }
-                        ]
-                    }
-                ]
-            };
-
-            BEMDOM.update(this.domElem, bh.apply(bemjson));
+            BEMDOM.update(this.domElem, bh.apply({
+                block: 'confirmer',
+                elem: 'modal',
+                orderItems: this
+                    .findBlockOutside('page')
+                    .findBlockInside('order')
+                    .getOrderItems()
+                    .map(this.generateOrderItemBemjson),
+                delivery: this
+                    .findBlockOutside('page')
+                    .findBlockInside('checkouter')
+                    .typeOfGettingRG
+                    .getVal() === 'dim' ? this.generateOrderItemBemjson({
+                        productName: 'Доставка в пределах МКАД',
+                        number: 1,
+                        price: 500
+                    }) : ''
+            }));
 
             this.modal = this.findElem('modal').bem('modal');
             this.closeModalElem = this.findElem('close-modal');

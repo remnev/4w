@@ -13,6 +13,11 @@
                 view: ['pseudo', 'action']
             },
             tech: 'bh'
+        },
+        {
+            block: 'confirmer',
+            elem: 'modal',
+            tech: 'bh'
         }
     ]
 }, {
