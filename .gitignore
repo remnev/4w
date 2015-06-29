@@ -33,3 +33,4 @@ vendors
 /bundles/*/*
 !/bundles/*/blocks/
 !/bundles/*/*.server.bemdecl.js
+/.env
