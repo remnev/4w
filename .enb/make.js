@@ -115,7 +115,7 @@ module.exports = function (config) {
             ]
         ]);
 
-        nodeConfig.mode('development', function (nodeConfig) {
+        nodeConfig.mode('development', function (nodeConfig) {// eslint-disable-line no-shadow
             nodeConfig.addTechs([
                 [
                     techs.fileCopy,
@@ -134,7 +134,7 @@ module.exports = function (config) {
             ]);
         });
 
-        nodeConfig.mode('production', function (nodeConfig) {
+        nodeConfig.mode('production', function (nodeConfig) {// eslint-disable-line no-shadow
             nodeConfig.addTechs([
                 [
                     techs.borschik,

@@ -10,14 +10,14 @@ module.exports = function (bh) {
 
         ctx.content(categoriesBemjson);
 
-        function generateCategoryBemjson(data) {
+        function generateCategoryBemjson(categoryData) {
             return {
                 elem: 'category',
                 content: [
                     {
                         block: 'link',
-                        url: f('/products/#%s', data.slug),
-                        content: data.name,
+                        url: f('/products/#%s', categoryData.slug),
+                        content: categoryData.name,
                         mix: {
                             block: 'products-menu',
                             elem: 'categoryName'
@@ -25,22 +25,22 @@ module.exports = function (bh) {
                     },
                     {
                         elem: 'links',
-                        content: data.links.map(generateLinkBemjson)
+                        content: categoryData.links.map(generateLinkBemjson)
                     }
                 ]
             };
         }
 
-        function generateLinkBemjson(data) {
+        function generateLinkBemjson(linkData) {
             return {
                 elem: 'link',
                 mods: {
-                    active: urlPath.indexOf(data.slug) !== -1 ? true : false
+                    active: urlPath.indexOf(linkData.slug) !== -1 ? true : false
                 },
                 content: {
                     block: 'link',
-                    url: f('/products/%s/', data.slug),
-                    content: data.name
+                    url: f('/products/%s/', linkData.slug),
+                    content: linkData.name
                 }
             };
         }

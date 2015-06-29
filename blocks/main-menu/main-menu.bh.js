@@ -7,14 +7,14 @@ module.exports = function (bh) {
 
         ctx.content(data.mainMenu.map(generateItemBemjson));
 
-        function generateItemBemjson(data) {
+        function generateItemBemjson(itemData) {
             return {
                 block: 'link',
-                url: data.url,
+                url: itemData.url,
                 mods: {
-                    active: urlPath.indexOf(data.url) !== -1 ? true : false
+                    active: urlPath.indexOf(itemData.url) !== -1 ? true : false
                 },
-                content: data.title
+                content: itemData.title
             };
         }
     });

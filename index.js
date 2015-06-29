@@ -37,7 +37,7 @@ keystone.pre('routes', function (req, res, next) {
     next();
 });
 
-keystone.set('routes', function (app) {
+keystone.set('routes', function (app) { // eslint-disable-line no-shadow
     app.get('/demo', controllers.demo);
     app.get('/', controllers.index);
     app.get('/products', function (req, res) {
