@@ -1,0 +1,64 @@
+{
+  "slug": "angles",
+  "name": "Уголки",
+  "description": "В рулоне 50 м. Материал ПВХ (твердый или твердый и мягкий). Самоклеящаяся пенообразная клейкая лента. Примененяется для внутренней и внешней отделки окон, лоджий, дверей. Гарантированное приклеивание",
+  "articles": [
+      {
+          "name": "WKL15",
+          "price": {
+              "pure": 20,
+              "laminate": 35
+          },
+          "size": {
+              "units": "мм",
+              "value": "15x15"
+          }
+      },
+      {
+          "name": "WKL25",
+          "price": {
+              "pure": 30,
+              "laminate": 35
+          },
+          "size": {
+              "units": "мм",
+              "value": "25x25"
+          }
+      },
+      {
+          "name": "WKL30",
+          "price": {
+              "pure": 38,
+              "laminate": 42
+          },
+          "size": {
+              "units": "мм",
+              "value": "30x30"
+          }
+      },
+      {
+          "name": "WKL40",
+          "price": {
+              "pure": 45,
+              "laminate": 50
+          },
+          "size": {
+              "units": "мм",
+              "value": "40x20"
+          }
+      },
+      {
+          "name": "WKL35",
+          "price": {
+              "pure": 50,
+              "laminate": 55
+          },
+          "size": {
+              "units": "мм",
+              "value": "35x35"
+          }
+      }
+  ],
+  "aboutProduct": "",
+  "photos": []
+}

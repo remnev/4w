@@ -1,0 +1,53 @@
+{
+  "slug": "decorative-window-bars",
+  "name": "Фальш-переплеты",
+  "description": "В одной упаковке 12 пятиметровых хлыстов. Материал ПВХ (твердый и мягкий). Самоклеящаяся пенообразная клейкая лента. Наклеивается непосредственно на стеклопакет.",
+  "articles": [
+      {
+          "name": "G27",
+          "price": {
+              "pure": 20,
+              "laminate": 35
+          },
+          "size": {
+              "units": "мм",
+              "value": "27x8"
+          }
+      },
+      {
+          "name": "G47",
+          "price": {
+              "pure": 40,
+              "laminate": 55
+          },
+          "size": {
+              "units": "мм",
+              "value": "47x8"
+          }
+      },
+      {
+          "name": "G77",
+          "price": {
+              "pure": 50,
+              "laminate": 55
+          },
+          "size": {
+              "units": "мм",
+              "value": "77x8"
+          }
+      },
+      {
+          "name": "G2610",
+          "price": {
+              "pure": 60,
+              "laminate": 65
+          },
+          "size": {
+              "units": "мм",
+              "value": "26x10"
+          }
+      }
+  ],
+  "aboutProduct": "",
+  "photos": []
+}
