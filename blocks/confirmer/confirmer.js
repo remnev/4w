@@ -42,9 +42,11 @@ function (provide, BEMDOM, channel, bh) {
             this.modal = this.findElem('modal').bem('modal');
             this.closeModalElem = this.findElem('close-modal');
             this.backToCheckoutElem = this.findElem('back-to-checkout');
+            this.confirmElem = this.findElem('confirm');
 
             this.bindTo(this.closeModalElem, 'click', this.closeModal);
             this.bindTo(this.backToCheckoutElem, 'click', this.returnToCheckout);
+            this.bindTo(this.confirmElem, 'click', this.confirmOrder);
 
             this.modal.setMod('visible');
         },
@@ -127,6 +129,12 @@ function (provide, BEMDOM, channel, bh) {
                     }
                 ]
             };
+        },
+
+        confirmOrder: function () {
+            this.closeModal();
+
+            channel('order').emit('send');
         }
     }));
 

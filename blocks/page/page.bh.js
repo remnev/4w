@@ -35,6 +35,7 @@ module.exports = function (bh) {
                 {block: 'footer'},
                 {block: 'checkouter'},
                 {block: 'confirmer'},
+                {block: 'statuser'},
                 {
                     block: 'yandex-metrica',
                     params: {

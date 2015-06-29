@@ -145,13 +145,16 @@ function (provide, channel, BEMDOM) {
 
             data = {
                 productName: this.params.productName,
+                productSlug: this.params.productSlug,
                 color: {
                     name: this.pickedColor.title + ' (' + this.pickedColor.code + ')',
                     isMainColor: this.pickedColor.isMainColor
                 },
                 size: this.pickedArticle.size ? this.pickedArticle.size.value + this.pickedArticle.size.units : null,
                 number: this.pickedNumber,
-                price: this.price.getVal()
+                price: this.price.getVal(),
+                articleName: this.pickedArticle.name,
+                isLaminate: this.pickedColor.isLaminate
             };
 
             channel('number-picker').emit('submitClick', data);

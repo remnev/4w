@@ -11,6 +11,7 @@ function (provide, BEMDOM, channel, bh, $) {
         buyerNameValue: '',
         phoneValue: '',
         emailValue: '',
+        typeOfGetting: 'dim',
 
         onSetMod: {
             js: {
@@ -71,7 +72,7 @@ function (provide, BEMDOM, channel, bh, $) {
                                                 block: 'checkouter',
                                                 elem: 'type-of-getting'
                                             },
-                                            val: 'dim',
+                                            val: this.typeOfGetting,
                                             options: this.getTypeOfGettingOptions()
                                         }
                                     }
@@ -389,7 +390,7 @@ function (provide, BEMDOM, channel, bh, $) {
 
         typeOfGettingRGChangeHandler: function () {
             var disabledRadio;
-            var typeOfGetting = this.typeOfGettingRG.getVal();
+            var typeOfGetting = this.typeOfGetting = this.typeOfGettingRG.getVal();
 
             if (typeOfGetting === 'dbtc') {
                 this.typeOfPaymentRG
@@ -699,7 +700,7 @@ function (provide, BEMDOM, channel, bh, $) {
                     value: this
                         .getTypeOfGettingOptions()
                         .filter(function (option) {
-                            if (option.val === this.typeOfGettingRG.getVal()) {
+                            if (option.val === this.typeOfGetting) {
                                 return true;
                             }
                         }, this)[0]
@@ -748,7 +749,10 @@ function (provide, BEMDOM, channel, bh, $) {
 
             ];
 
-            return pickedParams;
+            return $.grep(pickedParams, function (item) {
+                // filter a holes
+                return item;
+            });
         },
 
         getTypeOfGettingOptions: function () {

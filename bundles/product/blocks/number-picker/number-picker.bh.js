@@ -5,7 +5,10 @@ module.exports = function (bh) {
         var data = ctx.tParam('data').currentProduct;
 
         ctx
-            .js({productName: data.name})
+            .js({
+                productName: data.name,
+                productSlug: data.slug
+            })
             .content([
                 {
                     elem: 'header',

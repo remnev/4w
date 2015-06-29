@@ -213,6 +213,8 @@ function (provide, channel, bh, $, BEMDOM) {
         deleteOrderItems: function () {
             localStorage.removeItem('order:items');
 
+            this.reCalcCoast();
+
             return this;
         },
 
