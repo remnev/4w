@@ -3,11 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "keystone": "~0.2.32",
+    "body-parser": "^1.13.1",
     "dotenv": "0.4.0",
-    "glob": "4.3.2",
     "express-bem": "1.0.1",
-    "express-bem-bh": "1.1.0"
+    "express-bem-bh": "1.1.0",
+    "glob": "4.3.2",
+    "keystone": "~0.2.32",
+    "moment": "^2.10.3"
   },
   "devDependencies": {
     "gulp": "3.8.10",

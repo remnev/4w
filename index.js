@@ -25,7 +25,9 @@ keystone.init({
     'user model': 'User',
     // TODO: get from .env
     'cookie secret': 'gT+N?^">Pa3hk5i!}B,3>[sRlDFJs7&HKU`?neN4gK,#3PA`c)1c(;7Ri7OP.gt4',
-    port: process.env.PORT
+    port: process.env.PORT,
+    emails: 'jade-templates/emails',
+    'mandrill api key': process.env.MANDRILL_API_KEY
 });
 
 keystone.import('models');
@@ -37,6 +39,8 @@ keystone.pre('routes', function (req, res, next) {
     next();
 });
 
+keystone.pre('routes', require('body-parser').json());
+
 keystone.set('routes', function (app) { // eslint-disable-line no-shadow
     app.get('/demo', controllers.demo);
     app.get('/', controllers.index);
@@ -46,6 +50,7 @@ keystone.set('routes', function (app) { // eslint-disable-line no-shadow
     app.get('/products/:productSlug', controllers.product);
     app.get('/contacts', controllers.contacts);
     app.get('/delivery', controllers.delivery);
+    app.post('/api/send-order', controllers['api-send-order']);
 });
 
 // Configure the navigation bar in Keystone's Admin UI

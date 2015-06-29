@@ -1,0 +1,73 @@
+extends /layouts/default
+
+block body-contents
+    h1 Заказ №#{data.orderId}
+    //- Список товаров
+    table(style="width:100%; vertical-align: top; font-size: 11px;")
+        thead(style="font-weight: bold;")
+            tr
+                td(style="padding: 0;") Наименование
+                td(style="padding: 0;")
+                td(style="padding: 0;")
+                td(style="padding: 0;") Кол.
+                td(style="padding: 0;")
+                td(style="padding: 0;")
+                td(style="padding: 0; white-space: nowrap;") Цена (руб)
+                td(style="padding: 0;")
+                td(style="padding: 0;")
+                td(style="padding: 0; white-space: nowrap;") Стоимость (руб)
+        tbody
+            each item in data.items
+                tr
+                    td(style="border-top: 1px solid #6481b0;") #{item.productName} (#{item.articleName}), #{item.color.name}, #{item.size}
+                    td(style="width: 10px; border-right: 1px solid #6481b0; border-top: 1px solid #6481b0;")
+                    td(style="width: 10px; border-top: 1px solid #6481b0;")
+                    td(style="border-top: 1px solid #6481b0;")= item.number
+                    td(style="width: 10px; border-right: 1px solid #6481b0; border-top: 1px solid #6481b0;")
+                    td(style="width: 10px; border-top: 1px solid #6481b0;")
+                    td(style="border-top: 1px solid #6481b0;")= item.price
+                    td(style="width: 10px; border-right: 1px solid #6481b0; border-top: 1px solid #6481b0;")
+                    td(style="width: 10px; border-top: 1px solid #6481b0;")
+                    td(style="border-top: 1px solid #6481b0;")= item.number * item.price
+
+            if data.typeOfGetting == 'dim'
+                tr
+                    td(style="border-top: 1px solid #6481b0;") Доставка в пределах МКАД
+                    td(style="width: 10px; border-right: 1px solid #6481b0; border-top: 1px solid #6481b0;")
+                    td(style="width: 10px; border-top: 1px solid #6481b0;")
+                    td(style="border-top: 1px solid #6481b0;") 1
+                    td(style="width: 10px; border-right: 1px solid #6481b0; border-top: 1px solid #6481b0;")
+                    td(style="width: 10px; border-top: 1px solid #6481b0;")
+                    td(style="border-top: 1px solid #6481b0;") 500
+                    td(style="width: 10px; border-right: 1px solid #6481b0; border-top: 1px solid #6481b0;")
+                    td(style="width: 10px; border-top: 1px solid #6481b0;")
+                    td(style="border-top: 1px solid #6481b0;") 500
+
+            tr
+                td(style="border-top: 1px solid #6481b0;")
+                td(style="border-top: 1px solid #6481b0;")
+                td(style="border-top: 1px solid #6481b0;")
+                td(style="border-top: 1px solid #6481b0;")
+                td(style="border-top: 1px solid #6481b0;")
+                td(style="border-top: 1px solid #6481b0;")
+                td(style="border-top: 1px solid #6481b0;") Итого
+                td(style="border-top: 1px solid #6481b0;")
+                td(style="border-top: 1px solid #6481b0;")
+                td(style="border-top: 1px solid #6481b0;") #{data.coast} руб
+
+    br
+    br
+
+    h3 Параметры заказа
+    //- Параметры заказа
+    table(style="width:100%; vertical-align: top; font-size: 11px;")
+        tbody
+            each item in data.params
+                if !(item.title == 'Общая стоимость (руб.)') || !(item.title == 'Электронная почта')
+                    tr
+                        td(style="border-top: 1px solid #6481b0;")= item.title
+                        td(style="width: 10px; border-right: 1px solid #6481b0; border-top: 1px solid #6481b0;")
+                        td(style="width: 10px; border-top: 1px solid #6481b0;")
+                        td(style="border-top: 1px solid #6481b0;")= item.value
+
+    div Наш менеджер свяжется с вами в ближайшее время для подтверждения заказа. Спасибо за заказ.
