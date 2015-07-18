@@ -32,8 +32,7 @@ module.exports = function (bh) {
     });
 
     bh.match('statuser__modal_type_success', function (ctx) {
-        var orderId = ctx.json().orderId;
-        var buyerEmail = ctx.json().buyerEmail;
+        var data = ctx.json().data;
         var bemjson = {
             block: 'modal',
             mods: {theme: 'islands'},
@@ -52,9 +51,11 @@ module.exports = function (bh) {
                     block: 'statuser',
                     elem: 'text',
                     content: [
-                        'Номер вашего заказа <b>' + orderId + '</b>. ',
-                        'Подробности заказа отправлены на указанный вами почтовый ящик ' + buyerEmail + '. ',
-                        'Наш менеджер свяжется с вами в ближайшее время для подтверждения заказа.'
+                        'Номер вашего заказа <b>' + data.orderId + '</b>. ',
+                        'Подробности заказа отправлены на указанный вами почтовый ящик ' + data.buyerEmail + '. ',
+                        'Наш менеджер свяжется с вами в ближайшее время для подтверждения заказа.',
+                        data.isPaymentRequired ? '</br>Теперь вы можете оплатить заказ с помощью банковской карты.' +
+                        ' Нажмите кнопку "Оплатить"' : ''
                     ]
                 },
                 {
@@ -66,18 +67,108 @@ module.exports = function (bh) {
                             mods: {
                                 theme: 'islands',
                                 size: 'm',
-                                view: 'action'
+                                view: data.isPaymentRequired ? 'pseudo' : 'action'
                             },
                             mix: {
                                 block: 'statuser',
                                 elem: 'close'
                             },
                             text: 'Закрыть окно'
-                        }
+                        },
+                        data.isPaymentRequired ? {
+                            block: 'button',
+                            mods: {
+                                theme: 'islands',
+                                size: 'm',
+                                view: 'action'
+                            },
+                            mix: {
+                                block: 'statuser',
+                                elem: 'pay'
+                            },
+                            text: 'Оплатить'
+                        } : ''
                     ]
                 }
             ]
         };
+
+        if (data.isPaymentRequired) {
+            bemjson.content.push({
+                block: 'statuser',
+                elem: 'payment-form',
+                tag: 'form',
+                attrs: {
+                    action: 'https://money.yandex.ru/eshop.xml',
+                    type: 'post'
+                },
+                content: [
+                    {
+                        tag: 'input',
+                        attrs: {
+                            type: 'hidden',
+                            name: 'shopId',
+                            value: '39148'
+                        }
+                    },
+                    {
+                        tag: 'input',
+                        attrs: {
+                            type: 'hidden',
+                            name: 'scid',
+                            value: '4682319'
+                        }
+                    },
+                    {
+                        tag: 'input',
+                        attrs: {
+                            type: 'hidden',
+                            name: 'sum',
+                            value: data.orderCoast
+                        }
+                    },
+                    {
+                        tag: 'input',
+                        attrs: {
+                            type: 'hidden',
+                            name: 'customerNumber',
+                            value: data.buyerEmail
+                        }
+                    },
+                    {
+                        tag: 'input',
+                        attrs: {
+                            type: 'hidden',
+                            name: 'paymentType',
+                            value: 'AC'
+                        }
+                    },
+                    {
+                        tag: 'input',
+                        attrs: {
+                            type: 'hidden',
+                            name: 'orderNumber',
+                            value: data.orderId
+                        }
+                    },
+                    {
+                        tag: 'input',
+                        attrs: {
+                            type: 'hidden',
+                            name: 'cps_email',
+                            value: data.buyerEmail
+                        }
+                    },
+                    {
+                        tag: 'input',
+                        attrs: {
+                            type: 'submit'
+                        },
+                        content: 'ok'
+                    }
+                ]
+            });
+        }
 
         return bemjson;
     });

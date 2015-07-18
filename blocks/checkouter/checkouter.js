@@ -12,6 +12,7 @@ function (provide, BEMDOM, channel, bh, $) {
         phoneValue: '',
         emailValue: '',
         typeOfGetting: 'dim',
+        typeOfPayment: 'cc',
 
         onSetMod: {
             js: {
@@ -98,7 +99,7 @@ function (provide, BEMDOM, channel, bh, $) {
                                                 block: 'checkouter',
                                                 elem: 'type-of-payment'
                                             },
-                                            val: 'cc',
+                                            val: this.typeOfPayment,
                                             options: this.getTypeOfPaymentOptions()
                                         }
                                     }
@@ -370,6 +371,7 @@ function (provide, BEMDOM, channel, bh, $) {
             this.nextButton.bindTo('click', this.showConfirmOrderModal.bind(this));
 
             this.typeOfGettingRG.on('change', this.typeOfGettingRGChangeHandler, this);
+            this.typeOfPaymentRG.on('change', this.typeOfPaymentRGChangeHandler, this);
             this.deliveryDateSelect.on('change', this.deliveryDateChange, this);
             this.deliveryDateAnotherInput
                 .on('change', this.deliveryDateAnotherInputChange, this)
@@ -386,6 +388,10 @@ function (provide, BEMDOM, channel, bh, $) {
             this.modal.delMod('visible');
 
             return this;
+        },
+
+        typeOfPaymentRGChangeHandler: function () {
+            this.typeOfPayment = this.typeOfPaymentRG.getVal();
         },
 
         typeOfGettingRGChangeHandler: function () {

@@ -33,6 +33,11 @@ Order.add({
         required: true,
         initial: false
     },
+    typeOfPayment: {
+        type: String,
+        required: true,
+        initial: false
+    },
     createdAt: {
         type: Date
     }

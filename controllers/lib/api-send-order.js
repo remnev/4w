@@ -9,7 +9,8 @@ module.exports = function (req, res) {
         items: JSON.stringify(req.body.orderItems),
         params: JSON.stringify(req.body.orderParams),
         typeOfGetting: req.body.typeOfGetting,
-        buyerEmail: req.body.email
+        buyerEmail: req.body.email,
+        typeOfPayment: req.body.typeOfPayment
     });
 
     order.save(function (err, data) {
@@ -22,7 +23,9 @@ module.exports = function (req, res) {
 
         res.json({
             orderId: data.orderId,
-            buyerEmail: data.buyerEmail
+            buyerEmail: data.buyerEmail,
+            isPaymentRequired: data.typeOfPayment === 'cc',
+            orderCoast: data.coast
         });
     });
 

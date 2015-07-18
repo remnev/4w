@@ -14,7 +14,7 @@ function (provide, BEMDOM, channel, bh, $) {
         },
 
         sendHandler: function () {
-            // clean old modals
+            // clear old modals
             if (this.modalTypeSuccess) {
                 BEMDOM.destruct(this.modalTypeSuccess.domElem);
             }
@@ -44,6 +44,7 @@ function (provide, BEMDOM, channel, bh, $) {
                 orderItems: this.orderBlock.getOrderItems(),
                 orderParams: this.checkouterBlock.getPickedParams(),
                 typeOfGetting: this.checkouterBlock.typeOfGetting,
+                typeOfPayment: this.checkouterBlock.typeOfPayment,
                 email: this.checkouterBlock.emailValue,
                 csrf: 'todo'
             })
@@ -58,17 +59,26 @@ function (provide, BEMDOM, channel, bh, $) {
                 block: 'statuser',
                 elem: 'modal',
                 mods: {type: 'success'},
-                orderId: data.orderId,
-                buyerEmail: data.buyerEmail
+                data: {
+                    orderId: data.orderId,
+                    buyerEmail: data.buyerEmail,
+                    isPaymentRequired: data.isPaymentRequired,
+                    orderCoast: data.orderCoast
+                }
             }));
 
             this.modalTypeSuccess = this.findElem('modal', 'type', 'success').bem('modal');
+            this.paymentForm = this.findElem('payment-form');
 
             this.bindTo('close', 'click', function () {
                 this.modalTypeSuccess.delMod('visible');
             });
 
-            // clean the order
+            this.bindTo('pay', 'click', function () {
+                this.paymentForm.submit();
+            });
+
+            // clear the order
             this.orderBlock.deleteOrderItems();
 
             this.modalTypeSuccess.setMod('visible');
