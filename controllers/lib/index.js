@@ -74,9 +74,9 @@ module.exports = function (req, res) {
             title: 'Товары для дома',
             items: [
                 {
-                    title: 'Чистящие средства',
-                    slug: 'chist-sredstvo',
-                    photo: '/public/images/products/chist-sredstvo.jpg'
+                    title: 'Оконные ручки с ключом',
+                    slug: 'handles-with-key',
+                    photo: '/public/images/products/handles-with-key/1-for-main-page.jpg'
                 },
                 {
                     title: 'Щетки',
