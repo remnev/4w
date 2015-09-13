@@ -1,24 +1,30 @@
 'use strict';
 
-modules.define(
-'i-bem__dom',
-['events__channels'],
-function (provide, channel, BEMDOM) {
+modules.define('number-picker',
+['i-bem__dom', 'events__channels'],
+function (provide, BEMDOM, channel) {
 
-    BEMDOM.decl('number-picker', {
+    provide(BEMDOM.decl(this.name, {
         onSetMod: {
             js: {
                 inited: function () {
                     this.filter = this.findBlockOutside('filter');
                     this.counter = this.findBlockInside('counter');
+                    this.colorPicker = this.filter.findBlockInside('color-picker');
                     this.price = this.elem('price').bem('input');
                     this.coast = this.elem('coast').bem('input');
                     this.orderDesc = this.elem('order-description');
                     this.submit = this.elem('submit');
 
-                    this.pickedColor = null;
+                    this.pickedColor = this.colorPicker.pickedColor;
                     this.pickedArticle = this.filter.params.singleArticle;
                     this.pickedNumber = 1;
+
+                    if (this.pickedColor) {
+                        this
+                            .updatePrice()
+                            .updateOrderDescription();
+                    }
 
                     this.counter.on('change', this.numberChangeHandler, this);
                     this.bindTo(this.submit, 'click', this.submitClickHandler);
@@ -159,8 +165,6 @@ function (provide, channel, BEMDOM) {
 
             channel('number-picker').emit('submitClick', data);
         }
-    });
-
-    provide(BEMDOM);
+    }));
 
 });

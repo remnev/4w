@@ -1,17 +1,20 @@
 'use strict';
 
-modules.define(
-'i-bem__dom',
-['jquery', 'events__channels'],
-function (provide, $, channel, BEMDOM) {
+modules.define('color-picker',
+['i-bem__dom', 'events__channels', 'jquery'],
+function (provide, BEMDOM, channel, $) {
 
-    BEMDOM.decl('color-picker', {
+    provide(BEMDOM.decl(this.name, {
         onSetMod: {
             js: {
                 inited: function () {
                     this.$colors = this.elem('color');
 
-                    this.bindTo('color', 'click', this.pickColor);
+                    if (this.$colors.length === 1) {
+                        this.pickColor(this.$colors.eq(0));
+                    }
+
+                    this.bindTo('color', 'click', this.colorClickHandler);
                 }
             }
         },
@@ -29,12 +32,14 @@ function (provide, $, channel, BEMDOM) {
                             .setMod('picked')
                             .elem('pickedColor').text('— арт. ' + code + ' "' + title + '"');
 
-                        channel('color-picker').emit('colorChange', {
+                        this.pickedColor = {
                             title: title,
                             code: code,
                             isLaminate: !elem.data('no-laminate'),
                             isMainColor: this.hasMod(elem, 'size', 'l')
-                        });
+                        };
+
+                        channel('color-picker').emit('colorChange', this.pickedColor);
                     },
                     '': function () {
                         this
@@ -48,13 +53,19 @@ function (provide, $, channel, BEMDOM) {
             }
         },
 
-        pickColor: function (e) {
-            this
-                .toggleMod($(e.currentTarget), 'active')
-                .delMod($(e.currentTarget), 'inactive');
-        }
-    });
+        colorClickHandler: function (e) {
+            var $color = $(e.currentTarget);
 
-    provide(BEMDOM);
+            this.pickColor($color);
+        },
+
+        pickColor: function ($color) {
+            this
+                .toggleMod($color, 'active')
+                .delMod($color, 'inactive');
+        },
+
+        pickedColor: null
+    }));
 
 });
