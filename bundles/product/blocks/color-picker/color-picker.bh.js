@@ -8,7 +8,7 @@ module.exports = function (bh) {
         var colors = data.colors;
 
         if (!colors.main.length && !colors.other.length && !colors.noLaminate.length) {
-            return;
+            return false;
         }
 
         ctx

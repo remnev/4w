@@ -79,9 +79,9 @@ module.exports = function (req, res) {
                     photo: '/public/images/products/handles-with-key/1-for-main-page.jpg'
                 },
                 {
-                    title: 'Щетки',
-                    slug: 'schetki',
-                    photo: '/public/images/products/schetki.jpg'
+                    title: 'Набор для ухода за окнами',
+                    slug: 'cleaning-kit',
+                    photo: '/public/images/products/cleaning-kit/1-for-main-page.jpg'
                 }
             ]
         }

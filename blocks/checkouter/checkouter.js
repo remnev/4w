@@ -446,7 +446,7 @@ function (provide, BEMDOM, channel, bh, $) {
             });
 
             function checkColorType(item) {
-                if (!item.color.isMainColor) {
+                if (item.color && !item.color.isMainColor) {
                     maxRemainingTimeForItem = 10;
 
                     return false;

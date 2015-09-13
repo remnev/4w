@@ -219,6 +219,16 @@ function (provide, channel, bh, $, BEMDOM) {
         },
 
         generateOrderItemBemjson: function (data) {
+            var title = data.productName;
+
+            if (data.color) {
+                 title += ', ' + data.color.name;
+            }
+
+            if (data.size) {
+                title += ', ' + data.size;
+            }
+
             return {
                 block: 'order',
                 elem: 'add-to-order-modal-item',
@@ -229,7 +239,7 @@ function (provide, channel, bh, $, BEMDOM) {
                         content: {
                             block: 'order',
                             elem: 'add-to-order-modal-item-title',
-                            content: data.productName + ', ' + data.color.name + (data.size ? ', ' + data.size : '')
+                            content: title
                         }
                     },
                     {

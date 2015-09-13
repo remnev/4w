@@ -16,7 +16,8 @@ module.exports = function (req, res) {
         require('../mock-data/decorative-window-bars'),
         require('../mock-data/angles'),
         require('../mock-data/pens'),
-        require('../mock-data/handles-with-key')
+        require('../mock-data/handles-with-key'),
+        require('../mock-data/cleaning-kit')
     ];
 
     var currentProduct = locals.currentProduct = getCurrentProduct();
@@ -103,8 +104,8 @@ module.exports = function (req, res) {
                     name: 'Оконные ручки с ключом'
                 },
                 {
-                    slug: 'cleaners',
-                    name: 'Чистящие средства'
+                    slug: 'cleaning-kit',
+                    name: 'Набор для ухода за окнами'
                 }
             ]
         }

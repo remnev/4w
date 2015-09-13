@@ -19,7 +19,7 @@ block body-contents
         tbody
             each item in data.items
                 tr
-                    td(style="border-top: 1px solid #6481b0;") #{item.productName} (#{item.articleName}), #{item.color.name}, #{item.size}
+                    td(style="border-top: 1px solid #6481b0;") #{item.productName} (#{item.articleName}) #{item.color ? ', ' + item.color.name : ''} #, #{item.size}
                     td(style="width: 10px; border-right: 1px solid #6481b0; border-top: 1px solid #6481b0;")
                     td(style="width: 10px; border-top: 1px solid #6481b0;")
                     td(style="border-top: 1px solid #6481b0;")= item.number

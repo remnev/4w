@@ -16,11 +16,11 @@ function (provide, BEMDOM, channel) {
                     this.orderDesc = this.elem('order-description');
                     this.submit = this.elem('submit');
 
-                    this.pickedColor = this.colorPicker.pickedColor;
+                    this.pickedColor = this.colorPicker ? this.colorPicker.pickedColor : null;
                     this.pickedArticle = this.filter.params.singleArticle;
                     this.pickedNumber = 1;
 
-                    if (this.pickedColor) {
+                    if (this.pickedColor || this.pickedArticle) {
                         this
                             .updatePrice()
                             .updateOrderDescription();
@@ -71,12 +71,19 @@ function (provide, BEMDOM, channel) {
 
         updatePrice: function () {
             var price;
+            var priceType;
 
-            if (!this.pickedColor || !this.pickedArticle) {
+            if (this.colorPicker && !this.pickedColor || !this.pickedArticle) {
                 return this;
             }
 
-            price = this.pickedArticle.price[this.pickedColor.isLaminate ? 'laminate' : 'pure'];
+            if (this.pickedColor) {
+                priceType = this.pickedColor.isLaminate ? 'laminate' : 'pure';
+            } else {
+                priceType = 'pure';
+            }
+
+            price = this.pickedArticle.price[priceType];
 
             this.price.setVal(price);
 
@@ -123,23 +130,24 @@ function (provide, BEMDOM, channel) {
             var number = this.elem('order-description-number');
             var coast = this.elem('order-description-coast');
 
-            if (!this.pickedColor || !this.pickedArticle) {
-                return;
+            if (this.pickedColor) {
+                color.text('Цвет ' + this.pickedColor.title + ' (' + this.pickedColor.code + ')');
+
+                if (this.pickedColor.isLaminate) {
+                    laminate.text('Ламинированный');
+                } else {
+                    laminate.text('Неламинированный');
+                }
+            }
+
+            if (this.pickedArticle && this.pickedArticle.size) {
+                size.text('Размеры ' + this.pickedArticle.size.value + this.pickedArticle.size.units);
             }
 
             item.text(this.params.productName);
-            color.text('Цвет ' + this.pickedColor.title + ' (' + this.pickedColor.code + ')');
-            if (this.pickedArticle.size) {
-                size.text('Размеры ' + this.pickedArticle.size.value + this.pickedArticle.size.units);
-            }
             number.text('В количестве ' + this.pickedNumber + ' шт');
             coast.text('На сумму ' + this.coast.getVal() + ' ₽');
 
-            if (this.pickedColor.isLaminate) {
-                laminate.text('Ламинированный');
-            } else {
-                laminate.text('Неламинированный');
-            }
         },
 
         submitClickHandler: function () {
@@ -152,16 +160,20 @@ function (provide, BEMDOM, channel) {
             data = {
                 productName: this.params.productName,
                 productSlug: this.params.productSlug,
-                color: {
-                    name: this.pickedColor.title + ' (' + this.pickedColor.code + ')',
-                    isMainColor: this.pickedColor.isMainColor
-                },
                 size: this.pickedArticle.size ? this.pickedArticle.size.value + this.pickedArticle.size.units : null,
                 number: this.pickedNumber,
                 price: this.price.getVal(),
-                articleName: this.pickedArticle.name,
-                isLaminate: this.pickedColor.isLaminate
+                articleName: this.pickedArticle.name
             };
+
+            if (this.pickedColor) {
+                data.color = {
+                    name: this.pickedColor.title + ' (' + this.pickedColor.code + ')',
+                    isMainColor: this.pickedColor.isMainColor
+                };
+
+                data.isLaminate = this.pickedColor.isLaminate;
+            }
 
             channel('number-picker').emit('submitClick', data);
         }
