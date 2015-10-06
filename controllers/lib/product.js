@@ -83,11 +83,11 @@ module.exports = function (req, res) {
                 },
                 {
                     slug: 'decorative-window-bars',
-                    name: 'Фальш-переплеты'
+                    name: 'Фальш-переплет в хлыстах'
                 },
                 {
                     slug: 'angles',
-                    name: 'Уголки'
+                    name: 'Уголок в рулоне'
                 },
                 {
                     slug: 'pens',

@@ -49,17 +49,17 @@ module.exports = function (req, res) {
             title: 'Товары для профессионалов',
             items: [
                 {
-                    title: 'Нащельники',
+                    title: 'Нащельник в рулоне',
                     slug: 'flat-strips-on-roll',
                     photo: '/public/images/products/naschelnik.jpg'
                 },
                 {
-                    title: 'Фальш-переплеты',
+                    title: 'Фальш-переплет в хлыстах',
                     slug: 'decorative-window-bars',
                     photo: '/public/images/products/faslh-pereplet.jpg'
                 },
                 {
-                    title: 'Уголки',
+                    title: 'Уголок в рулоне',
                     slug: 'angles',
                     photo: '/public/images/products/ugolok.jpg'
                 },
