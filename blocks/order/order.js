@@ -222,7 +222,7 @@ function (provide, channel, bh, $, BEMDOM) {
             var title = data.productName;
 
             if (data.color) {
-                 title += ', ' + data.color.name;
+                title += ', ' + data.color.name;
             }
 
             if (data.size) {

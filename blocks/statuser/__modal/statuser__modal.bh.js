@@ -116,7 +116,7 @@ module.exports = function (bh) {
                         attrs: {
                             type: 'hidden',
                             name: 'scid',
-                            value: '4682319'
+                            value: '26865'
                         }
                     },
                     {
@@ -155,8 +155,24 @@ module.exports = function (bh) {
                         tag: 'input',
                         attrs: {
                             type: 'hidden',
+                            name: 'custEmail',
+                            value: data.buyerEmail
+                        }
+                    },
+                    {
+                        tag: 'input',
+                        attrs: {
+                            type: 'hidden',
                             name: 'cps_email',
                             value: data.buyerEmail
+                        }
+                    },
+                    {
+                        tag: 'input',
+                        attrs: {
+                            type: 'hidden',
+                            name: 'custName',
+                            value: data.buyerName
                         }
                     },
                     {

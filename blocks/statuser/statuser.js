@@ -46,6 +46,7 @@ function (provide, BEMDOM, channel, bh, $) {
                 typeOfGetting: this.checkouterBlock.typeOfGetting,
                 typeOfPayment: this.checkouterBlock.typeOfPayment,
                 email: this.checkouterBlock.emailValue,
+                buyerName: this.checkouterBlock.buyerNameValue,
                 csrf: 'todo'
             })
             .done($.proxy(this._sendDone, this))

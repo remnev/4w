@@ -1,6 +1,7 @@
 'use strict';
 // TODO: jsdoc
 // TODO: test
+// TODO: csrf check
 var keystone = require('keystone');
 
 module.exports = function (req, res) {
@@ -10,6 +11,7 @@ module.exports = function (req, res) {
         params: JSON.stringify(req.body.orderParams),
         typeOfGetting: req.body.typeOfGetting,
         buyerEmail: req.body.email,
+        buyerName: req.body.buyerName,
         typeOfPayment: req.body.typeOfPayment
     });
 
@@ -24,6 +26,7 @@ module.exports = function (req, res) {
         res.json({
             orderId: data.orderId,
             buyerEmail: data.buyerEmail,
+            buyerName: data.buyerName,
             isPaymentRequired: data.typeOfPayment === 'cc',
             orderCoast: data.coast
         });
