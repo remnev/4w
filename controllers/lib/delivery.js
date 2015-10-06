@@ -33,7 +33,7 @@ module.exports = function (req, res) {
     ];
 
     locals.company = {
-        phone: ' 8 (495) 134-74-47'
+        phone: ' 8 (495) 981-96-02'
     };
 
     locals.logo = {
