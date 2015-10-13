@@ -36,7 +36,7 @@ module.exports = function (req, res) {
 
     locals.contacts = {
         phone: ' 8 (495) 134-74-47',
-        operationTime: 'ежедневно с 9 до 20'
+        operationTime: 'пн — пт с 9:00 до 17:00'
     };
 
     locals.logo = {

@@ -10,8 +10,17 @@ module.exports = function (bh) {
                 {block: 'logo'},
                 {block: 'main-menu'},
                 {
-                    elem: 'phone-number',
-                    content: data.company.phone
+                    elem: 'right-wrapper',
+                    content: [
+                        {
+                            elem: 'phone-number',
+                            content: data.company.phone
+                        },
+                        {
+                            elem: 'operation-time',
+                            content: data.company.operationTime
+                        }
+                    ]
                 }
             ]
         });
