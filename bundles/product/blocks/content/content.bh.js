@@ -21,12 +21,12 @@ module.exports = function (bh) {
                         elem: 'description',
                         content: data.description
                     },
+                    {block: 'photo-slider'},
                     {block: 'filter'},
                     {
                         elem: 'about-product',
                         content: data.aboutProduct
-                    },
-                    {block: 'photo-slider'}
+                    }
                 ]
             }
         ]);

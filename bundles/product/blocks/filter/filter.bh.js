@@ -1,9 +1,16 @@
 'use strict';
 
+var format = require('util').format;
+
 module.exports = function (bh) {
     bh.match('filter', function (ctx) {
         var data = ctx.tParam('data').currentProduct;
         var contentBemjson = [
+            {
+                elem: 'title',
+                tag: 'h2',
+                content: format('Купить %s', data.name.toLowerCase())
+            },
             {block: 'color-picker'}
         ];
 
