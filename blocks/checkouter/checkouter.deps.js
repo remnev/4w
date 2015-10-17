@@ -48,6 +48,11 @@
                 size: 's'
             },
             tech: 'bh'
+        },
+        {
+            block: 'checkouter',
+            elem: 'modal',
+            tech: 'bh'
         }
     ]
 }, {
