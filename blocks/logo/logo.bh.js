@@ -8,7 +8,11 @@ module.exports = function (bh) {
             block: 'link',
             url: '/',
             mix: {block: 'logo'},
-            content: text
+            content: {
+                block: 'logo',
+                elem: 'text',
+                content: text
+            }
         };
     });
 };
