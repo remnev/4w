@@ -140,17 +140,13 @@ function (provide, BEMDOM, channel, bh, $) {
         getClosestDateToDeliver: function () {
             var orderItems = this.findBlockOutside('page').findBlockInside('order').getOrderItems();
             var maxRemainingTimeForItem = 2; // in days
-            var closestDate = new Date();
 
             orderItems.every(checkColorType);
 
-            closestDate.setDate(closestDate.getDate() + maxRemainingTimeForItem);
-
-            return closestDate.toLocaleString('ru', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
+            return moment()
+                .locale('ru')
+                .add(maxRemainingTimeForItem, 'd')
+                .format('DD MMMM YYYY');
 
             function checkColorType(item) {
                 if (item.color && !item.color.isMainColor) {

@@ -21,6 +21,15 @@ module.exports = function (bh) {
                     elem: 'js',
                     url: f('/bundles/%s/_%s.browser.js', data.bundleName, data.bundleName)
                 },
+                // todo: move the moment to a bundle
+                {
+                    elem: 'js',
+                    url: 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js'
+                },
+                {
+                    elem: 'js',
+                    url: 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/ru.js'
+                },
                 {
                     elem: 'meta',
                     attrs: {

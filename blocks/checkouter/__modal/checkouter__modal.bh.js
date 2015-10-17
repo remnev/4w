@@ -306,8 +306,14 @@ module.exports = function (bh) {
     });
 
     function addNumOfDaysToDate (num, date) {
-        var newDate = parseInt(date.substr(1, 1), 10) + num;
+        var format = 'DD MMMM YYYY';
+        var resultDate = moment(date, format).add(num, 'd');
 
-        return date.substr(0, 1) + newDate + date.substr(2, date.length);
+        // skip the weekends days
+        if (resultDate.day() === 0 || resultDate.day() === 6) {
+            return addNumOfDaysToDate(1, resultDate);
+        }
+
+        return resultDate.format(format);
     }
 };
