@@ -5,7 +5,8 @@
     "mocha": true
   },
   "globals": {
-    "modules": true
+    "modules": true,
+    "moment": true
   },
   "rules": {
     // Possible Errors

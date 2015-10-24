@@ -22,6 +22,7 @@ module.exports = function (bh) {
                         content: data.description
                     },
                     {block: 'photo-slider'},
+                    data.showPriceTable && {block: 'pricer'},
                     {block: 'filter'},
                     {
                         elem: 'about-product',

@@ -3,7 +3,6 @@
 module.exports = function (bh) {
     bh.match('checkouter__modal', function (ctx, json) {
         return {
-            // closestDateToDeliver: closestDateToDeliver,
             block: 'modal',
             mods: {theme: 'islands'},
             mix: {
@@ -305,7 +304,7 @@ module.exports = function (bh) {
         };
     });
 
-    function addNumOfDaysToDate (num, date) {
+    function addNumOfDaysToDate(num, date) {
         var format = 'DD MMMM YYYY';
         var resultDate = moment(date, format).add(num, 'd');
 
