@@ -54,7 +54,7 @@ module.exports = function (req, res) {
     ];
 
     locals.company = {
-        phone: '8 (495) 134-74-47',
+        phone: '8 (495) 134-47-74',
         operationTime: 'пн — пт с 9:00 до 20:00'
     };
 
