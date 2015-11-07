@@ -10,7 +10,7 @@ module.exports = function (bh) {
 
         return {
             block: 'page',
-            title: data.seo.title,
+            title: data.page ? data.page.seo.title : data.seo.title,
             favicon: '/public/favicon.ico',
             head: [
                 {
@@ -34,7 +34,8 @@ module.exports = function (bh) {
                     elem: 'meta',
                     attrs: {
                         name: 'description',
-                        content: data.seo.description
+                        // todo: `data.seo` deprecated
+                        content: data.page ? data.page.seo.description : data.seo.description
                     }
                 }
             ],

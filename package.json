@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "bluebird": "^3.0.5",
     "body-parser": "^1.13.1",
     "dotenv": "0.4.0",
     "express-bem": "1.0.1",

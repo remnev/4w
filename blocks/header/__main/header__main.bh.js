@@ -14,11 +14,11 @@ module.exports = function (bh) {
                     content: [
                         {
                             elem: 'phone-number',
-                            content: data.company.phone
+                            content: data.baseInfo ? data.baseInfo.company.phone : data.company.phone
                         },
                         {
                             elem: 'operation-time',
-                            content: data.company.operationTime
+                            content: data.baseInfo ? data.baseInfo.company.operationTime : data.company.operationTime
                         }
                     ]
                 }

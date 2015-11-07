@@ -38,20 +38,7 @@ module.exports = function (req, res) {
         ].join('')
     };
 
-    locals.mainMenu = [
-        {
-            title: 'Продукция',
-            url: '/products/'
-        },
-        {
-            title: 'Доставка',
-            url: '/delivery/'
-        },
-        {
-            title: 'Контакты',
-            url: '/contacts/'
-        }
-    ];
+    locals.mainMenu = require('../mock-data/main-menu');
 
     locals.company = {
         phone: '8 (495) 134-47-74',

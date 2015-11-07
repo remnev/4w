@@ -27,7 +27,8 @@ keystone.init({
     'cookie secret': 'gT+N?^">Pa3hk5i!}B,3>[sRlDFJs7&HKU`?neN4gK,#3PA`c)1c(;7Ri7OP.gt4',
     port: process.env.PORT,
     emails: 'jade-templates/emails',
-    'mandrill api key': process.env.MANDRILL_API_KEY
+    'mandrill api key': process.env.MANDRILL_API_KEY,
+    'wysiwyg menubar': true
 });
 
 keystone.import('models');
@@ -50,6 +51,7 @@ keystone.set('routes', function (app) { // eslint-disable-line no-shadow
     app.get('/products/:productSlug', controllers.product);
     app.get('/contacts', controllers.contacts);
     app.get('/delivery', controllers.delivery);
+    app.get('/payment', controllers.payment);
     app.post('/api/send-order', controllers['api-send-order']);
 });
 

@@ -21,9 +21,8 @@ var paths = {
         'bundles/*/blocks/**/*.js',
         'controllers/**/*.js',
         'lib/**/*.js',
-        // 'middleware/**/*.js',
+        'middleware/**/*.js',
         'models/**/*.js',
-        'updates/*.js',
         'test/**/*.js',
         '*.js'
     ],

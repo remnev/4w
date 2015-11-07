@@ -17,20 +17,7 @@ module.exports = function (req, res) {
             'Магазин оконных принадлежностей 4window предлагает доставку по всей России. Так же предусмотрен самовывоз.'
     };
 
-    locals.mainMenu = [
-        {
-            title: 'Продукция',
-            url: '/products/'
-        },
-        {
-            title: 'Доставка',
-            url: '/delivery/'
-        },
-        {
-            title: 'Контакты',
-            url: '/contacts/'
-        }
-    ];
+    locals.mainMenu = require('../mock-data/main-menu');
 
     locals.company = {
         phone: ' 8 (495) 134-47-74',
