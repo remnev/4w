@@ -10,9 +10,7 @@ function (provide, BEMDOM, channel, $) {
                 inited: function () {
                     this.$colors = this.elem('color');
 
-                    if (this.$colors.length === 1) {
-                        this.pickColor(this.$colors.eq(0));
-                    }
+                    this.pickColor(this.$colors.eq(0));
 
                     this.bindTo('color', 'click', this.colorClickHandler);
                 }
@@ -30,7 +28,7 @@ function (provide, BEMDOM, channel, $) {
                             .delMod(this.$colors, 'active')
                             .setMod(this.$colors, 'inactive')
                             .setMod('picked')
-                            .elem('pickedColor').text('— арт. ' + code + ' "' + title + '"');
+                            .elem('pickedColor').text('— код ' + code + ' "' + title + '"');
 
                         this.pickedColor = {
                             title: title,

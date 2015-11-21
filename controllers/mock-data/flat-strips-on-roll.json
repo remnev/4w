@@ -1,12 +1,12 @@
 {
   "slug": "flat-strips-on-roll",
   "name": "Нащельник в рулоне",
-  "description": "В рулоне 50 м. Материал ПВХ (твердый и мягкий). Самоклеящаяся пенообразная клейкая лента. Примененяется для внутренней и внешней отделки окон, лоджий, дверей. Гарантированное приклеивание к поверхности ПВХ до -15С.",
+  "description": "В рулоне 50 м. Материал ПВХ (твердый и мягкий). Самоклеящаяся пенообразная клейкая лента. Примененяется для внутренней и внешней отделки окон, лоджий, дверей. Гарантированное приклеивание к поверхности ПВХ до -15С.<br/><b>Внимание! Действует акция на белый цвет, мы предлагаем скидку -20%. См. таблицу цен ниже.</b>",
   "articles": [
       {
           "name": "FLR20LK",
           "price": {
-              "pure": 1500,
+              "pure": 1150,
               "laminate": 7400
           },
           "size": {
@@ -17,7 +17,7 @@
       {
           "name": "FLR30LK",
           "price": {
-              "pure": 1600,
+              "pure": 1200,
               "laminate": 7500
           },
           "size": {
@@ -28,7 +28,7 @@
       {
           "name": "FLR40LK",
           "price": {
-              "pure": 1700,
+              "pure": 1300,
               "laminate": 8000
           },
           "size": {
@@ -39,7 +39,7 @@
       {
           "name": "FLR50LK",
           "price": {
-              "pure": 1800,
+              "pure": 1400,
               "laminate": 8500
           },
           "size": {
@@ -50,8 +50,8 @@
       {
           "name": "FLR60LK",
           "price": {
-              "pure": 2000,
-              "laminate": 8800
+              "pure": 1600,
+              "laminate": 1280
           },
           "size": {
               "units": "мм",
@@ -61,7 +61,7 @@
       {
           "name": "FLR70LK",
           "price": {
-              "pure": 2200,
+              "pure": 1800,
               "laminate": 9100
           },
           "size": {
@@ -72,7 +72,7 @@
       {
           "name": "FLR80LK",
           "price": {
-              "pure": 2500,
+              "pure": 2000,
               "laminate": 9500
           },
           "size": {
@@ -83,7 +83,7 @@
       {
           "name": "FLR90LK",
           "price": {
-              "pure": 4500,
+              "pure": 4300,
               "laminate": 14000
           },
           "size": {
@@ -94,7 +94,7 @@
       {
           "name": "FLR100LK",
           "price": {
-              "pure": 4600,
+              "pure": 4500,
               "laminate": 16000
           },
           "size": {
@@ -146,12 +146,14 @@
     809905,
     851805,
     887505,
-    915205
+    0
   ],
   "photos": [
-      "/public/images/products/flat-strips-on-roll/3.jpg",
       "/public/images/products/flat-strips-on-roll/1.jpg",
-      "/public/images/products/flat-strips-on-roll/2.jpg"
+      "/public/images/products/flat-strips-on-roll/2.jpg",
+      "/public/images/products/flat-strips-on-roll/3.jpg",
+      "/public/images/products/flat-strips-on-roll/4.jpg"
   ],
-  "showPriceTable": true
+  "showPriceTable": true,
+  "discountPure": 20
 }

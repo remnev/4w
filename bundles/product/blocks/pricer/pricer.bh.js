@@ -52,29 +52,47 @@ module.exports = function (bh) {
         ];
 
         ctx.content(bemjson);
+
+        function generateRowBemjson(article) {
+            var purePriceValue = format('%s руб.', article.price.pure);
+
+            if (data.discountPure && typeof data.discountPure === 'number') {
+                purePriceValue = [
+                    {
+                        tag: 'strike',
+                        content: article.price.pure
+                    },
+                    ' ',
+                    {
+                        tag: 'b',
+                        content: article.price.pure - article.price.pure * .01 * data.discountPure
+                    },
+                    ' руб.'
+                ];
+            }
+
+            return {
+                tag: 'tr',
+                content: [
+                    {
+                        tag: 'td',
+                        content: article.name
+                    },
+                    {
+                        tag: 'td',
+                        content: format('%s %s', article.size.value, article.size.units)
+                    },
+                    {
+                        tag: 'td',
+                        content: purePriceValue
+                    },
+                    {
+                        tag: 'td',
+                        content: format('%s руб.', article.price.laminate)
+                    }
+                ]
+            };
+        }
     });
 };
 
-function generateRowBemjson(article) {
-    return {
-        tag: 'tr',
-        content: [
-            {
-                tag: 'td',
-                content: article.name
-            },
-            {
-                tag: 'td',
-                content: format('%s %s', article.size.value, article.size.units)
-            },
-            {
-                tag: 'td',
-                content: format('%s руб.', article.price.pure)
-            },
-            {
-                tag: 'td',
-                content: format('%s руб.', article.price.laminate)
-            }
-        ]
-    };
-}

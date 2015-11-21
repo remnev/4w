@@ -7,7 +7,8 @@ module.exports = function (bh) {
         ctx
             .js({
                 productName: data.name,
-                productSlug: data.slug
+                productSlug: data.slug,
+                productDiscountPure: data.discountPure
             })
             .content([
                 {

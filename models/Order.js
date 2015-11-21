@@ -117,6 +117,10 @@ Order.schema.methods.getPriceForItem = function (item) {
         }
     });
 
+    if (priceType === 'pure' && productData.discountPure && typeof productData.discountPure === 'number') {
+        price = price - price * .01 * productData.discountPure;
+    }
+
     return price;
 };
 

@@ -85,6 +85,10 @@ function (provide, BEMDOM, channel) {
 
             price = this.pickedArticle.price[priceType];
 
+            if (priceType === 'pure' && this.params.productDiscountPure && typeof this.params.productDiscountPure === 'number') {
+                price = price - price * .01 * this.params.productDiscountPure;
+            }
+
             this.price.setVal(price);
 
             this.updateCoast();
