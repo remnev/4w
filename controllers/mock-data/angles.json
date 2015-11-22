@@ -1,13 +1,13 @@
 {
   "slug": "angles",
   "name": "Уголок в рулоне",
-  "description": "В рулоне 50 м. Материал ПВХ (твердый или твердый и мягкий). Самоклеящаяся пенообразная клейкая лента. Примененяется для внутренней и внешней отделки окон, лоджий, дверей. Гарантированное приклеивание",
+  "description": "В рулоне 50 м. Материал ПВХ (твердый или твердый и мягкий). Самоклеящаяся пенообразная клейкая лента. Примененяется для внутренней и внешней отделки окон, лоджий, дверей. Гарантированное приклеивание к поверхности ПВХ до -15С. Цены указаны за рулон.",
   "articles": [
       {
           "name": "WKL15",
           "price": {
-              "pure": 2750,
-              "laminate": 7250
+              "pure": 1750,
+              "laminate": 7000
           },
           "size": {
               "units": "мм",
@@ -17,8 +17,8 @@
       {
           "name": "WKL25",
           "price": {
-              "pure": 3000,
-              "laminate": 8900
+              "pure": 2500,
+              "laminate": 8500
           },
           "size": {
               "units": "мм",
@@ -28,8 +28,8 @@
       {
           "name": "WKL30",
           "price": {
-              "pure": 3200,
-              "laminate": 9200
+              "pure": 2700,
+              "laminate": 8900
           },
           "size": {
               "units": "мм",
@@ -39,8 +39,8 @@
       {
           "name": "WKL40",
           "price": {
-              "pure": 3200,
-              "laminate": 9200
+              "pure": 2700,
+              "laminate": 8900
           },
           "size": {
               "units": "мм",
@@ -50,7 +50,7 @@
       {
           "name": "WKL35",
           "price": {
-              "pure": 3300,
+              "pure": 2900,
               "laminate": 9300
           },
           "size": {
@@ -104,6 +104,10 @@
     887505,
     0
   ],
-  "photos": [],
+  "photos": [
+    "/public/images/products/angles/1.jpg",
+    "/public/images/products/angles/2.jpg",
+    "/public/images/products/angles/3.jpg"
+  ],
   "showPriceTable": true
 }
