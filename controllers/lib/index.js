@@ -51,7 +51,7 @@ module.exports = function (req, res) {
                     photo: '/public/images/products/ugolok.jpg'
                 },
                 {
-                    title: 'Карандаши',
+                    title: 'Карандаши Fenster-Fix Premium',
                     slug: 'pens',
                     photo: '/public/images/products/pens.jpg'
                 }

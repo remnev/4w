@@ -79,7 +79,7 @@ module.exports = function (req, res) {
                 },
                 {
                     slug: 'pens',
-                    name: 'Карандаши'
+                    name: 'Карандаши Fenster-Fix Premium'
                 }
             ]
         },
