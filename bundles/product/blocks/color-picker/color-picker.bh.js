@@ -37,7 +37,7 @@ module.exports = function (bh) {
                 {
                     elem: 'title',
                     mods: {
-                        invisible: colors.main.length === 0
+                        invisible: true
                     },
                     content: 'Ламинированные, уже на складе'
                 },
@@ -48,7 +48,7 @@ module.exports = function (bh) {
                 {
                     elem: 'title',
                     mods: {
-                        invisible: colors.other.length === 0
+                        invisible: true
                     },
                     content: 'Ламинированные, под заказ 10 дней'
                 },
