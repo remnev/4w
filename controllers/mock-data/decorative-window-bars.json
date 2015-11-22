@@ -1,13 +1,13 @@
 {
   "slug": "decorative-window-bars",
-  "name": "Фальш-переплет в хлыстах",
-  "description": "В одной упаковке 12 пятиметровых хлыстов. Материал ПВХ (твердый и мягкий). Самоклеящаяся пенообразная клейкая лента. Наклеивается непосредственно на стеклопакет. Цены указаны за 1 хлыст.",
+  "name": "Фальш-переплет",
+  "description": "Материал ПВХ (твердый и мягкий). Самоклеящаяся пенообразная клейкая лента. Наклеивается непосредственно на стеклопакет. Цены указаны за 1 хлыст. Длина хлыста 5м.",
   "articles": [
       {
           "name": "G27",
           "price": {
-              "pure": 150,
-              "laminate": 600
+              "pure": 750,
+              "laminate": 3000
           },
           "size": {
               "units": "мм",
@@ -17,8 +17,8 @@
       {
           "name": "G47",
           "price": {
-              "pure": 280,
-              "laminate": 800
+              "pure": 1400,
+              "laminate": 4000
           },
           "size": {
               "units": "мм",
@@ -28,8 +28,8 @@
       {
           "name": "G77",
           "price": {
-              "pure": 600,
-              "laminate": 1500
+              "pure": 3000,
+              "laminate": 7500
           },
           "size": {
               "units": "мм",
@@ -39,8 +39,8 @@
       {
           "name": "G2610",
           "price": {
-              "pure": 90,
-              "laminate": 400
+              "pure": 450,
+              "laminate": 2000
           },
           "size": {
               "units": "мм",
@@ -93,6 +93,11 @@
     887505,
     0
   ],
-  "photos": [],
+  "photos": [
+    "/public/images/products/decorative-window-bars/1.jpg",
+    "/public/images/products/decorative-window-bars/2.jpg",
+    "/public/images/products/decorative-window-bars/3.jpg",
+    "/public/images/products/decorative-window-bars/4.jpg"
+  ],
   "showPriceTable": true
 }

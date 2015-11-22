@@ -41,7 +41,7 @@ module.exports = function (req, res) {
                     photo: '/public/images/products/naschelnik.jpg'
                 },
                 {
-                    title: 'Фальш-переплет в хлыстах',
+                    title: 'Фальш-переплет',
                     slug: 'decorative-window-bars',
                     photo: '/public/images/products/faslh-pereplet.jpg'
                 },

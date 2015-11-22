@@ -71,7 +71,7 @@ module.exports = function (req, res) {
                 },
                 {
                     slug: 'decorative-window-bars',
-                    name: 'Фальш-переплет в хлыстах'
+                    name: 'Фальш-переплет'
                 },
                 {
                     slug: 'angles',
