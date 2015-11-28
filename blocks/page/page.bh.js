@@ -11,7 +11,7 @@ module.exports = function (bh) {
         return {
             block: 'page',
             title: data.page ? data.page.seo.title : data.seo.title,
-            favicon: '/public/favicon.ico',
+            favicon: '/favicon.ico',
             head: [
                 {
                     elem: 'css',
