@@ -52,6 +52,7 @@ keystone.set('routes', function (app) { // eslint-disable-line no-shadow
     app.get('/contacts', controllers.contacts);
     app.get('/delivery', controllers.delivery);
     app.get('/payment', controllers.payment);
+    app.get('/warranty', controllers.warranty);
     app.post('/api/send-order', controllers['api-send-order']);
 });
 

@@ -12,6 +12,10 @@
     "url": "/payment/"
   },
   {
+    "title": "Гарантия",
+    "url": "/warranty/"
+  },
+  {
     "title": "Контакты",
     "url": "/contacts/"
   }

@@ -72,6 +72,7 @@ function (provide, BEMDOM, channel) {
         updatePrice: function () {
             var price;
             var priceType;
+            var productDiscountPure = this.params.productDiscountPure;
 
             if (this.colorPicker && !this.pickedColor || !this.pickedArticle) {
                 return this;
@@ -85,8 +86,8 @@ function (provide, BEMDOM, channel) {
 
             price = this.pickedArticle.price[priceType];
 
-            if (priceType === 'pure' && this.params.productDiscountPure && typeof this.params.productDiscountPure === 'number') {
-                price = price - price * .01 * this.params.productDiscountPure;
+            if (priceType === 'pure' && productDiscountPure && typeof productDiscountPure === 'number') {
+                price = price - price * .01 * productDiscountPure;
             }
 
             this.price.setVal(price);
