@@ -39,7 +39,7 @@
       {
           "name": "FLR50LK",
           "price": {
-              "pure": 1400,
+              "pure": 1500,
               "laminate": 8500
           },
           "size": {
@@ -50,7 +50,7 @@
       {
           "name": "FLR60LK",
           "price": {
-              "pure": 1600,
+              "pure": 1700,
               "laminate": 8700
           },
           "size": {
