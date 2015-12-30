@@ -4,10 +4,9 @@ var f = require('util').format;
 
 module.exports = function (bh) {
     bh.match('color-picker', function (ctx) {
-        var data = ctx.tParam('data');
-        var colors = data.colors;
+        var colors = ctx.tParam('data').productData.colors;
 
-        if (!colors.main.length && !colors.other.length && !colors.noLaminate.length) {
+        if (!colors.available.length && !colors.onRequest.length) {
             return false;
         }
 
@@ -25,65 +24,61 @@ module.exports = function (bh) {
                 },
                 {
                     elem: 'title',
-                    mods: {
-                        invisible: colors.noLaminate.length === 0
-                    },
                     content: 'Белый'
                 },
                 {
                     elem: 'colors',
-                    content: colors.noLaminate.map(generateColorBemjson)
+                    content: {
+                        elem: 'color',
+                        mods: {
+                            'no-laminate': true,
+                            size: 'l'
+                        },
+                        attrs: {
+                            'data-title': 'Белый',
+                            'data-code': null,
+                            'data-no-laminate': true
+                        }
+                    }
+                },
+                {
+                    elem: 'colors',
+                    content: colors.available.map(generateColorBemjson.bind(null, true))
                 },
                 {
                     elem: 'title',
                     mods: {
-                        invisible: true
+                        invisible: Boolean(colors.onRequest.length)
                     },
-                    content: 'Ламинированные, уже на складе'
+                    content: 'Под заказ 10 дней'
                 },
                 {
                     elem: 'colors',
-                    content: colors.main.map(generateColorBemjson)
-                },
-                {
-                    elem: 'title',
-                    mods: {
-                        invisible: true
-                    },
-                    content: 'Ламинированные, под заказ 10 дней'
-                },
-                {
-                    elem: 'colors',
-                    content: colors.other.map(generateColorBemjson)
+                    content: colors.onRequest.map(generateColorBemjson.bind(null, false))
                 }
             ]);
     });
 
-    function generateColorBemjson(data) {
-        var content = [{
-            elem: 'colorCode',
-            content: data.code
-        }];
-
-        if (data.isLaminate) {
-            content.unshift({
-                block: 'image',
-                url: f('/public/images/colors/%s.jpg', data.code)
-            });
-        }
-
+    function generateColorBemjson(isAvailable, data) {
         return {
             elem: 'color',
             mods: {
-                'no-laminate': !data.isLaminate,
-                size: data.isMainColor ? 'l' : 's'
+                size: isAvailable ? 'l' : 's'
             },
             attrs: {
                 'data-title': data.name,
-                'data-code': data.code,
-                'data-no-laminate': !data.isLaminate
+                'data-code': data.code
             },
-            content: content
+            content: [
+                {
+                    elem: 'colorCode',
+                    content: data.code
+                },
+                {
+                    block: 'image',
+                    url: f('/public/images/colors/%s.jpg', data.code)
+                }
+            ]
         };
     }
 };

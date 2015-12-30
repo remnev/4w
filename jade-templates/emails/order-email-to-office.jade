@@ -63,8 +63,9 @@ block body-contents
     table(style="width:100%; vertical-align: top; font-size: 11px;")
         tbody
             each item in data.params
-                tr
-                    td(style="border-top: 1px solid #6481b0;")= item.title
-                    td(style="width: 10px; border-right: 1px solid #6481b0; border-top: 1px solid #6481b0;")
-                    td(style="width: 10px; border-top: 1px solid #6481b0;")
-                    td(style="border-top: 1px solid #6481b0;")= item.value
+                if item.title !== 'Общая стоимость (руб.)'
+                    tr
+                        td(style="border-top: 1px solid #6481b0;")= item.title
+                        td(style="width: 10px; border-right: 1px solid #6481b0; border-top: 1px solid #6481b0;")
+                        td(style="width: 10px; border-top: 1px solid #6481b0;")
+                        td(style="border-top: 1px solid #6481b0;")= item.value

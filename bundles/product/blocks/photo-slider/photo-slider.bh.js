@@ -2,7 +2,7 @@
 
 module.exports = function (bh) {
     bh.match('photo-slider', function (ctx) {
-        var photos = ctx.tParam('data').currentProduct.photos;
+        var photos = ctx.tParam('data').productData.photos;
 
         if (photos.length < 1) {
             return;
@@ -15,7 +15,7 @@ module.exports = function (bh) {
                     elem: 'current',
                     content: {
                         block: 'image',
-                        url: photos[0]
+                        url: photos[0].url
                     }
                 },
                 {
@@ -28,7 +28,7 @@ module.exports = function (bh) {
     function generateThumbnail(data) {
         return {
             block: 'image',
-            url: data,
+            url: data.url,
             mix: {
                 block: 'photo-slider',
                 elem: 'thumbnail'

@@ -2,7 +2,7 @@
 
 module.exports = function (bh) {
     bh.match('size-picker', function (ctx) {
-        var data = ctx.tParam('data').currentProduct;
+        var data = ctx.tParam('data').productData;
 
         ctx
             .js(true)

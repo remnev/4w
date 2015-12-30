@@ -136,7 +136,7 @@ function (provide, BEMDOM, channel) {
             var coast = this.elem('order-description-coast');
 
             if (this.pickedColor) {
-                color.text('Цвет ' + this.pickedColor.title + ' (' + this.pickedColor.code + ')');
+                color.text('Цвет ' + this.pickedColor.title);
 
                 if (this.pickedColor.isLaminate) {
                     laminate.text('Ламинированный');
@@ -173,7 +173,7 @@ function (provide, BEMDOM, channel) {
 
             if (this.pickedColor) {
                 data.color = {
-                    name: this.pickedColor.title + ' (' + this.pickedColor.code + ')',
+                    name: this.pickedColor.title,
                     isMainColor: this.pickedColor.isMainColor
                 };
 

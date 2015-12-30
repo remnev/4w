@@ -4,7 +4,7 @@ var format = require('util').format;
 
 module.exports = function (bh) {
     bh.match('filter', function (ctx) {
-        var data = ctx.tParam('data').currentProduct;
+        var data = ctx.tParam('data').productData;
         var contentBemjson = [
             {
                 elem: 'title',

@@ -28,7 +28,7 @@ function (provide, BEMDOM, channel, $) {
                             .delMod(this.$colors, 'active')
                             .setMod(this.$colors, 'inactive')
                             .setMod('picked')
-                            .elem('pickedColor').text('— код ' + code + ' "' + title + '"');
+                            .elem('pickedColor').text('— "' + title + '"');
 
                         this.pickedColor = {
                             title: title,

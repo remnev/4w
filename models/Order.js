@@ -3,6 +3,7 @@
 var keystone = require('keystone');
 var format = require('util').format;
 var moment = require('moment');
+var Promise = require('bluebird');
 var Types = keystone.Field.Types;
 
 var Order = new keystone.List('Order', {
@@ -38,15 +39,13 @@ Order.add({
         required: true,
         initial: false
     },
+    coast: {
+        type: Number
+    },
     createdAt: {
         type: Date
     }
     // year-month: virtual
-    // coast: virtual
-});
-
-Order.schema.virtual('coast').get(function () {
-    return this.calculateOrderCoast();
 });
 
 Order.schema.virtual('year-month').get(function () {
@@ -92,42 +91,49 @@ Order.schema.methods.sendOrderEmailToBuyer = function (cb) {
 };
 
 Order.schema.methods.calculateOrderCoast = function () {
+    var self = this;
     var orderItems = JSON.parse(this.items);
     var coast = this.typeOfGetting === 'dim' ? 500 : 0;
 
-    orderItems.forEach(function (item) {
-        coast += this.getPriceForItem(item) * item.number;
-    }, this);
-
-    return coast;
+    return Promise
+        .reduce(orderItems, function(total, item) {
+            return self.getPriceForItem(item)
+                .then(function(itemPrice) {
+                    return total + itemPrice;
+                });
+        }, coast);
 };
 
 Order.schema.methods.getPriceForItem = function (item) {
-    var price;
-    var itemArticle = item.articleName;
-    var productSlug = item.productSlug;
     var priceType = item.isLaminate === 'true' ? 'laminate' : 'pure';
-    var productData = require(format('../controllers/mock-data/%s', productSlug));
 
-    productData.articles.forEach(function (article) {
-        if (article.name === itemArticle) {
-            price = article.price[priceType];
+    return Promise
+        .props({
+            article: keystone.list('Article').model
+                .findOne({name: item.articleName})
+                .select('price.pure price.laminate')
+                .exec(),
+            product: keystone.list('Product').model
+                .findOne({slug: item.productSlug})
+                .select('discountPure')
+                .exec()
+        })
+        .then(function (data) {
+            var price = data.article.price[priceType];
 
-            return;
-        }
-    });
-
-    if (priceType === 'pure' && productData.discountPure && typeof productData.discountPure === 'number') {
-        price = price - price * .01 * productData.discountPure;
-    }
-
-    return price;
+            return price - price * .01 * data.product.discountPure;
+        })
 };
 
 Order.schema.pre('save', function (next) {
     this.createdAt = new Date();
 
-    next();
+    this.calculateOrderCoast()
+        .bind(this)
+        .then(function (coast) {
+            this.coast = coast;
+        })
+        .done(next);
 });
 
 Order.schema.post('save', function () {

@@ -4,131 +4,83 @@
 var keystone = require('keystone');
 var f = require('util').format;
 var _ = require('lodash');
+var Promise = require('bluebird');
 var bundleName = __filename.match(/.*\/(.+).js$/)[1];
 
 module.exports = function (req, res) {
     var view = new keystone.View(req, res);
     var locals = res.locals;
-    var colors;
-
-    var products = [
-        require('../mock-data/flat-strips-on-roll'),
-        require('../mock-data/decorative-window-bars'),
-        require('../mock-data/angles'),
-        require('../mock-data/pens'),
-        require('../mock-data/handles-with-key'),
-        require('../mock-data/cleaning-kit')
-    ];
-
-    var currentProduct = locals.currentProduct = getCurrentProduct();
-
-    if (!currentProduct) {
-        res.send(404);
-        return;
-    }
 
     locals.bundleName = bundleName;
-    locals.bemjson = {block: 'root'};
+    locals.bemjson = {block: 'root'}; // todo: перенести в мидлварь
+    locals.mainMenu = require('../mock-data/main-menu'); // todo: брать из baseInfo
 
-    locals.seo = {
-        title: currentProduct.name + ' — цены, цвета, описание, купить в магазине 4window',
-        description: [
-            currentProduct.name + ': описание, фото, цвета, рамеры. Легко заказать на сайте или по телефону. ',
-            'Бесплатный самовывоз или выгодная доставка.'
-        ].join('')
-    };
+    Promise.resolve(
+        keystone.list('Product').model
+            .find({state: 'published'})
+            .select('slug name articles colors description aboutProduct photos showPriceTable type discountPure')
+            .populate('colors.available colors.onRequest articles')
+            .exec()
+    )
+        .then(function (products) {
+            var currentProduct = products.filter(function (product) {
+                return product.slug === req.params.productSlug;
+            })[0];
 
-    locals.mainMenu = require('../mock-data/main-menu');
+            if (!currentProduct) {
+                throw new Error('not found');
+            }
 
-    locals.company = {
-        phone: '8 (495) 134-47-74',
-        operationTime: 'пн — пт с 9:00 до 20:00'
-    };
+            return Promise.props({
+                baseInfo: keystone.list('BaseInfo').model
+                    .findOne()
+                    .select('company logo')
+                    .exec(),
+                page: keystone.list('PageProduct').model
+                    .findOne({slug: req.params.productSlug})
+                    .select('seo')
+                    .exec(),
+                productData: currentProduct,
+                breadcrumbs: [
+                    {
+                        title: 'Главная',
+                        url: '/'
+                    },
+                    {
+                        title: 'Каталог продукции',
+                        url: '/products/'
+                    },
+                    {
+                        title: currentProduct.name,
+                        url: f('/products/%s/', currentProduct.slug)
+                    }
+                ],
+                productsMenu: [
+                    {
+                        name: 'Для профессионалов',
+                        slug: 'prof',
+                        links: products.filter(function (product) {
+                            return product.type === 'prof';
+                        })
+                    },
+                    {
+                        name: 'Для дома',
+                        slug: 'home',
+                        links: products.filter(function (product) {
+                            return product.type === 'home';
+                        })
+                    }
+                ]
+            });
+        })
+        .done(
+            function (data) {
+                _.assign(locals, data);
 
-    locals.breadcrumbs = [
-        {
-            title: 'Главная',
-            url: '/'
-        },
-        {
-            title: 'Каталог продукции',
-            url: '/products/'
-        },
-        {
-            title: currentProduct.name,
-            url: f('/products/%s/', currentProduct.slug)
-        }
-    ];
-
-    locals.productsMenu = [
-        {
-            name: 'Для профессионалов',
-            slug: 'prof',
-            links: [
-                {
-                    slug: 'flat-strips-on-roll',
-                    name: 'Нащельник в рулоне'
-                },
-                {
-                    slug: 'decorative-window-bars',
-                    name: 'Фальш-переплет'
-                },
-                {
-                    slug: 'angles',
-                    name: 'Уголок в рулоне'
-                },
-                {
-                    slug: 'pens',
-                    name: 'Карандаши Fenster-Fix Premium'
-                }
-            ]
-        },
-        {
-            name: 'Для дома',
-            slug: 'home',
-            links: [
-                {
-                    slug: 'handles-with-key',
-                    name: 'Оконные ручки с ключом'
-                },
-                {
-                    slug: 'cleaning-kit',
-                    name: 'Набор для ухода за окнами'
-                }
-            ]
-        }
-    ];
-
-    colors = require('../mock-data/colors')
-        .filter(function (color) {
-            return _.includes(currentProduct.colors, color.code);
-        });
-
-    locals.colors = {
-        main: [],
-        noLaminate: [],
-        other: []
-    };
-
-    colors.forEach(function (color) {
-        if (!color.isLaminate) {
-            locals.colors.noLaminate.push(color);
-            return;
-        }
-
-        if (color.isMainColor) {
-            locals.colors.main.push(color);
-            return;
-        }
-
-        locals.colors.other.push(color);
-    });
-
-    view.render(bundleName);
-
-    function getCurrentProduct() {
-        return products.filter(function (product) {
-            return product.slug === req.params.productSlug;
-        })[0];
-    }
+                view.render(bundleName);
+            },
+            function (err) {
+                res.send(err.message === 'not found' ? 404 : 500);
+            }
+        );
 };

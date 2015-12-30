@@ -63,7 +63,7 @@ block body-contents
     table(style="width:100%; vertical-align: top; font-size: 11px;")
         tbody
             each item in data.params
-                if !(item.title == 'Общая стоимость (руб.)') || !(item.title == 'Электронная почта')
+                if (item.title !== 'Общая стоимость (руб.)' && item.title !== 'Электронная почта')
                     tr
                         td(style="border-top: 1px solid #6481b0;")= item.title
                         td(style="width: 10px; border-right: 1px solid #6481b0; border-top: 1px solid #6481b0;")

@@ -28,6 +28,7 @@ keystone.init({
     port: process.env.PORT,
     emails: 'jade-templates/emails',
     'mandrill api key': process.env.MANDRILL_API_KEY,
+    'cloudinary config': process.env.CLOUDINARY_URL,
     'wysiwyg menubar': true
 });
 
