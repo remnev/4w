@@ -145,7 +145,10 @@ function (provide, BEMDOM, channel) {
                 }
             }
 
-            if (this.pickedArticle && this.pickedArticle.size) {
+            if (this.pickedArticle &&
+                this.pickedArticle.size &&
+                this.pickedArticle.size.value &&
+                this.pickedArticle.size.units) {
                 size.text('Размеры ' + this.pickedArticle.size.value + this.pickedArticle.size.units);
             }
 

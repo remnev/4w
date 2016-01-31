@@ -1,7 +1,6 @@
 'use strict';
 
 var keystone = require('keystone');
-var format = require('util').format;
 var Types = keystone.Field.Types;
 
 var Product = new keystone.List('Product', {
@@ -24,6 +23,9 @@ Product.add({
         many: true,
         filters: {belongsTo: ':slug'}
     },
+    showPurePVC: {
+        type: Types.Boolean
+    },
     colors: {
         available: {
             type: Types.Relationship,
@@ -34,7 +36,7 @@ Product.add({
             type: Types.Relationship,
             ref: 'Color',
             many: true
-        },
+        }
     },
     description: {
         type: Types.Html,

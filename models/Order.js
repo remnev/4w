@@ -96,9 +96,9 @@ Order.schema.methods.calculateOrderCoast = function () {
     var coast = this.typeOfGetting === 'dim' ? 500 : 0;
 
     return Promise
-        .reduce(orderItems, function(total, item) {
+        .reduce(orderItems, function (total, item) {
             return self.getPriceForItem(item)
-                .then(function(itemPrice) {
+                .then(function (itemPrice) {
                     return total + itemPrice;
                 });
         }, coast);
@@ -122,7 +122,7 @@ Order.schema.methods.getPriceForItem = function (item) {
             var price = data.article.price[priceType];
 
             return price - price * .01 * data.product.discountPure;
-        })
+        });
 };
 
 Order.schema.pre('save', function (next) {

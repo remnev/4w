@@ -4,9 +4,10 @@ var f = require('util').format;
 
 module.exports = function (bh) {
     bh.match('color-picker', function (ctx) {
-        var colors = ctx.tParam('data').productData.colors;
+        var productData = ctx.tParam('data').productData;
+        var colors = productData.colors;
 
-        if (!colors.available.length && !colors.onRequest.length) {
+        if (!colors.available.length && !colors.onRequest.length && !productData.showPurePVC) {
             return false;
         }
 
@@ -24,11 +25,14 @@ module.exports = function (bh) {
                 },
                 {
                     elem: 'title',
+                    mods: {
+                        invisible: !productData.showPurePVC
+                    },
                     content: 'Белый'
                 },
                 {
                     elem: 'colors',
-                    content: {
+                    content: productData.showPurePVC && {
                         elem: 'color',
                         mods: {
                             'no-laminate': true,
@@ -42,15 +46,22 @@ module.exports = function (bh) {
                     }
                 },
                 {
+                    elem: 'title',
+                    mods: {
+                        invisible: colors.available.length === 0
+                    },
+                    content: 'Цвета по Renolit, в наличии'
+                },
+                {
                     elem: 'colors',
                     content: colors.available.map(generateColorBemjson.bind(null, true))
                 },
                 {
                     elem: 'title',
                     mods: {
-                        invisible: Boolean(colors.onRequest.length)
+                        invisible: colors.onRequest.length === 0
                     },
-                    content: 'Под заказ 10 дней'
+                    content: 'Цвета по Renolit, под заказ 10 дней'
                 },
                 {
                     elem: 'colors',
@@ -67,16 +78,13 @@ module.exports = function (bh) {
             },
             attrs: {
                 'data-title': data.name,
-                'data-code': data.code
+                'data-code': data.code,
+                style: f('background-image: url(\'/public/images/colors/%s.jpg\');', data.code)
             },
             content: [
                 {
                     elem: 'colorCode',
                     content: data.code
-                },
-                {
-                    block: 'image',
-                    url: f('/public/images/colors/%s.jpg', data.code)
                 }
             ]
         };

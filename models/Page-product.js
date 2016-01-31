@@ -1,7 +1,6 @@
 'use strict';
 
 var keystone = require('keystone');
-var Types = keystone.Field.Types;
 
 var PageProduct = new keystone.List('PageProduct', {
     label: 'Страница Продукта'

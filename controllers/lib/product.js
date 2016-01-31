@@ -10,6 +10,19 @@ var bundleName = __filename.match(/.*\/(.+).js$/)[1];
 module.exports = function (req, res) {
     var view = new keystone.View(req, res);
     var locals = res.locals;
+    var selectedFields = [
+        'slug',
+        'name',
+        'articles',
+        'showPurePVC',
+        'colors',
+        'description',
+        'aboutProduct',
+        'photos',
+        'showPriceTable',
+        'type',
+        'discountPure'
+    ];
 
     locals.bundleName = bundleName;
     locals.bemjson = {block: 'root'}; // todo: перенести в мидлварь
@@ -18,7 +31,7 @@ module.exports = function (req, res) {
     Promise.resolve(
         keystone.list('Product').model
             .find({state: 'published'})
-            .select('slug name articles colors description aboutProduct photos showPriceTable type discountPure')
+            .select(selectedFields.join(' '))
             .populate('colors.available colors.onRequest articles')
             .exec()
     )
