@@ -41,6 +41,16 @@ module.exports = function (req, res) {
                     photo: '/public/images/products/naschelnik.jpg'
                 },
                 {
+                    title: 'Нащельник в хлыстах',
+                    slug: 'flat-strips',
+                    photo: '/public/images/products/naschelnik-pure.jpg'
+                },
+                {
+                    title: 'Нащельник пустотелый',
+                    slug: 'cover-strips',
+                    photo: '/public/images/products/cover-strips.jpg'
+                },
+                {
                     title: 'Фальш-переплет',
                     slug: 'decorative-window-bars',
                     photo: '/public/images/products/faslh-pereplet.jpg'
