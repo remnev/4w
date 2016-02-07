@@ -25,7 +25,16 @@ Article.add({
     },
     belongsTo: {
         type: Types.Select,
-        options: 'angles, cleaning-kit, decorative-window-bars, flat-strips-on-roll, handles-with-key, pens'
+        options: [
+            'angles',
+            'cleaning-kit',
+            'decorative-window-bars',
+            'flat-strips-on-roll',
+            'flat-strips',
+            'cover-strips',
+            'handles-with-key',
+            'pens'
+        ]
     }
 });
 

@@ -6,7 +6,9 @@ var Types = keystone.Field.Types;
 var Product = new keystone.List('Product', {
     label: 'Продукт',
     singular: 'Продукт',
-    plural: 'Продукты'
+    plural: 'Продукты',
+    defaultSort: 'sortWeight',
+    defaultColumns: 'type, sortWeight'
 });
 
 Product.add({
@@ -89,6 +91,12 @@ Product.add({
         label: 'Скидка на белый ПВХ (%)',
         format: false,
         default: 0
+    },
+    sortWeight: {
+        type: Types.Number,
+        label: 'Вес сортировки',
+        format: false,
+        default: 1000
     }
 });
 

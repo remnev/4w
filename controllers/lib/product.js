@@ -33,6 +33,7 @@ module.exports = function (req, res) {
             .find({state: 'published'})
             .select(selectedFields.join(' '))
             .populate('colors.available colors.onRequest articles')
+            .sort('sortWeight')
             .exec()
     )
         .then(function (products) {

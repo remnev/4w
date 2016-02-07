@@ -7,7 +7,8 @@ var Color = new keystone.List('Color', {
     label: 'Цвет',
     singular: 'Цвет',
     plural: 'Цвета',
-    map: {name: 'name'}
+    map: {name: 'name'},
+    defaultColumns: 'code, title'
 });
 
 Color.add({

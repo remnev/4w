@@ -35,7 +35,7 @@ module.exports = function (bh) {
             return {
                 elem: 'link',
                 mods: {
-                    active: urlPath.indexOf(linkData.slug) !== -1 ? true : false
+                    active: urlPath.indexOf(linkData.slug + '/') !== -1
                 },
                 content: {
                     block: 'link',
