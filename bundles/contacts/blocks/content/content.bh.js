@@ -2,17 +2,17 @@
 
 module.exports = function (bh) {
     bh.match('content', function (ctx) {
-        var data = ctx.tParam('data');
+        var data = ctx.tParam('data').page;
 
         ctx.content([
             {
                 elem: 'header',
                 tag: 'h1',
-                content: 'Контакты'
+                content: data.title
             },
             {
                 elem: 'description',
-                content: data.description
+                content: data.text
             },
             {
                 elem: 'map',
