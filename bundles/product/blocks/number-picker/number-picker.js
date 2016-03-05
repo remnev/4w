@@ -168,6 +168,7 @@ function (provide, BEMDOM, channel) {
             data = {
                 productName: this.params.productName,
                 productSlug: this.params.productSlug,
+                ttd: this.params.productTtd.available,
                 size: this.pickedArticle.size ? this.pickedArticle.size.value + this.pickedArticle.size.units : null,
                 number: this.pickedNumber,
                 price: this.price.getVal(),
@@ -176,11 +177,15 @@ function (provide, BEMDOM, channel) {
 
             if (this.pickedColor) {
                 data.color = {
-                    name: this.pickedColor.title,
-                    isMainColor: this.pickedColor.isMainColor
+                    name: this.pickedColor.title
                 };
 
                 data.isLaminate = this.pickedColor.isLaminate;
+
+                // picked color available only on request
+                if (this.pickedColor.isOnRequest) {
+                    data.ttd = this.params.productTtd.onRequest;
+                }
             }
 
             channel('number-picker').emit('submitClick', data);

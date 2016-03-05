@@ -21,7 +21,8 @@ module.exports = function (req, res) {
         'photos',
         'showPriceTable',
         'type',
-        'discountPure'
+        'discountPure',
+        'ttd'
     ];
 
     locals.bundleName = bundleName;

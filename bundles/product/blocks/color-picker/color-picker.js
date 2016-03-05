@@ -34,7 +34,7 @@ function (provide, BEMDOM, channel, $) {
                             title: title,
                             code: code,
                             isLaminate: !elem.data('no-laminate'),
-                            isMainColor: this.hasMod(elem, 'size', 'l')
+                            isOnRequest: this.hasMod(elem, 'size', 's')
                         };
 
                         channel('color-picker').emit('colorChange', this.pickedColor);

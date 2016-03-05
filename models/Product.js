@@ -92,6 +92,20 @@ Product.add({
         format: false,
         default: 0
     },
+    ttd: {
+        available: {
+            type: Types.Number,
+            label: 'Срок доставки, наличие',
+            format: false,
+            default: 2
+        },
+        onRequest: {
+            type: Types.Number,
+            label: 'Срок доставки, под заказ',
+            format: false,
+            default: 10
+        }
+    },
     sortWeight: {
         type: Types.Number,
         label: 'Вес сортировки',

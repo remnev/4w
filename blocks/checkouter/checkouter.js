@@ -139,23 +139,19 @@ function (provide, BEMDOM, channel, bh, $) {
 
         getClosestDateToDeliver: function () {
             var orderItems = this.findBlockOutside('page').findBlockInside('order').getOrderItems();
-            var maxRemainingTimeForItem = 2; // in days
+            var maxRemainingTimeForItem = 1; // in days
 
-            orderItems.every(checkColorType);
+            orderItems.forEach(checkMaxTtd);
 
             return moment()
                 .locale('ru')
                 .add(maxRemainingTimeForItem, 'd')
                 .format('DD MMMM YYYY');
 
-            function checkColorType(item) {
-                if (item.color && !item.color.isMainColor) {
-                    maxRemainingTimeForItem = 10;
-
-                    return false;
+            function checkMaxTtd(item) {
+                if (item.ttd > maxRemainingTimeForItem) {
+                    maxRemainingTimeForItem = item.ttd;
                 }
-
-                return true;
             }
         },
 
