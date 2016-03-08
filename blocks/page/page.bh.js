@@ -55,6 +55,12 @@ module.exports = function (bh) {
                         trackLinks: true,
                         accurateTrackBounce: true
                     }
+                },
+                {
+                    block: 'google-tag-manager',
+                    params: {
+                        id: 'GTM-TGV26S'
+                    }
                 }
             ]
         };

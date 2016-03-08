@@ -4,6 +4,6 @@
   "dependencies": {
     "bem-core": "2.6.0",
     "bem-components": "2.1.0",
-    "bem-stat-counters": "1.0.0"
+    "bem-stat-counters": "1.1.0"
   }
 }
