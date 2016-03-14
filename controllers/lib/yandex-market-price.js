@@ -90,7 +90,7 @@ module.exports = function (req, res) {
             return _.map(articleData.price.toObject(), function (priceVal, priceKey) {
                 var offer = {
                     '@type': 'vendor.model',
-                    '@id': articleData.name.toLowerCase(),
+                    '@id': f('%s-%s', articleData.name.toLowerCase(), priceKey[0]),
                     '@available': true,
                     url: url.format({
                         protocol: 'http',
