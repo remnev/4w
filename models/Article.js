@@ -23,6 +23,15 @@ Article.add({
         units: {type: String},
         value: {type: String}
     },
+    weight: {
+        type: Number,
+        format: false,
+        note: 'в кг'
+    },
+    dimensions: {
+        type: String,
+        note: 'в см, длина/ширина/высота в упаковке'
+    },
     belongsTo: {
         type: Types.Select,
         options: [

@@ -22,7 +22,7 @@ module.exports = function (req, res) {
         'showPriceTable',
         'type',
         'discountPure',
-        'ttd'
+        'deliveryOptions'
     ];
 
     locals.bundleName = bundleName;

@@ -61,7 +61,7 @@ module.exports = function (bh) {
                     mods: {
                         invisible: colors.onRequest.length === 0
                     },
-                    content: f('Цвета по Renolit, под заказ %s дн.', productData.ttd.onRequest)
+                    content: f('Цвета по Renolit, под заказ %s дн.', productData.deliveryOptions.days.onRequest)
                 },
                 {
                     elem: 'colors',

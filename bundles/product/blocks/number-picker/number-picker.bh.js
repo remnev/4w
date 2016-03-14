@@ -9,7 +9,7 @@ module.exports = function (bh) {
                 productName: data.name,
                 productSlug: data.slug,
                 productDiscountPure: data.discountPure,
-                productTtd: data.ttd
+                productTtd: data.deliveryOptions.days
             })
             .content([
                 {
