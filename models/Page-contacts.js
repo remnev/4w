@@ -26,7 +26,7 @@ PageContacts.add(
             height: 500
         },
         map: {type: String},
-        panorama: {type: String},
+        panorama: {type: String}
     }
 );
 

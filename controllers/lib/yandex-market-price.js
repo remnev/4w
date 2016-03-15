@@ -8,6 +8,23 @@ var builder = require('xmlbuilder');
 var moment = require('moment');
 var url = require('url');
 var f = require('util').format;
+var selectedFields = [
+    'slug',
+    'articles',
+    'discountPure',
+    'type',
+    'yandexMarketCategory',
+    'yandexMarketPicture',
+    'yandexMarketStore',
+    'yandexMarketPickup',
+    'yandexMarketDelivery',
+    'deliveryOptions',
+    'name',
+    'vendor',
+    'yandexMarketDescription',
+    'yandexMarketSalesNotes',
+    'yandexMarketParams'
+];
 
 module.exports = function (req, res) {
     Promise.props({
@@ -17,7 +34,7 @@ module.exports = function (req, res) {
             .exec(),
         offers: keystone.list('Product').model
             .find({exportToYandexMarket: true})
-            .select('slug articles discountPure type yandexMarketCategory yandexMarketPicture yandexMarketStore yandexMarketPickup yandexMarketDelivery deliveryOptions name vendor yandexMarketDescription yandexMarketSalesNotes yandexMarketParams')
+            .select(selectedFields.join(' '))
             .populate('articles')
             .exec()
     })
@@ -29,7 +46,7 @@ module.exports = function (req, res) {
                 .send(xml);
         });
 
-    function getXml (data) {
+    function getXml(data) {
         var now = moment().format('YYYY-MM-DD HH:mm');
         var xml = builder
             .create('yml_catalog', {encoding: 'UTF-8'})
@@ -76,18 +93,19 @@ module.exports = function (req, res) {
                 newline: '\n'
             });
 
-            return xml;
+        return xml;
     }
 
     /**
      * Возвращает массив предложений для каждого артикула внутри продукта
      *
-     * @param  {Object} data Данные продукта
-     * @return {Array}       Массив предложений для продукта
+     * @param  {Object} productData Данные продукта
+     * @return {Array}              Массив предложений для продукта
      */
-    function getOffer (productData) {
+    function getOffer(productData) {
         return productData.articles.map(function (articleData) {
             return _.map(articleData.price.toObject(), function (priceVal, priceKey) {
+                var price = articleData.price[priceKey];
                 var offer = {
                     '@type': 'vendor.model',
                     '@id': articleData.name.toLowerCase() + priceKey[0],
@@ -103,7 +121,7 @@ module.exports = function (req, res) {
                     }),
                     currencyId: 'RUR',
                     categoryId: productData.type === 'prof' ? 1 : 2,
-                    market_category: productData.yandexMarketCategory,
+                    market_category: productData.yandexMarketCategory, // eslint-disable-line camelcase
                     picture: productData.yandexMarketPicture[priceKey].url,
                     store: productData.yandexMarketStore,
                     pickup: productData.yandexMarketPickup,
@@ -116,9 +134,12 @@ module.exports = function (req, res) {
                     },
                     typePrefix: productData.name,
                     vendor: productData.vendor,
-                    model: f('%s %s%s', priceKey === 'pure' ? 'Белый ПВХ' : 'Ламинированный', articleData.size.value, articleData.size.units),
+                    model: f('%s %s%s',
+                        priceKey === 'pure' ? 'Белый ПВХ' : 'Ламинированный',
+                        articleData.size.value,
+                        articleData.size.units),
                     description: productData.yandexMarketDescription.slice(0, 175),
-                    sales_notes: productData.yandexMarketSalesNotes,
+                    sales_notes: productData.yandexMarketSalesNotes, // eslint-disable-line camelcase
                     weight: articleData.weight,
                     dimensions: articleData.dimensions,
                     param: _.map(productData.yandexMarketParams.toObject(), function (paramVal) {
@@ -130,10 +151,10 @@ module.exports = function (req, res) {
                 };
 
                 if (priceKey === 'pure' && productData.discountPure) {
-                    offer.price = articleData.price[priceKey] - articleData.price[priceKey] * .01 * productData.discountPure;
-                    offer.oldprice = articleData.price[priceKey];
+                    offer.price = price - price * .01 * productData.discountPure;
+                    offer.oldprice = price;
                 } else {
-                    offer.price = articleData.price[priceKey];
+                    offer.price = price;
                 }
 
                 return offer;
