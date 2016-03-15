@@ -113,7 +113,7 @@ module.exports = function (req, res) {
                     url: url.format({
                         protocol: 'http',
                         hostname: '4window.ru',
-                        pathname: '/products/' + productData.slug,
+                        pathname: f('/products/%s/', productData.slug),
                         query: {
                             type: priceKey,
                             size: articleData.size.value
