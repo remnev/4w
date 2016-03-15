@@ -7,6 +7,8 @@
         {
             block: 'events',
             elem: 'channels'
-        }
+        },
+        {block: 'location'},
+        {block: 'next-tick'}
     ]
 }]);

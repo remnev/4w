@@ -28,6 +28,7 @@ module.exports = function (req, res) {
     locals.bundleName = bundleName;
     locals.bemjson = {block: 'root'}; // todo: перенести в мидлварь
     locals.mainMenu = require('../mock-data/main-menu'); // todo: брать из baseInfo
+    locals.query = req.query;
 
     Promise.resolve(
         keystone.list('Product').model

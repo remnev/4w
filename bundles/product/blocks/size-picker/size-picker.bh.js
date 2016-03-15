@@ -2,7 +2,12 @@
 
 module.exports = function (bh) {
     bh.match('size-picker', function (ctx) {
-        var data = ctx.tParam('data').productData;
+        var data = ctx.tParam('data');
+        var productData = data.productData;
+        var queriedArticle = productData.articles.filter(function (article) {
+            return article.size.value === data.query.size;
+        })[0];
+        var val = JSON.stringify(queriedArticle);
 
         ctx
             .js(true)
@@ -17,7 +22,8 @@ module.exports = function (bh) {
                 {
                     block: 'radio-group',
                     mods: {type: 'button'},
-                    options: data.articles.map(generateOptionBemjson)
+                    val: val,
+                    options: productData.articles.map(generateOptionBemjson)
                 }
             ]);
     });

@@ -198,6 +198,10 @@ function getLevels(config) {
             path: 'vendors/bem-stat-counters/common.blocks',
             check: false
         },
+        {
+            path: 'vendors/bem-history/common.blocks',
+            check: false
+        },
         'blocks',
         'bundles'
     ];
