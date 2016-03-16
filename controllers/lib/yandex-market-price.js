@@ -115,7 +115,7 @@ module.exports = function (req, res) {
                         hostname: '4window.ru',
                         pathname: f('/products/%s/', productData.slug),
                         query: {
-                            type: priceKey,
+                            'color-type': priceKey,
                             size: articleData.size.value
                         }
                     }),

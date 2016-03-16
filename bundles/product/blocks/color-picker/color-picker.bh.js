@@ -4,7 +4,9 @@ var f = require('util').format;
 
 module.exports = function (bh) {
     bh.match('color-picker', function (ctx) {
-        var productData = ctx.tParam('data').productData;
+        var data = ctx.tParam('data');
+        var colorType = data.query['color-type'];
+        var productData = data.productData;
         var colors = productData.colors;
 
         if (!colors.available.length && !colors.onRequest.length && !productData.showPurePVC) {
@@ -12,7 +14,9 @@ module.exports = function (bh) {
         }
 
         ctx
-            .js(true)
+            .js({
+                colorType: Array.isArray(colorType) ? colorType[0] : colorType
+            })
             .content([
                 {
                     elem: 'header',
@@ -36,6 +40,7 @@ module.exports = function (bh) {
                         elem: 'color',
                         mods: {
                             'no-laminate': true,
+                            'color-type': 'pure',
                             size: 'l'
                         },
                         attrs: {
@@ -74,7 +79,8 @@ module.exports = function (bh) {
         return {
             elem: 'color',
             mods: {
-                size: isAvailable ? 'l' : 's'
+                size: isAvailable ? 'l' : 's',
+                'color-type': 'laminate'
             },
             attrs: {
                 'data-title': data.name,
