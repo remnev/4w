@@ -76,7 +76,7 @@ function (provide, BEMDOM, channel, $, location) {
             var colorToPick;
 
             if (this.params.colorType === 'pure') {
-                colorToPick = $pureColors.eq(0)
+                colorToPick = $pureColors.eq(0);
             } else if (this.params.colorType === 'laminate') {
                 colorToPick = $laminateColors.eq(0);
             }
