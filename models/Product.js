@@ -154,7 +154,7 @@ Product.add(
         },
         yandexMarketDescription: {
             type: Types.Textarea,
-            note: 'Максимум 175 символов. Остальное будет обрезано.'
+            note: 'Максимум 150 символов. Остальное будет обрезано.'
         },
         yandexMarketSalesNotes: {
             type: String

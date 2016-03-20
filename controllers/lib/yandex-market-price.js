@@ -106,6 +106,10 @@ module.exports = function (req, res) {
         return productData.articles.map(function (articleData) {
             return _.map(articleData.price.toObject(), function (priceVal, priceKey) {
                 var price = articleData.price[priceKey];
+                var description = f('Размер %s %s. %s',
+                    articleData.size.value,
+                    articleData.size.units,
+                    productData.yandexMarketDescription.slice(0, 150));
                 var offer = {
                     '@type': 'vendor.model',
                     '@id': articleData.name.toLowerCase() + priceKey[0],
@@ -138,7 +142,7 @@ module.exports = function (req, res) {
                         priceKey === 'pure' ? 'Белый ПВХ' : 'Ламинированный',
                         articleData.size.value,
                         articleData.size.units),
-                    description: productData.yandexMarketDescription.slice(0, 175),
+                    description: description,
                     sales_notes: productData.yandexMarketSalesNotes, // eslint-disable-line camelcase
                     weight: articleData.weight,
                     dimensions: articleData.dimensions,
