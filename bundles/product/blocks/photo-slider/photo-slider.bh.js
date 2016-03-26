@@ -20,7 +20,10 @@ module.exports = function (bh) {
                 },
                 {
                     elem: 'thumbnails',
-                    content: photos.map(generateThumbnail)
+                    content: {
+                        elem: 'thumbnails-inner',
+                        content: photos.map(generateThumbnail)
+                    }
                 }
             ]);
     });
