@@ -60,6 +60,10 @@ Product.add(
         showPriceTable: {
             type: Types.Boolean
         },
+        valueForPrice: {
+            type: String,
+            label: 'Цены указаны ...'
+        },
         type: {
             type: Types.Select,
             default: 'prof',

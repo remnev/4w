@@ -22,7 +22,8 @@ module.exports = function (req, res) {
         'showPriceTable',
         'type',
         'discountPure',
-        'deliveryOptions'
+        'deliveryOptions',
+        'valueForPrice'
     ];
 
     locals.bundleName = bundleName;

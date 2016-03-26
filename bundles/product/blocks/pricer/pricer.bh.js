@@ -11,6 +11,10 @@ module.exports = function (bh) {
                 tag: 'h2',
                 content: 'Цены'
             },
+            data.valueForPrice && {
+                elem: 'value-for-price',
+                content: format('(%s)', data.valueForPrice)
+            },
             {
                 elem: 'table',
                 tag: 'table',
