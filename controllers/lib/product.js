@@ -28,7 +28,6 @@ module.exports = function (req, res) {
 
     locals.bundleName = bundleName;
     locals.bemjson = {block: 'root'}; // todo: перенести в мидлварь
-    locals.mainMenu = require('../mock-data/main-menu'); // todo: брать из baseInfo
     locals.query = req.query;
 
     Promise.resolve(
@@ -51,7 +50,8 @@ module.exports = function (req, res) {
             return Promise.props({
                 baseInfo: keystone.list('BaseInfo').model
                     .findOne()
-                    .select('company logo')
+                    .select('company logo mainMenu')
+                    .populate('mainMenu')
                     .exec(),
                 page: keystone.list('PageProduct').model
                     .findOne({slug: req.params.productSlug})

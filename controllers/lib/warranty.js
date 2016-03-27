@@ -12,7 +12,6 @@ module.exports = function (req, res) {
 
     locals.bundleName = bundleName;
     locals.bemjson = {block: 'root'};
-    locals.mainMenu = require('../mock-data/main-menu');
     locals.breadcrumbs = [
         {
             title: 'Главная',
@@ -27,7 +26,8 @@ module.exports = function (req, res) {
     Promise.props({
         baseInfo: keystone.list('BaseInfo').model
             .findOne()
-            .select('company logo')
+            .select('company logo mainMenu')
+            .populate('mainMenu')
             .exec(),
         page: keystone.list('PageWarranty').model
             .findOne()

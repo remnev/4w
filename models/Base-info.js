@@ -1,6 +1,7 @@
 'use strict';
 
 var keystone = require('keystone');
+var Types = keystone.Field.Types;
 
 var BaseInfo = new keystone.List('BaseInfo', {
     label: 'Общее для всех страниц',
@@ -22,6 +23,14 @@ BaseInfo.add(
         logo: {
             name: {type: String},
             title: {type: String}
+        }
+    },
+    'Главное меню',
+    {
+        mainMenu: {
+            type: Types.Relationship,
+            ref: 'MenuItem',
+            many: true
         }
     }
 );

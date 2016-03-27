@@ -5,7 +5,7 @@ module.exports = function (bh) {
         var data = ctx.tParam('data');
         var urlPath = data.urlPath;
 
-        ctx.content(data.mainMenu.map(generateItemBemjson));
+        ctx.content(data.baseInfo.mainMenu.map(generateItemBemjson));
 
         function generateItemBemjson(itemData) {
             return {
