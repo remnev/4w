@@ -3,7 +3,7 @@
 module.exports = function (bh) {
 
     bh.match('contacts', function (ctx) {
-        var data = ctx.tParam('data').contacts;
+        var data = ctx.tParam('data').baseInfo.company;
 
         ctx.content([
             {

@@ -2,6 +2,7 @@
 // TODO: jsdoc
 // TODO: test
 var keystone = require('keystone');
+var Promise = require('bluebird');
 var bundleName = __filename.match(/.*\/(.+).js$/)[1];
 
 module.exports = function (req, res) {
@@ -11,78 +12,52 @@ module.exports = function (req, res) {
     locals.bundleName = bundleName;
     locals.bemjson = {block: 'root'};
 
-    locals.seo = {
-        title: 'Магазин оконных принадлежностей — 4window',
-        description: [
-            'В магазине 4window вы можете купить все виды оконных принадлежностей: нащельник, фальш-переплет, уголки, ',
-            'карандаши и средства для ухода за окнами. Высокое качество, удобный интерфейс и низкие цены.'
-        ].join('')
-    };
-
-    locals.mainMenu = require('../mock-data/main-menu');
-
-    locals.contacts = {
-        phone: ' 8 (495) 134-47-74',
-        operationTime: 'пн — пт с 9:00 до 20:00'
-    };
-
-    locals.logo = {
-        name: '4window',
-        title: 'магазин оконных принадлежностей'
-    };
-
-    locals.products = {
-        prof: {
-            title: 'Товары для профессионалов',
-            items: [
-                {
-                    title: 'Нащельник в рулоне',
-                    slug: 'flat-strips-on-roll',
-                    photo: '/public/images/products/naschelnik.jpg'
+    Promise.props({
+        baseInfo: keystone.list('BaseInfo').model
+            .findOne()
+            .select('company logo mainMenu')
+            .populate('mainMenu')
+            .exec(),
+        page: keystone.list('PageIndex').model
+            .findOne()
+            .select('title seo')
+            .exec(),
+        products: keystone.list('Product').model
+            .find({state: 'published'})
+            .select('name slug photos type')
+            .sort('sortWeight')
+            .exec()
+    })
+        .done(function (data) {
+            locals.baseInfo = data.baseInfo;
+            locals.page = data.page;
+            locals.products = {
+                prof: {
+                    title: 'Товары для профессионалов',
+                    items: data.products
+                        .filter(function (product) {
+                            return product.type === 'prof';
+                        })
+                        .map(getProductData)
                 },
-                {
-                    title: 'Нащельник в хлыстах',
-                    slug: 'flat-strips',
-                    photo: '/public/images/products/naschelnik-pure.jpg'
-                },
-                {
-                    title: 'Нащельник пустотелый',
-                    slug: 'cover-strips',
-                    photo: '/public/images/products/cover-strips.jpg'
-                },
-                {
-                    title: 'Фальш-переплет',
-                    slug: 'decorative-window-bars',
-                    photo: '/public/images/products/faslh-pereplet.jpg'
-                },
-                {
-                    title: 'Уголок в рулоне',
-                    slug: 'angles',
-                    photo: '/public/images/products/ugolok.jpg'
-                },
-                {
-                    title: 'Карандаши Fenster-Fix Premium',
-                    slug: 'pens',
-                    photo: '/public/images/products/pens.jpg'
+                home: {
+                    title: 'Товары для дома',
+                    items: data.products
+                        .filter(function (product) {
+                            return product.type === 'home';
+                        })
+                        .map(getProductData)
                 }
-            ]
-        },
-        home: {
-            title: 'Товары для дома',
-            items: [
-                {
-                    title: 'Оконные ручки с ключом',
-                    slug: 'handles-with-key',
-                    photo: '/public/images/products/handles-with-key/1-for-main-page.jpg'
-                },
-                {
-                    title: 'Набор для ухода за окнами',
-                    slug: 'cleaning-kit',
-                    photo: '/public/images/products/cleaning-kit/1-for-main-page.jpg'
-                }
-            ]
-        }
-    };
+            };
 
-    view.render(bundleName);
+            view.render(bundleName);
+        });
+
+    function getProductData (product) {
+        return {
+            title: product.name,
+            slug: product.slug,
+            photo: product.photos[0].url
+        };
+    }
 };

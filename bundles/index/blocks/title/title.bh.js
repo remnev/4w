@@ -3,7 +3,7 @@
 module.exports = function (bh) {
 
     bh.match('title', function (ctx) {
-        var data = ctx.tParam('data').logo;
+        var data = ctx.tParam('data').baseInfo.logo;
 
         ctx
             .js(true)
