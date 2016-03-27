@@ -19,6 +19,6 @@ exports.create = {
         {
             title: 'Контакты',
             url: '/contacts/'
-        },
+        }
     ]
 };
