@@ -1,5 +1,6 @@
 .products__items {
     margin-top: 40px;
+    width: inherit;
 }
 
 .products__item {
@@ -9,6 +10,7 @@
     display: inline-block;
     overflow: hidden;
     margin-bottom: 20px;
+    width: inherit;
 }
 
 .products__item .image {
