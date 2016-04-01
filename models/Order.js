@@ -121,7 +121,11 @@ Order.schema.methods.getPriceForItem = function (item) {
         .then(function (data) {
             var price = data.article.price[priceType];
 
-            return price - price * .01 * data.product.discountPure;
+            if (priceType === 'pure') {
+                return price - price * .01 * data.product.discountPure;
+            }
+
+            return price;
         });
 };
 
