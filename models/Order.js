@@ -122,10 +122,10 @@ Order.schema.methods.getPriceForItem = function (item) {
             var price = data.article.price[priceType];
 
             if (priceType === 'pure') {
-                return price - price * .01 * data.product.discountPure;
+                return (price - price * .01 * data.product.discountPure) * item.number;
             }
 
-            return price;
+            return price * item.number;
         });
 };
 
