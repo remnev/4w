@@ -1,2 +1,3 @@
 User-agent: *
 Disallow: /keystone/
+Host: 4window.ru
