@@ -26,7 +26,21 @@ PageDelivery.add(
             wysiwyg: true,
             height: 500
         }
+    },
+    {
+        modifiedAt: {
+            type: Types.Date,
+            hidden: true
+        }
     }
 );
+
+PageDelivery.schema.pre('save', function (next) {
+    if (this.isModified()) {
+        this.modifiedAt = new Date();
+    }
+
+    next();
+});
 
 PageDelivery.register();

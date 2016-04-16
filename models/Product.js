@@ -177,7 +177,21 @@ Product.add(
                 name: {type: String}
             }
         }
+    },
+    {
+        modifiedAt: {
+            type: Types.Date,
+            hidden: true
+        }
     }
 );
+
+Product.schema.pre('save', function (next) {
+    if (this.isModified()) {
+        this.modifiedAt = new Date();
+    }
+
+    next();
+});
 
 Product.register();

@@ -27,7 +27,21 @@ PageContacts.add(
         },
         map: {type: String},
         panorama: {type: String}
+    },
+    {
+        modifiedAt: {
+            type: Types.Date,
+            hidden: true
+        }
     }
 );
+
+PageContacts.schema.pre('save', function (next) {
+    if (this.isModified()) {
+        this.modifiedAt = new Date();
+    }
+
+    next();
+});
 
 PageContacts.register();

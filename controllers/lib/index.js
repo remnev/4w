@@ -53,7 +53,7 @@ module.exports = function (req, res) {
             view.render(bundleName);
         });
 
-    function getProductData (product) {
+    function getProductData(product) {
         return {
             title: product.name,
             slug: product.slug,

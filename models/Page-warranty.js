@@ -26,7 +26,21 @@ PageWarranty.add(
             wysiwyg: true,
             height: 500
         }
+    },
+    {
+        modifiedAt: {
+            type: Types.Date,
+            hidden: true
+        }
     }
 );
+
+PageWarranty.schema.pre('save', function (next) {
+    if (this.isModified()) {
+        this.modifiedAt = new Date();
+    }
+
+    next();
+});
 
 PageWarranty.register();

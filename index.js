@@ -55,6 +55,7 @@ keystone.set('routes', function (app) { // eslint-disable-line no-shadow
     app.get('/payment', controllers.payment);
     app.get('/warranty', controllers.warranty);
     app.get('/yandex-market-price', controllers['yandex-market-price']);
+    app.get('/sitemap.xml', controllers.sitemap);
     app.post('/api/send-order', controllers['api-send-order']);
 });
 

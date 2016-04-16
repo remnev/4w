@@ -26,7 +26,21 @@ PagePayment.add(
             wysiwyg: true,
             height: 500
         }
+    },
+    {
+        modifiedAt: {
+            type: Types.Date,
+            hidden: true
+        }
     }
 );
+
+PagePayment.schema.pre('save', function (next) {
+    if (this.isModified()) {
+        this.modifiedAt = new Date();
+    }
+
+    next();
+});
 
 PagePayment.register();
