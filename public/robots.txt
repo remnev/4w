@@ -1,3 +1,4 @@
 User-agent: *
 Disallow: /keystone/
 Host: 4window.ru
+Sitemap: http://4window.ru/sitemap.xml
