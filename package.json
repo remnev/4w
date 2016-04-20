@@ -9,7 +9,7 @@
     "express-bem": "1.0.1",
     "express-bem-bh": "1.1.0",
     "glob": "4.3.2",
-    "keystone": "~0.2.32",
+    "keystone": "~0.3.17",
     "lodash": "^3.10.1",
     "moment": "^2.10.3",
     "xmlbuilder": "^5.0.1"

@@ -29,7 +29,11 @@ keystone.init({
     emails: 'jade-templates/emails',
     'mandrill api key': process.env.MANDRILL_API_KEY,
     'cloudinary config': process.env.CLOUDINARY_URL,
-    'wysiwyg menubar': true
+    'wysiwyg menubar': true,
+    app: app,
+    nav: {
+        users: 'users'
+    }
 });
 
 keystone.import('models');
@@ -58,12 +62,5 @@ keystone.set('routes', function (app) { // eslint-disable-line no-shadow
     app.get('/sitemap.xml', controllers.sitemap);
     app.post('/api/send-order', controllers['api-send-order']);
 });
-
-// Configure the navigation bar in Keystone's Admin UI
-keystone.set('nav', {
-    users: 'users'
-});
-
-keystone.connect(app);
 
 keystone.start();
