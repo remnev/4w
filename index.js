@@ -30,10 +30,7 @@ keystone.init({
     'mandrill api key': process.env.MANDRILL_API_KEY,
     'cloudinary config': process.env.CLOUDINARY_URL,
     'wysiwyg menubar': true,
-    app: app,
-    nav: {
-        users: 'users'
-    }
+    app: app
 });
 
 keystone.import('models');
@@ -61,6 +58,10 @@ keystone.set('routes', function (app) { // eslint-disable-line no-shadow
     app.get('/yandex-market-price', controllers['yandex-market-price']);
     app.get('/sitemap.xml', controllers.sitemap);
     app.post('/api/send-order', controllers['api-send-order']);
+});
+
+keystone.set('nav', {
+    users: 'users'
 });
 
 keystone.start();
