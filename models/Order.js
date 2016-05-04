@@ -54,7 +54,10 @@ Order.schema.virtual('year-month').get(function () {
 
 Order.schema.methods.sendOrderEmailToOffice = function (cb) {
     new keystone.Email('order-email-to-office').send({
-        to: 'orders@4window.ru',
+        to: {
+            name: '4window — магазин оконных принадлежностей',
+            email: 'orders@4window.ru'
+        },
         from: {
             name: '4window — магазин оконных принадлежностей',
             email: 'no-reply@4window.ru'
@@ -73,7 +76,10 @@ Order.schema.methods.sendOrderEmailToOffice = function (cb) {
 
 Order.schema.methods.sendOrderEmailToBuyer = function (cb) {
     new keystone.Email('order-email-to-buyer').send({
-        to: this.buyerEmail,
+        to: {
+            name: this.buyerEmail,
+            email: this.buyerEmail
+        },
         from: {
             name: '4window — магазин оконных принадлежностей',
             email: 'no-reply@4window.ru'
