@@ -24,10 +24,12 @@ keystone.init({
     auth: true,
     'user model': 'User',
     // TODO: get from .env
-    'cookie secret': 'gT+N?^">Pa3hk5i!}B,3>[sRlDFJs7&HKU`?neN4gK,#3PA`c)1c(;7Ri7OP.gt4',
+    'cookie secret': process.env.COOKIE_SECRET,
     port: process.env.PORT,
     emails: 'jade-templates/emails',
-    'mandrill api key': process.env.MANDRILL_API_KEY,
+    'email transport': 'mailgun',
+    'mailgun api key': process.env.MAILGUN_API_KEY,
+    'mailgun domain': '4window.ru',
     'cloudinary config': process.env.CLOUDINARY_URL,
     'wysiwyg menubar': true,
     app: app
