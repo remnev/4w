@@ -22,6 +22,7 @@ keystone.init({
     'auto update': true,
     session: true,
     auth: true,
+    mongo: process.env.MONGO_URI,
     'user model': 'User',
     // TODO: get from .env
     'cookie secret': process.env.COOKIE_SECRET,
