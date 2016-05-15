@@ -1,5 +1,7 @@
 'use strict';
 
+var _ = require('lodash');
+
 module.exports = function (bh) {
 
     bh.match('page', function (ctx) {
@@ -13,6 +15,10 @@ module.exports = function (bh) {
                 mods: {type: 'home'}
             }
         );
+
+        _.remove(ctx.json().content, function (item) {
+            return item.block === 'footer';
+        });
     });
 
 };

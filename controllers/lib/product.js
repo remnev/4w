@@ -58,6 +58,7 @@ module.exports = function (req, res) {
                     .select('seo')
                     .exec(),
                 productData: currentProduct,
+                products: products,
                 breadcrumbs: [
                     {
                         title: 'Главная',

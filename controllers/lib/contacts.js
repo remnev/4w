@@ -32,6 +32,11 @@ module.exports = function (req, res) {
         page: keystone.list('PageContacts').model
             .findOne()
             .select('title seo text map panorama')
+            .exec(),
+        products: keystone.list('Product').model
+            .find({state: 'published'})
+            .select('slug name type')
+            .sort('sortWeight')
             .exec()
     })
         .done(function (data) {
