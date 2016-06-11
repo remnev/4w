@@ -21,7 +21,8 @@ module.exports = function (req, res) {
         'photos',
         'showPriceTable',
         'type',
-        'discountPure',
+        'baseDiscount',
+        'numberDiscount',
         'deliveryOptions',
         'valueForPrice'
     ];

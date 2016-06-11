@@ -19,6 +19,7 @@ function (provide, BEMDOM, channel) {
                     this.pickedColor = this.colorPicker ? this.colorPicker.pickedColor : null;
                     this.pickedArticle = this.filter.params.singleArticle;
                     this.pickedNumber = 1;
+                    this.priceVal = 0;
 
                     if (this.pickedColor || this.pickedArticle) {
                         this
@@ -43,7 +44,7 @@ function (provide, BEMDOM, channel) {
             this.pickedNumber = this.counter.getVal();
 
             this
-                .updateCoast()
+                .updatePrice()
                 .updateOrderDescription();
         },
 
@@ -70,9 +71,7 @@ function (provide, BEMDOM, channel) {
         },
 
         updatePrice: function () {
-            var price;
             var priceType;
-            var productDiscountPure = this.params.productDiscountPure;
 
             if (this.colorPicker && !this.pickedColor || !this.pickedArticle) {
                 return this;
@@ -84,13 +83,9 @@ function (provide, BEMDOM, channel) {
                 priceType = 'pure';
             }
 
-            price = this.pickedArticle.price[priceType];
+            this.priceVal = this.pickedArticle.price[priceType];
 
-            if (priceType === 'pure' && productDiscountPure && typeof productDiscountPure === 'number') {
-                price = price - price * .01 * productDiscountPure;
-            }
-
-            this.price.setVal(price);
+            this.price.setVal(this.priceVal - this.calculateDiscount(this.priceVal, priceType));
 
             this.updateCoast();
 
@@ -171,7 +166,8 @@ function (provide, BEMDOM, channel) {
                 ttd: this.params.productTtd.available,
                 size: this.pickedArticle.size ? this.pickedArticle.size.value + this.pickedArticle.size.units : null,
                 number: this.pickedNumber,
-                price: this.price.getVal(),
+                price: this.priceVal,
+                discount: this.params.productDiscount,
                 articleName: this.pickedArticle.name
             };
 
@@ -189,6 +185,19 @@ function (provide, BEMDOM, channel) {
             }
 
             channel('number-picker').emit('submitClick', data);
+        },
+
+        calculateDiscount: function (basePrice, priceType) {
+            var number = this.counter.getVal();
+            var discountData = this.params.productDiscount;
+            var baseDiscount = basePrice * 0.01 * discountData.base[priceType];
+            var numberDiscount = 0;
+
+            if (number >= discountData.number[priceType].number) {
+                numberDiscount = basePrice * 0.01 * discountData.number[priceType].value;
+            }
+
+            return baseDiscount + numberDiscount;
         }
     }));
 

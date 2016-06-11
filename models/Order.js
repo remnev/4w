@@ -53,6 +53,8 @@ Order.schema.virtual('year-month').get(function () {
 });
 
 Order.schema.methods.sendOrderEmailToOffice = function (cb) {
+    var items = JSON.parse(this.items).map(getItems);
+
     new keystone.Email('order-email-to-office').send({
         to: {
             name: '4window — магазин оконных принадлежностей',
@@ -66,7 +68,7 @@ Order.schema.methods.sendOrderEmailToOffice = function (cb) {
         data: {
             orderId: this.orderId,
             createdAt: moment(this.createdAt).format('DD.MM.YYYY'),
-            items: JSON.parse(this.items),
+            items: items,
             params: JSON.parse(this.params),
             coast: this.coast,
             typeOfGetting: this.typeOfGetting
@@ -75,6 +77,8 @@ Order.schema.methods.sendOrderEmailToOffice = function (cb) {
 };
 
 Order.schema.methods.sendOrderEmailToBuyer = function (cb) {
+    var items = JSON.parse(this.items).map(getItems);
+
     new keystone.Email('order-email-to-buyer').send({
         to: {
             name: this.buyerEmail,
@@ -88,7 +92,7 @@ Order.schema.methods.sendOrderEmailToBuyer = function (cb) {
         data: {
             orderId: this.orderId,
             createdAt: moment(this.createdAt).format('DD.MM.YYYY'),
-            items: JSON.parse(this.items),
+            items: items,
             params: JSON.parse(this.params),
             coast: this.coast,
             typeOfGetting: this.typeOfGetting
@@ -121,17 +125,13 @@ Order.schema.methods.getPriceForItem = function (item) {
                 .exec(),
             product: keystone.list('Product').model
                 .findOne({slug: item.productSlug})
-                .select('discountPure')
+                .select('baseDiscount numberDiscount')
                 .exec()
         })
         .then(function (data) {
             var price = data.article.price[priceType];
 
-            if (priceType === 'pure') {
-                return (price - price * .01 * data.product.discountPure) * item.number;
-            }
-
-            return price * item.number;
+            return item.number * (price - calculateDiscount(price, priceType, item.number, data.product));
         });
 };
 
@@ -161,3 +161,38 @@ Order.schema.post('save', function () {
 });
 
 Order.register();
+
+function calculateDiscount(basePrice, priceType, number, discountData) {
+    var baseDiscount = basePrice * 0.01 * discountData.baseDiscount[priceType];
+    var numberDiscount = 0;
+
+    if (number >= discountData.numberDiscount[priceType].number) {
+        numberDiscount = basePrice * 0.01 * discountData.numberDiscount[priceType].value;
+    }
+
+    return baseDiscount + numberDiscount;
+}
+
+function getItems(item) {
+    var priceType = item.isLaminate === 'true' ? 'laminate' : 'pure';
+    var discountData = {
+        baseDiscount: {
+            pure: item.discount.base.pure,
+            laminate: item.discount.base.laminate
+        },
+        numberDiscount: {
+            pure: {
+                number: item.discount.number.pure.number,
+                value: item.discount.number.pure.value
+            },
+            laminate: {
+                number: item.discount.number.laminate.number,
+                value: item.discount.number.laminate.value
+            }
+        }
+    };
+
+    item.price = item.price - calculateDiscount(item.price, priceType, item.number, discountData);
+
+    return item;
+}

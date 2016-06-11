@@ -166,12 +166,16 @@ function (provide, channel, bh, $, BEMDOM) {
                         },
                         {
                             tag: 'td',
-                            content: 'Цена (руб.)'
+                            content: 'Цена за шт. (₽)'
+                        },
+                        {
+                            tag: 'td',
+                            content: 'Стоимость (₽)'
                         },
                         {tag: 'td'}
                     ]
                 }
-            ].concat(orderItems.map(this.generateOrderItemBemjson));
+            ].concat(orderItems.map(this.generateOrderItemBemjson, this));
 
             BEMDOM.update(this.addToOrderModalItems, bh.apply(orderItemsBemjson));
 
@@ -220,6 +224,9 @@ function (provide, channel, bh, $, BEMDOM) {
 
         generateOrderItemBemjson: function (data) {
             var title = data.productName;
+            var priceType = data.isLaminate ? 'laminate' : 'pure';
+            var price = data.price - this.calculateDiscount(data.price, priceType, data.number, data.discount);
+            var coast = price * data.number;
 
             if (data.color) {
                 title += ', ' + data.color.name;
@@ -263,7 +270,19 @@ function (provide, channel, bh, $, BEMDOM) {
                                 block: 'order',
                                 elem: 'add-to-order-modal-price'
                             },
-                            val: data.price
+                            val: price
+                        }
+                    },
+                    {
+                        tag: 'td',
+                        content: {
+                            block: 'input',
+                            mods: {disabled: true},
+                            mix: {
+                                block: 'order',
+                                elem: 'add-to-order-modal-line-coast'
+                            },
+                            val: coast
                         }
                     },
                     {
@@ -316,8 +335,11 @@ function (provide, channel, bh, $, BEMDOM) {
             }
 
             items.forEach(function (item) {
-                coast += item.number * item.price;
-            });
+                var priceType = item.isLaminate ? 'laminate' : 'pure';
+                var discount = this.calculateDiscount(item.price, priceType, item.number, item.discount);
+
+                coast += item.number * (item.price - discount);
+            }, this);
 
             return coast;
         },
@@ -333,7 +355,7 @@ function (provide, channel, bh, $, BEMDOM) {
 
             localStorage.setItem('order:items', JSON.stringify(items));
 
-            this.reCalcCoast();
+            this.showAddToOrderModal();
 
             return this;
         },
@@ -348,6 +370,17 @@ function (provide, channel, bh, $, BEMDOM) {
             }
 
             return itemName;
+        },
+
+        calculateDiscount: function (basePrice, priceType, number, discountData) {
+            var baseDiscount = basePrice * 0.01 * discountData.base[priceType];
+            var numberDiscount = 0;
+
+            if (number >= discountData.number[priceType].number) {
+                numberDiscount = basePrice * 0.01 * discountData.number[priceType].value;
+            }
+
+            return baseDiscount + numberDiscount;
         }
     });
 

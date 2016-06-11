@@ -8,7 +8,10 @@ module.exports = function (bh) {
             .js({
                 productName: data.name,
                 productSlug: data.slug,
-                productDiscountPure: data.discountPure,
+                productDiscount: {
+                    base: data.baseDiscount,
+                    number: data.numberDiscount
+                },
                 productTtd: data.deliveryOptions.days
             })
             .content([

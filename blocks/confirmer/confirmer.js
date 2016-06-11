@@ -26,13 +26,29 @@ function (provide, BEMDOM, channel, bh) {
                 elem: 'modal',
                 orderItemsBemjson: orderBlock
                     .getOrderItems()
-                    .map(this.generateOrderItemBemjson),
+                    .map(this.generateOrderItemBemjson, this),
                 orderDeliveryItemBemjson: checkouterBlock
                     .typeOfGettingRG
                     .getVal() === 'dim' ? this.generateOrderItemBemjson({
                         productName: 'Доставка в пределах МКАД',
                         number: 1,
-                        price: 500
+                        price: 500,
+                        discount: {
+                            base: {
+                                laminate: 0,
+                                pure: 0
+                            },
+                            number: {
+                                laminate: {
+                                    laminate: 0,
+                                    pure: 0
+                                },
+                                pure: {
+                                    laminate: 0,
+                                    pure: 0
+                                }
+                            }
+                        }
                     }) : '',
                 orderParamsBemjson: checkouterBlock
                     .getPickedParams()
@@ -67,6 +83,9 @@ function (provide, BEMDOM, channel, bh) {
         },
 
         generateOrderItemBemjson: function (data) {
+            var priceType = data.isLaminate ? 'laminate' : 'pure';
+            var price = data.price - this.calculateDiscount(data.price, priceType, data.number, data.discount);
+
             return {
                 block: 'confirmer',
                 elem: 'order-item',
@@ -94,7 +113,7 @@ function (provide, BEMDOM, channel, bh) {
                         content: {
                             block: 'confirmer',
                             elem: 'order-item-price',
-                            content: data.price
+                            content: price
                         }
                     },
                     {
@@ -102,7 +121,7 @@ function (provide, BEMDOM, channel, bh) {
                         content: {
                             block: 'confirmer',
                             elem: 'order-item-coast',
-                            content: data.number * data.price
+                            content: data.number * price
                         }
                     }
                 ]
@@ -135,6 +154,18 @@ function (provide, BEMDOM, channel, bh) {
             this.closeModal();
 
             channel('order').emit('send');
+        },
+
+        calculateDiscount: function (basePrice, priceType, number, discountData) {
+            console.log(arguments);
+            var baseDiscount = basePrice * 0.01 * discountData.base[priceType];
+            var numberDiscount = 0;
+
+            if (number >= discountData.number[priceType].number) {
+                numberDiscount = basePrice * 0.01 * discountData.number[priceType].value;
+            }
+
+            return baseDiscount + numberDiscount;
         }
     }));
 

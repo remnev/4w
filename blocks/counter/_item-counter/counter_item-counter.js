@@ -6,15 +6,6 @@ modules.define(
 function (provide, channel, $, BEMDOM) {
 
     BEMDOM.decl({block: 'counter', modName: 'item-counter'}, {
-        onSetMod: {
-            js: {
-                inited: function () {
-                    this.__base.apply(this, arguments);
-
-                    this.input.emit('change');
-                }
-            }
-        },
 
         inputChangeHandler: function () {
             var itemId;
@@ -33,12 +24,13 @@ function (provide, channel, $, BEMDOM) {
 
             channel('order').emit('change-item-number', data);
         }
+
     }, {
+
         live: function () {
-            this
-                .liveInitOnEvent('pointerover')
-                .liveInitOnBlockInsideEvent('change', 'input');
+            this.liveInitOnEvent('pointerover');
         }
+
     });
 
     provide(BEMDOM);

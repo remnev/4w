@@ -94,13 +94,6 @@ Product.add(
                 }
             ]
         },
-        // todo: сделать это объектом discount: {pure: 1, laminate: 2}
-        discountPure: {
-            type: Types.Number,
-            label: 'Скидка на белый ПВХ (%)',
-            format: false,
-            default: 0
-        },
         deliveryOptions: {
             days: {
                 available: {
@@ -126,6 +119,57 @@ Product.add(
             label: 'Вес сортировки',
             format: false,
             default: 1000
+        }
+    },
+    'Настройки скидки',
+    {
+        baseDiscount: {
+            pure: {
+                type: Types.Number,
+                label: 'Скидка на белый ПВХ (%)',
+                format: false,
+                default: 0
+            },
+            laminate: {
+                type: Types.Number,
+                label: 'Скидка на ламинат (%)',
+                format: false,
+                default: 0
+            }
+        },
+        numberDiscount: {
+            pure: {
+                number: {
+                    type: Types.Number,
+                    label: 'Количество товара, чтобы получить скидку (шт)',
+                    note: 'Белый ПВХ',
+                    format: false,
+                    default: 0
+                },
+                value: {
+                    type: Types.Number,
+                    label: 'Скидка, если нужное количество товара (%)',
+                    note: 'Белый ПВХ',
+                    format: false,
+                    default: 0
+                }
+            },
+            laminate: {
+                number: {
+                    type: Types.Number,
+                    label: 'Количество товара, чтобы получить скидку (шт)',
+                    note: 'Ламинат',
+                    format: false,
+                    default: 0
+                },
+                value: {
+                    type: Types.Number,
+                    label: 'Скидка, если нужное количество товара (%)',
+                    note: 'Ламинат',
+                    format: false,
+                    default: 0
+                }
+            }
         }
     },
     'Настройки для Яндекс Маркета',
