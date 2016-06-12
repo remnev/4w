@@ -3,6 +3,7 @@
 var keystone = require('keystone');
 var format = require('util').format;
 var moment = require('moment');
+var uniqId = require('unique-id');
 var Promise = require('bluebird');
 var Types = keystone.Field.Types;
 
@@ -49,7 +50,7 @@ Order.add({
 });
 
 Order.schema.virtual('year-month').get(function () {
-    return moment(this.createdAt).format('YYww');
+    return format('%s%s', moment(this.createdAt).format('YYww'), uniqId(2, '0123456789'));
 });
 
 Order.schema.methods.sendOrderEmailToOffice = function (cb) {
