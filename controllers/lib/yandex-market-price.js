@@ -11,7 +11,8 @@ var f = require('util').format;
 var selectedFields = [
     'slug',
     'articles',
-    'discountPure',
+    'baseDiscount',
+    'numberDiscount',
     'type',
     'yandexMarketCategory',
     'yandexMarketPicture',
@@ -154,8 +155,8 @@ module.exports = function (req, res) {
                     })
                 };
 
-                if (priceKey === 'pure' && productData.discountPure) {
-                    offer.price = price - price * .01 * productData.discountPure;
+                if (productData.baseDiscount[priceKey]) {
+                    offer.price = price - price * .01 * productData.baseDiscount[priceKey];
                     offer.oldprice = price;
                 } else {
                     offer.price = price;
