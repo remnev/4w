@@ -117,7 +117,11 @@ module.exports = function (bh) {
                     data.numberDiscount.pure.number > 0 && {
                         tag: 'td',
                         content: [
-                            article.price.pure - article.price.pure * .01 * data.numberDiscount.pure.value,
+                            article.price.pure -
+                            (
+                                article.price.pure * .01 * data.numberDiscount.pure.value +
+                                article.price.pure * .01 * data.baseDiscount.pure
+                            ),
                             ' руб.'
                         ]
                     },
@@ -128,7 +132,11 @@ module.exports = function (bh) {
                     data.numberDiscount.laminate.number > 0 && {
                         tag: 'td',
                         content: [
-                            article.price.laminate - article.price.laminate * .01 * data.numberDiscount.laminate.value,
+                            article.price.laminate -
+                            (
+                                article.price.laminate * .01 * data.numberDiscount.laminate.value +
+                                article.price.laminate * .01 * data.baseDiscount.laminate
+                            ),
                             ' руб.'
                         ]
                     }
