@@ -108,7 +108,7 @@ module.exports = function (req, res) {
             return _.map(articleData.price.toObject(), function (priceVal, priceKey) {
                 var price = articleData.price[priceKey];
                 var description = f('Размер %s %s. %s',
-                    articleData.size.value,
+                    articleData.size.value || 'n/a',
                     articleData.size.units,
                     productData.yandexMarketDescription.slice(0, 150));
                 var offer = {
