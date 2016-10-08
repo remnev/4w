@@ -157,7 +157,6 @@ function (provide, BEMDOM, channel, bh) {
         },
 
         calculateDiscount: function (basePrice, priceType, number, discountData) {
-            console.log(arguments);
             var baseDiscount = basePrice * 0.01 * discountData.base[priceType];
             var numberDiscount = 0;
 

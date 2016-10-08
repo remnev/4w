@@ -12,7 +12,7 @@ function (provide, BEMDOM, channel, bh, $) {
         phoneValue: '',
         emailValue: '',
         typeOfGetting: 'dim',
-        typeOfPayment: 'cc',
+        typeOfPayment: 'cache',
 
         onSetMod: {
             js: {
@@ -474,12 +474,12 @@ function (provide, BEMDOM, channel, bh, $) {
         getTypeOfPaymentOptions: function () {
             return [
                 {
-                    val: 'cc',
-                    text: 'Пластиковая карта'
-                },
-                {
                     val: 'cache',
                     text: 'Наличные'
+                },
+                {
+                    val: 'cc',
+                    text: 'Пластиковая карта'
                 }
             ];
         }
