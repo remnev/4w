@@ -167,7 +167,7 @@ function calculateDiscount(basePrice, priceType, number, discountData) {
     var baseDiscount = basePrice * 0.01 * discountData.baseDiscount[priceType];
     var numberDiscount = 0;
 
-    if (number >= discountData.numberDiscount[priceType].number) {
+    if (parseInt(number, 10) >= discountData.numberDiscount[priceType].number) {
         numberDiscount = basePrice * 0.01 * discountData.numberDiscount[priceType].value;
     }
 
