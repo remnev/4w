@@ -136,7 +136,7 @@ module.exports = function (req, res) {
                 offer = {
                     '@type': 'vendor.model',
                     '@id': articleData.name.toLowerCase() + colorType[0],
-                    '@available': true,
+                    '@available': availability === 'available',
                     url: url.format({
                         protocol: 'http',
                         hostname: '4window.ru',
