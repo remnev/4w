@@ -6,6 +6,7 @@ module.exports = function (bh) {
     bh.match('color-picker', function (ctx) {
         var data = ctx.tParam('data');
         var colorType = data.query['color-type'];
+        var color = data.query.color;
         var productData = data.productData;
         var colors = productData.colors;
 
@@ -15,7 +16,8 @@ module.exports = function (bh) {
 
         ctx
             .js({
-                colorType: Array.isArray(colorType) ? colorType[0] : colorType
+                colorType: Array.isArray(colorType) ? colorType[0] : colorType,
+                color: Array.isArray(color) ? color[0] : color
             })
             .content([
                 {

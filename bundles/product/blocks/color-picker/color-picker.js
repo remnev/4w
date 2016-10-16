@@ -58,9 +58,9 @@ function (provide, BEMDOM, channel, $, location) {
 
             // reflect state in the URI
             if (this.findElem('color', 'active', true).length) {
-                this._setQueryParam(this.getMod($color, 'color-type'));
+                this._setQueryParams(this.getMod($color, 'color-type'), $color.data('code'));
             } else {
-                this._delQueryParam();
+                this._delQueryParams(['color-type', 'color']);
             }
         },
 
@@ -78,7 +78,11 @@ function (provide, BEMDOM, channel, $, location) {
             if (this.params.colorType === 'pure') {
                 colorToPick = $pureColors.eq(0);
             } else if (this.params.colorType === 'laminate') {
-                colorToPick = $laminateColors.eq(0);
+                if (this.params.color) {
+                    colorToPick = $laminateColors.filter('[data-code=' + this.params.color + ']');
+                } else {
+                    colorToPick = $laminateColors.eq(0);
+                }
             }
 
             if (!colorToPick) {
@@ -88,20 +92,26 @@ function (provide, BEMDOM, channel, $, location) {
             this.pickColor(colorToPick);
         },
 
-        _setQueryParam: function (colorType) {
-            location.change({
-                params: {
-                    'color-type': colorType
-                }
-            });
+        _setQueryParams: function (colorType, colorCode) {
+            var params = {'color-type': colorType};
+
+            if (colorCode) {
+                params.color = colorCode;
+            } else {
+                this._delQueryParams(['color']);
+            }
+
+            location.change({params: params});
 
             return this;
         },
 
-        _delQueryParam: function () {
+        _delQueryParams: function (params) {
             var query = location.getUri().queryParams;
 
-            delete query['color-type'];
+            params.forEach(function (param) {
+                delete query[param];
+            });
 
             location.change({
                 params: query,

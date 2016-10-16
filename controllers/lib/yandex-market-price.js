@@ -24,7 +24,8 @@ var selectedFields = [
     'vendor',
     'yandexMarketDescription',
     'yandexMarketSalesNotes',
-    'yandexMarketParams'
+    'yandexMarketParams',
+    'colors'
 ];
 
 module.exports = function (req, res) {
@@ -36,7 +37,7 @@ module.exports = function (req, res) {
         offers: keystone.list('Product').model
             .find({exportToYandexMarket: true})
             .select(selectedFields.join(' '))
-            .populate('articles')
+            .populate('articles colors.available colors.onRequest')
             .exec()
     })
         .done(function (data) {
@@ -104,45 +105,60 @@ module.exports = function (req, res) {
      * @return {Array}              Массив предложений для продукта
      */
     function getOffer(productData) {
+        productData.colors.available.push({title: 'Белый ПВХ', isPure: true});
+
         return productData.articles.map(function (articleData) {
-            return _.map(articleData.price.toObject(), function (priceVal, priceKey) {
-                var price = articleData.price[priceKey];
+            return [
+                productData.colors.available.map(getOfferByColor.bind(this, 'available')),
+                productData.colors.onRequest.map(getOfferByColor.bind(this, 'onRequest'))
+            ];
+
+            function getOfferByColor(availability, color) {
+                var offer;
+                var colorType = color.isPure ? 'pure' : 'laminate';
+                var price = articleData.price[colorType];
                 var description = f('Размер %s %s. %s',
                     articleData.size.value || 'n/a',
                     articleData.size.units,
                     productData.yandexMarketDescription.slice(0, 150));
-                var offer = {
+                var model = f('Белый ПВХ %s%s', articleData.size.value, articleData.size.units);
+                var query = {
+                    'color-type': colorType,
+                    size: articleData.size.value
+                };
+
+                if (!color.isPure) {
+                    query.color = color.code;
+
+                    model = f('Ламинированный %s%s "%s"', articleData.size.value, articleData.size.units, color.title);
+                }
+
+                offer = {
                     '@type': 'vendor.model',
-                    '@id': articleData.name.toLowerCase() + priceKey[0],
+                    '@id': articleData.name.toLowerCase() + colorType[0],
                     '@available': true,
                     url: url.format({
                         protocol: 'http',
                         hostname: '4window.ru',
                         pathname: f('/products/%s/', productData.slug),
-                        query: {
-                            'color-type': priceKey,
-                            size: articleData.size.value
-                        }
+                        query: query
                     }),
                     currencyId: 'RUR',
                     categoryId: productData.type === 'prof' ? 1 : 2,
                     market_category: productData.yandexMarketCategory, // eslint-disable-line camelcase
-                    picture: productData.yandexMarketPicture[priceKey].url,
+                    picture: productData.yandexMarketPicture[colorType].url,
                     store: productData.yandexMarketStore,
                     pickup: productData.yandexMarketPickup,
                     delivery: productData.yandexMarketDelivery,
                     'delivery-options': {
                         option: {
                             '@cost': productData.deliveryOptions.cost,
-                            '@days': productData.deliveryOptions.days.available
+                            '@days': productData.deliveryOptions.days[availability]
                         }
                     },
                     typePrefix: productData.name,
                     vendor: productData.vendor,
-                    model: f('%s %s%s',
-                        priceKey === 'pure' ? 'Белый ПВХ' : 'Ламинированный',
-                        articleData.size.value,
-                        articleData.size.units),
+                    model: model,
                     description: description,
                     sales_notes: productData.yandexMarketSalesNotes, // eslint-disable-line camelcase
                     weight: articleData.weight,
@@ -155,15 +171,15 @@ module.exports = function (req, res) {
                     })
                 };
 
-                if (productData.baseDiscount[priceKey]) {
-                    offer.price = price - price * .01 * productData.baseDiscount[priceKey];
+                if (productData.baseDiscount[colorType]) {
+                    offer.price = price - price * .01 * productData.baseDiscount[colorType];
                     offer.oldprice = price;
                 } else {
                     offer.price = price;
                 }
 
                 return offer;
-            });
+            }
         });
     }
 };

@@ -17,7 +17,12 @@ Color.add({
         format: false,
         index: true
     },
-    title: {type: String}
+    title: {type: String},
+    isPure: {
+        type: Boolean,
+        default: false,
+        hidden: true
+    }
     // name: virtual
 });
 
