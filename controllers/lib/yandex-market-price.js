@@ -105,13 +105,22 @@ module.exports = function (req, res) {
      * @return {Array}              Массив предложений для продукта
      */
     function getOffer(productData) {
-        productData.colors.available.push({title: 'Белый ПВХ', isPure: true});
+        productData.colors.available.push({
+            title: 'Белый ПВХ',
+            isPure: true,
+            code: 0
+        });
 
         return productData.articles.map(function (articleData) {
-            return [
+            var offersByColors = [
                 productData.colors.available.map(getOfferByColor.bind(this, 'available')),
-                productData.colors.onRequest.map(getOfferByColor.bind(this, 'onRequest'))
             ];
+
+            if (productData.colors.onRequest.length) {
+                offersByColors.push(productData.colors.onRequest.map(getOfferByColor.bind(this, 'onRequest')));
+            }
+
+            return offersByColors;
 
             function getOfferByColor(availability, color) {
                 var offer;
@@ -135,7 +144,7 @@ module.exports = function (req, res) {
 
                 offer = {
                     '@type': 'vendor.model',
-                    '@id': articleData.name.toLowerCase() + colorType[0],
+                    '@id': f('%s%s%s', articleData.name.toLowerCase(), colorType[0], color.code),
                     '@available': availability === 'available',
                     url: url.format({
                         protocol: 'http',
