@@ -14,7 +14,7 @@ function (provide, BEMDOM, channel) {
                     this.price = this.elem('price').bem('input');
                     this.coast = this.elem('coast').bem('input');
                     this.orderDesc = this.elem('order-description');
-                    this.submit = this.elem('submit');
+                    this.submitButton = this.findBlockOn('submit', 'button');
 
                     this.pickedColor = this.colorPicker ? this.colorPicker.pickedColor : null;
                     this.pickedArticle = this.filter.params.singleArticle;
@@ -28,15 +28,15 @@ function (provide, BEMDOM, channel) {
                     }
 
                     this.counter.on('change', this.numberChangeHandler, this);
-                    this.bindTo(this.submit, 'click', this.submitClickHandler);
+                    this.submitButton.on('click', this.submitButtonClickHandler, this);
 
                     channel('color-picker').on('colorChange', this.colorChangeHandler, this);
                     channel('color-picker').on('colorClear', this.colorClearHandler, this);
                     channel('size-picker').on('sizeChange', this.sizeChangeHandler, this);
                 }
             },
-            picked: function () {
-                this.toggleMod(this.submit, 'active');
+            picked: function (modName, modVal) {
+                this.submitButton.toggleMod('disabled', true, !modVal);
             }
         },
 
@@ -153,14 +153,8 @@ function (provide, BEMDOM, channel) {
 
         },
 
-        submitClickHandler: function () {
-            var data;
-
-            if (!this.hasMod(this.submit, 'active')) {
-                return;
-            }
-
-            data = {
+        submitButtonClickHandler: function () {
+            var data = {
                 productName: this.params.productName,
                 productSlug: this.params.productSlug,
                 ttd: this.params.productTtd.available,

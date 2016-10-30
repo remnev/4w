@@ -77,8 +77,18 @@ module.exports = function (bh) {
                     ]
                 },
                 {
-                    elem: 'submit',
-                    content: 'В заказ'
+                    block: 'button',
+                    mods: {
+                        theme: 'islands',
+                        size: 'xl',
+                        view: 'action',
+                        disabled: true
+                    },
+                    mix: {
+                        block: 'number-picker',
+                        elem: 'submit'
+                    },
+                    text: 'В заказ'
                 }
             ]);
     });
