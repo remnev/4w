@@ -480,6 +480,10 @@ function (provide, BEMDOM, channel, bh, $) {
                 {
                     val: 'cc',
                     text: 'Пластиковая карта'
+                },
+                {
+                    val: 'uncache',
+                    text: 'Безнал (запрос счета)'
                 }
             ];
         }
