@@ -38,9 +38,11 @@ Article.add({
             'angles',
             'cleaning-kit',
             'decorative-window-bars',
+            'drywall-profile-f',
+            'drywall-profile-u',
+            'cover-strips',
             'flat-strips-on-roll',
             'flat-strips',
-            'cover-strips',
             'handles-with-key',
             'pens'
         ]
