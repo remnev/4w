@@ -44,6 +44,10 @@ Article.add({
             'flat-strips-on-roll',
             'flat-strips',
             'handles-with-key',
+            'handles-for-balkon-door',
+            'locker-for-balkon-door',
+            'handles+locker-for-balkon-door',
+            'comb',
             'pens'
         ]
     }
