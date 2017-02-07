@@ -1,8 +1,8 @@
 'use strict';
 
 modules.define('number-picker',
-['i-bem__dom', 'events__channels'],
-function (provide, BEMDOM, channel) {
+['i-bem__dom', 'events__channels', 'functions__debounce'],
+function (provide, BEMDOM, channel, debounce) {
 
     provide(BEMDOM.decl(this.name, {
         onSetMod: {
@@ -28,7 +28,7 @@ function (provide, BEMDOM, channel) {
                     }
 
                     this.counter.on('change', this.numberChangeHandler, this);
-                    this.submitButton.on('click', this.submitButtonClickHandler, this);
+                    this.submitButton.on('click', debounce(this.submitButtonClickHandler, 100, false, this));
 
                     channel('color-picker').on('colorChange', this.colorChangeHandler, this);
                     channel('color-picker').on('colorClear', this.colorClearHandler, this);

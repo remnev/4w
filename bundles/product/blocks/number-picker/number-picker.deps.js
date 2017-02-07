@@ -6,6 +6,10 @@
             elem: 'channels'
         },
         {
+            block: 'functions',
+            elem: 'debounce'
+        },
+        {
             block: 'button',
             mods: {
                 theme: 'islands',
