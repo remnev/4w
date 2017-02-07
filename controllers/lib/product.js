@@ -99,7 +99,9 @@ module.exports = function (req, res) {
                 view.render(bundleName);
             },
             function (err) {
-                res.send(err.message === 'not found' ? 404 : 500);
+                res
+                    .status(err.message === 'not found' ? 404 : 500)
+                    .send(err.message);
             }
         );
 };
