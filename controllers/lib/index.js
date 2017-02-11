@@ -57,7 +57,7 @@ module.exports = function (req, res) {
         return {
             title: product.name,
             slug: product.slug,
-            photo: product.photos[0].url
+            photo: product.photos[0]
         };
     }
 };

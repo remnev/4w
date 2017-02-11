@@ -15,11 +15,9 @@ function (provide, $, BEMDOM) {
         },
 
         setCurrent: function (e) {
-            var current = $(e.currentTarget)
-                .clone()
-                .removeClass('photo-slider__thumbnail');
+            var current = $(e.currentTarget);
 
-            BEMDOM.update(this.elem('current'), current);
+            this.findBlockInside('current', 'image').domElem.attr('src', current.data('original-url'));
         }
     });
 

@@ -1,6 +1,7 @@
 'use strict';
 
 var f = require('util').format;
+var url = require('url');
 
 module.exports = function (bh) {
 
@@ -61,7 +62,10 @@ module.exports = function (bh) {
             content: [
                 {
                     block: 'image',
-                    url: data.photo,
+                    url: url.format({
+                        pathname: '/c-image/' + data.photo.public_id + '.' + data.photo.format,
+                        query: {width: 420}
+                    }),
                     alt: data.title
                 },
                 {

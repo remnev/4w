@@ -32,6 +32,7 @@ keystone.init({
     'mailgun api key': process.env.MAILGUN_API_KEY,
     'mailgun domain': '4window.ru',
     'cloudinary config': process.env.CLOUDINARY_URL,
+    'cloudinary prefix': '4window',
     'wysiwyg menubar': true,
     app: app
 });

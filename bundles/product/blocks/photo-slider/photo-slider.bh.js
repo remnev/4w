@@ -1,5 +1,7 @@
 'use strict';
 
+var url = require('url');
+
 module.exports = function (bh) {
     bh.match('photo-slider', function (ctx) {
         var photos = ctx.tParam('data').productData.photos;
@@ -15,7 +17,7 @@ module.exports = function (bh) {
                     elem: 'current',
                     content: {
                         block: 'image',
-                        url: photos[0].url
+                        url: buildImgUrl(photos[0], 720)
                     }
                 },
                 {
@@ -31,11 +33,21 @@ module.exports = function (bh) {
     function generateThumbnail(data) {
         return {
             block: 'image',
-            url: data.url,
+            url: buildImgUrl(data, 120),
             mix: {
                 block: 'photo-slider',
                 elem: 'thumbnail'
+            },
+            attrs: {
+                'data-original-url': buildImgUrl(data, 720)
             }
         };
     }
 };
+
+function buildImgUrl (imageData, width) {
+    return url.format({
+        pathname: '/c-image/' + imageData.public_id + '.' + imageData.format,
+        query: {width: width}
+    });
+}
