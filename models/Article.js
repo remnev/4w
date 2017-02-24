@@ -37,18 +37,20 @@ Article.add({
         options: [
             'angles',
             'cleaning-kit',
+            'comb',
+            'cover-strips',
             'decorative-window-bars',
             'drywall-profile-f',
             'drywall-profile-u',
-            'cover-strips',
             'flat-strips-on-roll',
             'flat-strips',
             'handles-with-key',
             'handles-for-balkon-door',
-            'locker-for-balkon-door',
             'handles+locker-for-balkon-door',
-            'comb',
-            'pens'
+            'locker-for-balkon-door',
+            'pens',
+            'sealant-tape',
+            'sealant-tape-6m'
         ]
     }
 });
