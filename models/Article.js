@@ -50,7 +50,7 @@ Article.add({
             'locker-for-balkon-door',
             'pens',
             'sealant-tape',
-            'sealant-tape-6m'
+            'linker-for-rehau'
         ]
     }
 });
