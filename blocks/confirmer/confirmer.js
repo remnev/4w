@@ -84,7 +84,8 @@ function (provide, BEMDOM, channel, bh) {
 
         generateOrderItemBemjson: function (data) {
             var priceType = data.isLaminate ? 'laminate' : 'pure';
-            var price = data.price - this.calculateDiscount(data.price, priceType, data.number, data.discount);
+            var discount = this.calculateDiscount(data.price, priceType, data.number, data.discount);
+            var price = Math.floor(data.price - discount);
 
             return {
                 block: 'confirmer',

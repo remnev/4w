@@ -113,7 +113,7 @@ module.exports = function (req, res) {
 
         return productData.articles.map(function (articleData) {
             var offersByColors = [
-                productData.colors.available.map(getOfferByColor.bind(this, 'available')),
+                productData.colors.available.map(getOfferByColor.bind(this, 'available'))
             ];
 
             if (productData.colors.onRequest.length) {
@@ -181,7 +181,7 @@ module.exports = function (req, res) {
                 };
 
                 if (productData.baseDiscount[colorType]) {
-                    offer.price = price - price * .01 * productData.baseDiscount[colorType];
+                    offer.price = Math.floor(price - price * .01 * productData.baseDiscount[colorType]);
                     offer.oldprice = price;
                 } else {
                     offer.price = price;

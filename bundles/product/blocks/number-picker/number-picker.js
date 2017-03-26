@@ -72,6 +72,7 @@ function (provide, BEMDOM, channel, debounce) {
 
         updatePrice: function () {
             var priceType;
+            var inputValue;
 
             if (this.colorPicker && !this.pickedColor || !this.pickedArticle) {
                 return this;
@@ -85,7 +86,8 @@ function (provide, BEMDOM, channel, debounce) {
 
             this.priceVal = this.pickedArticle.price[priceType];
 
-            this.price.setVal(this.priceVal - this.calculateDiscount(this.priceVal, priceType));
+            inputValue = Math.floor(this.priceVal - this.calculateDiscount(this.priceVal, priceType));
+            this.price.setVal(inputValue);
 
             this.updateCoast();
 

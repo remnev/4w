@@ -45,7 +45,7 @@ module.exports = function (bh) {
     }
 };
 
-function buildImgUrl (imageData, width) {
+function buildImgUrl(imageData, width) {
     return url.format({
         pathname: '/c-image/' + imageData.public_id + '.' + imageData.format,
         query: {width: width}

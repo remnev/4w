@@ -225,7 +225,8 @@ function (provide, channel, bh, $, BEMDOM) {
         generateOrderItemBemjson: function (data) {
             var title = data.productName;
             var priceType = data.isLaminate ? 'laminate' : 'pure';
-            var price = data.price - this.calculateDiscount(data.price, priceType, data.number, data.discount);
+            var discount = this.calculateDiscount(data.price, priceType, data.number, data.discount);
+            var price = Math.floor(data.price - discount);
             var coast = price * data.number;
 
             if (data.color) {
@@ -338,7 +339,7 @@ function (provide, channel, bh, $, BEMDOM) {
                 var priceType = item.isLaminate ? 'laminate' : 'pure';
                 var discount = this.calculateDiscount(item.price, priceType, item.number, item.discount);
 
-                coast += item.number * (item.price - discount);
+                coast += item.number * Math.floor(item.price - discount);
             }, this);
 
             return coast;

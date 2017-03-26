@@ -68,6 +68,8 @@ module.exports = function (bh) {
         function generateRowBemjson(article) {
             var purePriceValue = format('%s руб.', article.price.pure);
             var laminatePriceValue = format('%s руб.', article.price.laminate);
+            var purePriceValueFromAmount;
+            var laminatePriceValueFromAmount;
 
             if (data.baseDiscount.pure) {
                 purePriceValue = [
@@ -78,7 +80,7 @@ module.exports = function (bh) {
                     ' ',
                     {
                         tag: 'b',
-                        content: article.price.pure - article.price.pure * .01 * data.baseDiscount.pure
+                        content: Math.floor(article.price.pure - article.price.pure * .01 * data.baseDiscount.pure)
                     },
                     ' руб.'
                 ];
@@ -93,8 +95,37 @@ module.exports = function (bh) {
                     ' ',
                     {
                         tag: 'b',
-                        content: article.price.laminate - article.price.laminate * .01 * data.baseDiscount.laminate
+                        content: Math.floor(
+                            article.price.laminate -
+                            article.price.laminate * .01 * data.baseDiscount.laminate
+                        )
                     },
+                    ' руб.'
+                ];
+            }
+
+            if (data.numberDiscount.pure.number > 0) {
+                purePriceValueFromAmount = [
+                    Math.floor(
+                        article.price.pure -
+                        (
+                            article.price.pure * .01 * data.numberDiscount.pure.value +
+                            article.price.pure * .01 * data.baseDiscount.pure
+                        )
+                    ),
+                    ' руб.'
+                ];
+            }
+
+            if (data.numberDiscount.laminate.number > 0) {
+                laminatePriceValueFromAmount = [
+                    Math.floor(
+                        article.price.laminate -
+                        (
+                            article.price.laminate * .01 * data.numberDiscount.laminate.value +
+                            article.price.laminate * .01 * data.baseDiscount.laminate
+                        )
+                    ),
                     ' руб.'
                 ];
             }
@@ -116,14 +147,7 @@ module.exports = function (bh) {
                     },
                     data.numberDiscount.pure.number > 0 && {
                         tag: 'td',
-                        content: [
-                            article.price.pure -
-                            (
-                                article.price.pure * .01 * data.numberDiscount.pure.value +
-                                article.price.pure * .01 * data.baseDiscount.pure
-                            ),
-                            ' руб.'
-                        ]
+                        content: purePriceValueFromAmount
                     },
                     {
                         tag: 'td',
@@ -131,14 +155,7 @@ module.exports = function (bh) {
                     },
                     data.numberDiscount.laminate.number > 0 && {
                         tag: 'td',
-                        content: [
-                            article.price.laminate -
-                            (
-                                article.price.laminate * .01 * data.numberDiscount.laminate.value +
-                                article.price.laminate * .01 * data.baseDiscount.laminate
-                            ),
-                            ' руб.'
-                        ]
+                        content: laminatePriceValueFromAmount
                     }
                 ]
             };

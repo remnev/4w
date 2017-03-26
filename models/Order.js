@@ -132,7 +132,7 @@ Order.schema.methods.getPriceForItem = function (item) {
         .then(function (data) {
             var price = data.article.price[priceType];
 
-            return item.number * (price - calculateDiscount(price, priceType, item.number, data.product));
+            return item.number * Math.floor(price - calculateDiscount(price, priceType, item.number, data.product));
         });
 };
 
@@ -193,7 +193,7 @@ function getItems(item) {
         }
     };
 
-    item.price = item.price - calculateDiscount(item.price, priceType, item.number, discountData);
+    item.price = Math.floor(item.price - calculateDiscount(item.price, priceType, item.number, discountData));
 
     return item;
 }
