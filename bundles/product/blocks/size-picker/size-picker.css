@@ -43,7 +43,7 @@
 .size-picker .button__control {
     display: inline-block;
     height: 26px;
-    width: 80px;
+    min-width: 80px;
     text-align: center;
     font-family: Arial, sans-serif;
     font-size: 12px;
@@ -51,7 +51,7 @@
     border-right: none;
     background-color: #fff;
     cursor: pointer;
-    padding: 0;
+    padding: 0 10px;
     outline: none;
 }
 
@@ -61,7 +61,7 @@
 
 .size-picker .radio:last-child .button__control {
     border-right: 1px solid #6481b0;
-    width: 79px;
+    min-width: 79px;
     border-radius: 0 2px 2px 0;
 }
 
