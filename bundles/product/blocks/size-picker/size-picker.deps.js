@@ -2,7 +2,11 @@
     shouldDeps: [
         {
             block: 'radio-group',
-            mods: {type: 'button'}
+            mods: {
+                theme: 'islands',
+                type: 'button',
+                size: 'm'
+            }
         },
         {
             block: 'events',

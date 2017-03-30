@@ -21,7 +21,11 @@ module.exports = function (bh) {
                 },
                 {
                     block: 'radio-group',
-                    mods: {type: 'button'},
+                    mods: {
+                        type: 'button',
+                        theme: 'islands',
+                        size: 'm'
+                    },
                     val: val,
                     options: productData.articles.map(generateOptionBemjson)
                 }
