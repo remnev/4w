@@ -50,6 +50,7 @@ Article.add({
             'locker-for-balkon-door',
             'pens',
             'sealant-tape',
+            'thermometer',
             'linker-for-rehau'
         ]
     }
