@@ -477,10 +477,11 @@ function (provide, BEMDOM, channel, bh, $) {
                     val: 'cache',
                     text: 'Наличные'
                 },
-                {
-                    val: 'cc',
-                    text: 'Пластиковая карта'
-                },
+                // todo: restore when we'll support legal requirements
+                // {
+                //     val: 'cc',
+                //     text: 'Пластиковая карта'
+                // },
                 {
                     val: 'uncache',
                     text: 'Безнал (запрос счета)'
