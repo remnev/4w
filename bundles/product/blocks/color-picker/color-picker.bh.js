@@ -3,6 +3,7 @@
 var f = require('util').format;
 
 module.exports = function (bh) {
+    /* eslint-disable complexity */
     bh.match('color-picker', function (ctx) {
         var data = ctx.tParam('data');
         var colorType = data.query['color-type'];

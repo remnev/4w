@@ -65,6 +65,7 @@ module.exports = function (bh) {
 
         ctx.content(bemjson);
 
+        /* eslint-disable complexity */
         function generateRowBemjson(article) {
             var purePriceValue = format('%s руб.', article.price.pure);
             var laminatePriceValue = format('%s руб.', article.price.laminate);

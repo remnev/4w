@@ -124,6 +124,7 @@ function (provide, BEMDOM, channel, debounce) {
             return this;
         },
 
+        /* eslint-disable complexity */
         updateOrderDescription: function () {
             var item = this.elem('order-description-item');
             var laminate = this.elem('order-description-laminate');

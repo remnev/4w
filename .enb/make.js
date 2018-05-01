@@ -1,16 +1,16 @@
 'use strict';
 
 var techs = {
-    levels: require('enb/techs/levels'),
+    levels: require('enb-bem-techs/techs/levels'),
     fileProvider: require('enb/techs/file-provider'),
-    bemdeclFromDepsByTech: require('enb/techs/bemdecl-from-deps-by-tech'),
+    bemdeclFromDepsByTech: require('enb-bem-techs/techs/deps-by-tech-to-bemdecl'),
     borschik: require('enb-borschik/techs/borschik'),
-    deps: require('enb/techs/deps'),
-    files: require('enb/techs/files'),
-    stylusWithAutoprefixer: require('enb-stylus/techs/css-stylus-with-autoprefixer'),
+    deps: require('enb-bem-techs/techs/deps'),
+    files: require('enb-bem-techs/techs/files'),
+    stylusWithAutoprefixer: require('enb-stylus/techs/stylus'),
     js: require('enb/techs/js'),
-    bhClientModule: require('enb-bh/techs/bh-client-module'),
-    bhServer: require('enb-bh/techs/bh-server'),
+    bhClientModule: require('enb-bh/techs/bh-bundle'),
+    bhServer: require('enb-bh/techs/bh-commonjs'),
     fileMerge: require('enb/techs/file-merge'),
     fileCopy: require('enb/techs/file-copy'),
     prependModules: require('enb-modules/techs/prepend-modules')
@@ -37,25 +37,25 @@ module.exports = function (config) {
             [
                 techs.deps,
                 {
-                    bemdeclTarget: '?.server.bemdecl.js',
-                    depsTarget: '?.server.deps.js'
+                    bemdeclFile: '?.server.bemdecl.js',
+                    target: '?.server.deps.js'
                 }
             ],
             // browser deps.js
             [
                 techs.deps,
                 {
-                    bemdeclTarget: '?.browser.bemdecl.js',
-                    depsTarget: '?.browser.deps.js'
+                    bemdeclFile: '?.browser.bemdecl.js',
+                    target: '?.browser.deps.js'
                 }
             ],
             // server files
-            [techs.files, {depsTarget: '?.server.deps.js'}],
+            [techs.files, {depsFile: '?.server.deps.js'}],
             // browser files
             [
                 techs.files,
                 {
-                    depsTarget: '?.browser.deps.js',
+                    depsFile: '?.browser.deps.js',
                     filesTarget: '?.browser.files',
                     dirsTarget: '?.browser.dirs'
                 }
@@ -88,8 +88,10 @@ module.exports = function (config) {
                 {
                     target: '?.browser.pure.bh.js',
                     filesTarget: '?.browser.files',
-                    jsAttrName: 'data-bem',
-                    jsAttrScheme: 'json'
+                    bhOptions: {
+                        jsAttrName: 'data-bem',
+                        jsAttrScheme: 'json'
+                    }
                 }
             ],
             // pure browser bh + js + ymodules system
@@ -109,8 +111,10 @@ module.exports = function (config) {
                 techs.bhServer,
                 {
                     target: '?.server.bh.js',
-                    jsAttrName: 'data-bem',
-                    jsAttrScheme: 'json'
+                    bhOptions: {
+                        jsAttrName: 'data-bem',
+                        jsAttrScheme: 'json'
+                    }
                 }
             ]
         ]);
@@ -158,7 +162,7 @@ module.exports = function (config) {
         });
 
         nodeConfig.addTargets([
-            //  server (bh + i18n)
+            //  server bh
             '?.server.bh.js',
 
             //  browser (js + client bh)

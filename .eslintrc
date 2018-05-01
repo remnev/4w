@@ -10,7 +10,7 @@
   },
   "rules": {
     // Possible Errors
-    "no-comma-dangle": 2,
+    "comma-dangle": 2,
     "no-cond-assign": 2,
     "no-console": 2,
     "no-constant-condition": 2,
@@ -18,7 +18,7 @@
     "no-debugger": 2,
     "no-dupe-keys": 2,
     "no-empty": 2,
-    "no-empty-class": 2,
+    "no-empty-character-class": 2,
     "no-ex-assign": 2,
     "no-extra-boolean-cast": 2,
     "no-extra-parens": 2,
@@ -39,7 +39,7 @@
     // Best Practices
     "block-scoped-var": 2,
     "complexity": [2, 6],
-    "consistent-return": 2,
+    "consistent-return": 0,
     "curly": 2,
     "default-case": 2,
     "dot-notation": 2,
@@ -49,7 +49,7 @@
     "no-caller": 2,
     "no-div-regex": 2,
     "no-else-return": 2,
-    "no-empty-label": 2,
+    "no-labels": 2,
     "no-eq-null": 2,
     "no-eval": 2,
     "no-extend-native": 2,
@@ -58,7 +58,6 @@
     "no-floating-decimal": 0,
     "no-implied-eval": 2,
     "no-iterator": 2,
-    "no-labels": 2,
     "no-lone-blocks": 2,
     "no-loop-func": 2,
     "no-multi-spaces": 2,
@@ -85,7 +84,6 @@
 
     // Strict Mode
     "no-global-strict": 0,
-    "no-extra-strict": 2,
     "strict": 2,
 
     // Variables

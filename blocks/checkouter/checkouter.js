@@ -351,6 +351,7 @@ function (provide, BEMDOM, channel, bh, $) {
                 .setMod('visible');
         },
 
+        /* eslint-disable complexity */
         checkInputs: function () {
             var typeOfGetting = this.typeOfGettingRG.getVal();
 
@@ -399,9 +400,7 @@ function (provide, BEMDOM, channel, bh, $) {
                     value: this
                         .getTypeOfGettingOptions()
                         .filter(function (option) {
-                            if (option.val === this.typeOfGetting) {
-                                return true;
-                            }
+                            return option.val === this.typeOfGetting;
                         }, this)[0]
                         .text
                 },
@@ -410,9 +409,7 @@ function (provide, BEMDOM, channel, bh, $) {
                     value: this
                         .getTypeOfPaymentOptions()
                         .filter(function (option) {
-                            if (option.val === this.typeOfPaymentRG.getVal()) {
-                                return true;
-                            }
+                            return option.val === this.typeOfPaymentRG.getVal();
                         }, this)[0]
                         .text
                 },
@@ -475,7 +472,7 @@ function (provide, BEMDOM, channel, bh, $) {
             return [
                 {
                     val: 'cache',
-                    text: 'Наличные'
+                    text: 'Через банк онлайн'
                 },
                 // todo: restore when we'll support legal requirements
                 // {
