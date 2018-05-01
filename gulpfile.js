@@ -6,7 +6,6 @@ var jscs = require('gulp-jscs');
 var mocha = require('gulp-mocha');
 var istanbul = require('gulp-istanbul');
 var bower = require('gulp-bower');
-var vow = require('vow');
 var vowFs = require('vow-fs');
 var del = require('del');
 var path = require('path');
@@ -88,7 +87,7 @@ gulp.task('clean', function () {
                 return cleanBundle(bundle);
             });
 
-            return vow.all(clearBundles);
+            return Promise.all(clearBundles);
         });
 
     function cleanBundle(bundle) {
@@ -99,7 +98,7 @@ gulp.task('clean', function () {
             .then(function (isBemdeclExist) {
                 if (isBemdeclExist) {
                     // Clean the bundle
-                    return vowDel([
+                    return del([
                         path.join(bundle, '*'),
                         '!' + bemdeclPath,
                         '!' + path.join(bundle, 'blocks')
@@ -109,20 +108,6 @@ gulp.task('clean', function () {
                 // remove the bundle if it hasn't a `.bemdecl.js` file
                 return vowFs.removeDir(bundle);
             });
-    }
-
-    function vowDel(patterns) {
-        var deferred = vow.defer();
-
-        del(patterns, function (err, res) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(res);
-            }
-        });
-
-        return deferred.promise();
     }
 });
 
