@@ -48,8 +48,7 @@ module.exports = function (bh) {
                         },
                         attrs: {
                             'data-title': 'Белый',
-                            'data-code': null,
-                            'data-no-laminate': true
+                            'data-code': null
                         }
                     }
                 },

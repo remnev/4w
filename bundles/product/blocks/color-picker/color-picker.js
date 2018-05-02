@@ -33,7 +33,7 @@ function (provide, BEMDOM, channel, $, location) {
                         this.pickedColor = {
                             title: title,
                             code: code,
-                            isLaminate: !elem.data('no-laminate'),
+                            isLaminate: !this.hasMod(elem, 'no-laminate'),
                             isOnRequest: this.hasMod(elem, 'size', 's')
                         };
 
