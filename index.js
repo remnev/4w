@@ -69,3 +69,7 @@ keystone.set('nav', {
 });
 
 keystone.start();
+
+process.on('uncaughtException', (err) => {
+    console.log('uncaughtException', err);
+})
