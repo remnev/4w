@@ -10,7 +10,7 @@
     "express-bem-bh": "1.2.1",
     "glob": "7.1.2",
     "keystone": "~0.3.17",
-    "keystone-nodemailer": "git+https://git@github.com:bgag/keystone-nodemailer.git",
+    "keystone-nodemailer": "https://github.com/bgag/keystone-nodemailer.git",
     "lodash": "^4.17.10",
     "moment": "^2.10.3",
     "unique-id": "0.0.1",
