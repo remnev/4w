@@ -6,6 +6,7 @@ var expressBem = require('express-bem')({path: './bundles'});
 var controllers = require('./controllers');
 
 require('dotenv').load();
+require('keystone-nodemailer')(keystone);
 
 expressBem.bindTo(app);
 expressBem.engine('.server.bh.js', require('express-bem-bh/lib/engines/bh')({
@@ -24,13 +25,19 @@ keystone.init({
     auth: true,
     mongo: process.env.MONGO_URI,
     'user model': 'User',
-    // TODO: get from .env
     'cookie secret': process.env.COOKIE_SECRET,
     port: process.env.PORT,
     emails: 'jade-templates/emails',
-    'email transport': 'mailgun',
-    'mailgun api key': process.env.MAILGUN_API_KEY,
-    'mailgun domain': '4window.ru',
+    'mandrill api key': 'foo',
+    'email nodemailer': {
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT,
+        secure: true,
+        auth: {
+            user: process.env.SMTP_AUTH_LOGIN,
+            pass: process.env.SMTP_AUTH_PASS
+        }
+    },
     'cloudinary config': process.env.CLOUDINARY_URL,
     'cloudinary prefix': '4window',
     'wysiwyg menubar': true,
