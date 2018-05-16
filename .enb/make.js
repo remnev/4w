@@ -8,7 +8,7 @@ var techs = {
     deps: require('enb-bem-techs/techs/deps'),
     files: require('enb-bem-techs/techs/files'),
     stylusWithAutoprefixer: require('enb-stylus/techs/stylus'),
-    js: require('enb/techs/js'),
+    js: require('enb-js/techs/browser-js'),
     bhClientModule: require('enb-bh/techs/bh-bundle'),
     bhServer: require('enb-bh/techs/bh-commonjs'),
     fileMerge: require('enb/techs/file-merge'),
@@ -71,6 +71,7 @@ module.exports = function (config) {
             [
                 techs.js,
                 {
+                    target: '?.js',
                     sourceSuffixes: ['vanilla.js', 'browser.js', 'js']
                 }
             ],

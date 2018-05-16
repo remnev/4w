@@ -18,9 +18,11 @@
   },
   "devDependencies": {
     "del": "3.0.0",
+    "enb": "^1.5.1",
     "enb-bem-techs": "^2.2.2",
     "enb-bh": "^1.2.1",
     "enb-borschik": "2.8.0",
+    "enb-js": "^1.1.1",
     "enb-modules": "0.4.2",
     "enb-stylus": "^2.4.0",
     "gulp": "3.9.1",

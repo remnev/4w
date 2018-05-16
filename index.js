@@ -10,7 +10,7 @@ require('keystone-nodemailer')(keystone);
 
 expressBem.bindTo(app);
 expressBem.engine('.server.bh.js', require('express-bem-bh/lib/engines/bh')({
-    force: true, // TODO: don't use in production environment
+    force: false,
     source: '?.server.bh.js',
     dataKey: 'data'
 }));
