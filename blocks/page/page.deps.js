@@ -7,6 +7,6 @@
         {block: 'google-tag-manager'},
         {block: 'checkouter'},
         {block: 'confirmer'},
-        {block: 'statuser'}
-    ]
+        {block: 'statuser'},
+    ],
 }]);

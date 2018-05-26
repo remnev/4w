@@ -1,26 +1,25 @@
 'use strict';
-// TODO: jsdoc
 // TODO: test
-var keystone = require('keystone');
-var Promise = require('bluebird');
-var _ = require('lodash');
-var bundleName = __filename.match(/.*\/(.+).js$/)[1];
+const keystone = require('keystone');
+const Promise = require('bluebird');
+const _ = require('lodash');
+const bundleName = __filename.match(/.*\/(.+).js$/)[1];
 
-module.exports = function (req, res) {
-    var view = new keystone.View(req, res);
-    var locals = res.locals;
+module.exports = function(req, res) {
+    const view = new keystone.View(req, res);
+    const locals = res.locals;
 
     locals.bundleName = bundleName;
     locals.bemjson = {block: 'root'};
     locals.breadcrumbs = [
         {
             title: 'Главная',
-            url: '/'
+            url: '/',
         },
         {
             title: 'Доставка',
-            url: '/delivery/'
-        }
+            url: '/delivery/',
+        },
     ];
 
     Promise.props({
@@ -37,9 +36,9 @@ module.exports = function (req, res) {
             .find({state: 'published'})
             .select('slug name type')
             .sort('sortWeight')
-            .exec()
+            .exec(),
     })
-        .done(function (data) {
+        .done(function(data) {
             _.assign(locals, data);
 
             view.render(bundleName);

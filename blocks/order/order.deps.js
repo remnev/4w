@@ -3,61 +3,61 @@
     mustDeps: [
         {
             block: 'modal',
-            tech: 'bh'
+            tech: 'bh',
         },
         {
             block: 'button',
             mods: {
                 theme: 'islands',
                 size: 'm',
-                view: ['pseudo', 'action']
+                view: ['pseudo', 'action'],
             },
-            tech: 'bh'
+            tech: 'bh',
         },
         {
             block: 'counter',
             mods: {'item-counter': true},
-            tech: 'bh'
+            tech: 'bh',
         },
         {
             block: 'input',
-            tech: 'bh'
+            tech: 'bh',
         },
         {
             block: 'item-deleter',
-            tech: 'bh'
+            tech: 'bh',
         },
         {
             block: 'link',
             mods: {
                 theme: 'islands',
-                pseudo: true
+                pseudo: true,
             },
-            tech: 'bh'
-        }
-    ]
+            tech: 'bh',
+        },
+    ],
 }, {
     shouldDeps: [
         {
             block: 'events',
-            elem: 'channels'
+            elem: 'channels',
         },
         {block: 'bh'},
         {
             block: 'modal',
-            mods: {theme: 'islands'}
+            mods: {theme: 'islands'},
         },
         {
             block: 'button',
             mods: {
                 theme: 'islands',
                 size: 'm',
-                view: ['pseudo', 'action']
-            }
+                view: ['pseudo', 'action'],
+            },
         },
         {
             block: 'counter',
-            mods: {'item-counter': true}
+            mods: {'item-counter': true},
         },
         {block: 'input'},
         {block: 'item-deleter'},
@@ -66,8 +66,8 @@
             block: 'link',
             mods: {
                 theme: 'islands',
-                pseudo: true
-            }
-        }
-    ]
+                pseudo: true,
+            },
+        },
+    ],
 }]);

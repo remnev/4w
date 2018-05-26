@@ -3,8 +3,8 @@
         {
             block: 'background',
             mods: {
-                type: ['prof', 'home']
-            }
-        }
-    ]
+                type: ['prof', 'home'],
+            },
+        },
+    ],
 });

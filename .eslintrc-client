@@ -1,0 +1,17 @@
+{
+  "extends": ["eslint:recommended", "google"],
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "modules": true,
+    "moment": true
+  },
+  "rules": {
+    "max-len": ["error", { "code": 120 }],
+    "no-invalid-this": [0],
+    "prefer-spread": [0],
+    "prefer-rest-params": [0],
+    "no-var": [0]
+  }
+}

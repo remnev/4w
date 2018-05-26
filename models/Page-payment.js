@@ -1,13 +1,13 @@
 'use strict';
 
-var keystone = require('keystone');
-var Types = keystone.Field.Types;
+const keystone = require('keystone');
+const Types = keystone.Field.Types;
 
-var PagePayment = new keystone.List('PagePayment', {
+const PagePayment = new keystone.List('PagePayment', {
     label: 'Страница об Оплате',
     plural: 'Страница об Оплате',
     nodelete: true,
-    nocreate: true
+    nocreate: true,
 });
 
 PagePayment.add(
@@ -15,8 +15,8 @@ PagePayment.add(
     {
         seo: {
             title: {type: String},
-            description: {type: String}
-        }
+            description: {type: String},
+        },
     },
     'Содержимое страницы',
     {
@@ -24,18 +24,18 @@ PagePayment.add(
         text: {
             type: Types.Html,
             wysiwyg: true,
-            height: 500
-        }
+            height: 500,
+        },
     },
     {
         modifiedAt: {
             type: Types.Date,
-            hidden: true
-        }
+            hidden: true,
+        },
     }
 );
 
-PagePayment.schema.pre('save', function (next) {
+PagePayment.schema.pre('save', function(next) {
     if (this.isModified()) {
         this.modifiedAt = new Date();
     }

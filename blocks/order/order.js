@@ -3,30 +3,29 @@
 modules.define(
 'i-bem__dom',
 ['events__channels', 'bh', 'jquery'],
-function (provide, channel, bh, $, BEMDOM) {
-
+function(provide, channel, bh, $, BEMDOM) {
     BEMDOM.decl('order', {
         onSetMod: {
             js: {
-                inited: function () {
+                inited: function() {
                     var orderItems = this.getOrderItems();
                     var bemjson = [{
                         block: 'modal',
                         mods: {theme: 'islands'},
                         mix: {
                             block: 'order',
-                            elem: 'add-to-order-modal'
+                            elem: 'add-to-order-modal',
                         },
                         content: [
                             {
                                 block: 'order',
                                 elem: 'add-to-order-modal-title',
-                                content: 'Товар добавлен в заказ'
+                                content: 'Товар добавлен в заказ',
                             },
                             {
                                 block: 'order',
                                 elem: 'add-to-order-modal-items',
-                                tag: 'table'
+                                tag: 'table',
                             },
                             {
                                 block: 'order',
@@ -35,13 +34,13 @@ function (provide, channel, bh, $, BEMDOM) {
                                     {
                                         block: 'order',
                                         elem: 'add-to-order-modal-coast-title',
-                                        content: 'Общая стоимость:'
+                                        content: 'Общая стоимость:',
                                     },
                                     {
                                         block: 'order',
-                                        elem: 'add-to-order-modal-coast-value'
-                                    }
-                                ]
+                                        elem: 'add-to-order-modal-coast-value',
+                                    },
+                                ],
                             },
                             {
                                 block: 'order',
@@ -52,43 +51,43 @@ function (provide, channel, bh, $, BEMDOM) {
                                         mods: {
                                             theme: 'islands',
                                             size: 'm',
-                                            view: 'pseudo'
+                                            view: 'pseudo',
                                         },
                                         mix: {
                                             block: 'order',
-                                            elem: 'clear-order'
+                                            elem: 'clear-order',
                                         },
-                                        text: 'Очистить заказ'
+                                        text: 'Очистить заказ',
                                     },
                                     {
                                         block: 'button',
                                         mods: {
                                             theme: 'islands',
                                             size: 'm',
-                                            view: 'pseudo'
+                                            view: 'pseudo',
                                         },
                                         mix: {
                                             block: 'order',
-                                            elem: 'add-to-order-modal-continue-control'
+                                            elem: 'add-to-order-modal-continue-control',
                                         },
-                                        text: 'Продолжить выбор товара'
+                                        text: 'Продолжить выбор товара',
                                     },
                                     {
                                         block: 'button',
                                         mods: {
                                             theme: 'islands',
                                             size: 'm',
-                                            view: 'action'
+                                            view: 'action',
                                         },
                                         mix: {
                                             block: 'order',
-                                            elem: 'checkout-control'
+                                            elem: 'checkout-control',
                                         },
-                                        text: 'Оформить'
-                                    }
-                                ]
-                            }
-                        ]
+                                        text: 'Оформить',
+                                    },
+                                ],
+                            },
+                        ],
                     }];
                     var itemName;
                     var coast = this.getOrderCoast();
@@ -100,13 +99,13 @@ function (provide, channel, bh, $, BEMDOM) {
                             block: 'link',
                             mods: {
                                 theme: 'islands',
-                                pseudo: true
+                                pseudo: true,
                             },
                             mix: {
                                 block: 'order',
-                                elem: 'modalOpener'
+                                elem: 'modalOpener',
                             },
-                            content: 'В заказе ' + orderItems.length + ' ' + itemName + ' на ' + coast + ' ₽'
+                            content: 'В заказе ' + orderItems.length + ' ' + itemName + ' на ' + coast + ' ₽',
                         });
                     }
 
@@ -125,16 +124,16 @@ function (provide, channel, bh, $, BEMDOM) {
                     channel('number-picker').on('submitClick', this.addToOrder, this);
                     channel('order').on('delete-item', this.deleteFromOrder, this);
                     channel('order').on('change-item-number', this.changeItemNumberHandler, this);
-                }
-            }
+                },
+            },
         },
 
-        addToOrder: function (e, data) {
+        addToOrder: function(e, data) {
             this.setOrderItem(data)
                 .showAddToOrderModal();
         },
 
-        deleteFromOrder: function (e, data) {
+        deleteFromOrder: function(e, data) {
             this.deleteOrderItem(data);
 
             if (!this.getOrderItems().length) {
@@ -150,7 +149,7 @@ function (provide, channel, bh, $, BEMDOM) {
             return this;
         },
 
-        showAddToOrderModal: function () {
+        showAddToOrderModal: function() {
             var orderItems = this.getOrderItems();
             var orderItemsBemjson = [
                 {
@@ -158,23 +157,23 @@ function (provide, channel, bh, $, BEMDOM) {
                     content: [
                         {
                             tag: 'td',
-                            content: 'Наименование'
+                            content: 'Наименование',
                         },
                         {
                             tag: 'td',
-                            content: 'Количество (шт.)'
+                            content: 'Количество (шт.)',
                         },
                         {
                             tag: 'td',
-                            content: 'Цена за шт. (₽)'
+                            content: 'Цена за шт. (₽)',
                         },
                         {
                             tag: 'td',
-                            content: 'Стоимость (₽)'
+                            content: 'Стоимость (₽)',
                         },
-                        {tag: 'td'}
-                    ]
-                }
+                        {tag: 'td'},
+                    ],
+                },
             ].concat(orderItems.map(this.generateOrderItemBemjson, this));
 
             BEMDOM.update(this.addToOrderModalItems, bh.apply(orderItemsBemjson));
@@ -186,11 +185,11 @@ function (provide, channel, bh, $, BEMDOM) {
             return this;
         },
 
-        getOrderItems: function () {
+        getOrderItems: function() {
             return JSON.parse(localStorage.getItem('order:items')) || [];
         },
 
-        setOrderItem: function (data) {
+        setOrderItem: function(data) {
             var items = this.getOrderItems() || [];
 
             items.push(data);
@@ -200,7 +199,7 @@ function (provide, channel, bh, $, BEMDOM) {
             return this;
         },
 
-        deleteOrderItem: function (itemId) {
+        deleteOrderItem: function(itemId) {
             var items = this.getOrderItems();
 
             if (!items.length) {
@@ -214,7 +213,7 @@ function (provide, channel, bh, $, BEMDOM) {
             return this;
         },
 
-        deleteOrderItems: function () {
+        deleteOrderItems: function() {
             localStorage.removeItem('order:items');
 
             this.reCalcCoast();
@@ -222,7 +221,7 @@ function (provide, channel, bh, $, BEMDOM) {
             return this;
         },
 
-        generateOrderItemBemjson: function (data) {
+        generateOrderItemBemjson: function(data) {
             var title = data.productName;
             var priceType = data.isLaminate ? 'laminate' : 'pure';
             var discount = this.calculateDiscount(data.price, priceType, data.number, data.discount);
@@ -247,8 +246,8 @@ function (provide, channel, bh, $, BEMDOM) {
                         content: {
                             block: 'order',
                             elem: 'add-to-order-modal-item-title',
-                            content: title
-                        }
+                            content: title,
+                        },
                     },
                     {
                         tag: 'td',
@@ -257,10 +256,10 @@ function (provide, channel, bh, $, BEMDOM) {
                             mods: {'item-counter': true},
                             mix: {
                                 block: 'order',
-                                elem: 'add-to-order-modal-counter'
+                                elem: 'add-to-order-modal-counter',
                             },
-                            val: data.number
-                        }
+                            val: data.number,
+                        },
                     },
                     {
                         tag: 'td',
@@ -269,10 +268,10 @@ function (provide, channel, bh, $, BEMDOM) {
                             mods: {disabled: true},
                             mix: {
                                 block: 'order',
-                                elem: 'add-to-order-modal-price'
+                                elem: 'add-to-order-modal-price',
                             },
-                            val: price
-                        }
+                            val: price,
+                        },
                     },
                     {
                         tag: 'td',
@@ -281,37 +280,37 @@ function (provide, channel, bh, $, BEMDOM) {
                             mods: {disabled: true},
                             mix: {
                                 block: 'order',
-                                elem: 'add-to-order-modal-line-coast'
+                                elem: 'add-to-order-modal-line-coast',
                             },
-                            val: coast
-                        }
+                            val: coast,
+                        },
                     },
                     {
                         tag: 'td',
-                        content: {block: 'item-deleter'}
-                    }
-                ]
+                        content: {block: 'item-deleter'},
+                    },
+                ],
             };
         },
 
-        addToOrderContinueControlClickHandler: function () {
+        addToOrderContinueControlClickHandler: function() {
             this.addToOrderModal.delMod('visible');
         },
 
-        clearOrderHandler: function () {
+        clearOrderHandler: function() {
             this
                 .deleteOrderItems()
                 .reCalcCoast()
                 .addToOrderModal.delMod('visible');
         },
 
-        checkoutControlClickHandler: function () {
+        checkoutControlClickHandler: function() {
             this.addToOrderModal.delMod('visible');
 
             channel('order').emit('checkout');
         },
 
-        reCalcCoast: function () {
+        reCalcCoast: function() {
             var coast = this.getOrderCoast();
             var number = this.getOrderItems().length;
             var itemName = this.getItemNameByNumber(number);
@@ -327,7 +326,7 @@ function (provide, channel, bh, $, BEMDOM) {
             return this;
         },
 
-        getOrderCoast: function () {
+        getOrderCoast: function() {
             var coast = 0;
             var items = this.getOrderItems();
 
@@ -335,7 +334,7 @@ function (provide, channel, bh, $, BEMDOM) {
                 return coast;
             }
 
-            items.forEach(function (item) {
+            items.forEach(function(item) {
                 var priceType = item.isLaminate ? 'laminate' : 'pure';
                 var discount = this.calculateDiscount(item.price, priceType, item.number, item.discount);
 
@@ -345,7 +344,7 @@ function (provide, channel, bh, $, BEMDOM) {
             return coast;
         },
 
-        changeItemNumberHandler: function (e, data) {
+        changeItemNumberHandler: function(e, data) {
             var items = this.getOrderItems();
 
             if (!items.length) {
@@ -361,7 +360,7 @@ function (provide, channel, bh, $, BEMDOM) {
             return this;
         },
 
-        getItemNameByNumber: function (number) {
+        getItemNameByNumber: function(number) {
             var itemName = 'товаров';
 
             if (number === 1) {
@@ -373,7 +372,7 @@ function (provide, channel, bh, $, BEMDOM) {
             return itemName;
         },
 
-        calculateDiscount: function (basePrice, priceType, number, discountData) {
+        calculateDiscount: function(basePrice, priceType, number, discountData) {
             var baseDiscount = basePrice * 0.01 * discountData.base[priceType];
             var numberDiscount = 0;
 
@@ -382,9 +381,8 @@ function (provide, channel, bh, $, BEMDOM) {
             }
 
             return baseDiscount + numberDiscount;
-        }
+        },
     });
 
     provide(BEMDOM);
-
 });

@@ -2,7 +2,6 @@
 
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
-var jscs = require('gulp-jscs');
 var mocha = require('gulp-mocha');
 var istanbul = require('gulp-istanbul');
 var bower = require('gulp-bower');
@@ -14,16 +13,15 @@ var runSequence = require('run-sequence');
 
 var paths = {
     rebuild: [],
-    lint: [
+    lintServer: [
         '.enb/*.js',
+        'controllers/**/*.js',
+        'models/**/*.js',
+        'index.js'
+    ],
+    lintClient: [
         'blocks/**/*.js',
         'bundles/*/blocks/**/*.js',
-        'controllers/**/*.js',
-        'lib/**/*.js',
-        'middleware/**/*.js',
-        'models/**/*.js',
-        'test/**/*.js',
-        '*.js'
     ],
     test: [
         'test/*.js'
@@ -38,20 +36,21 @@ var paths = {
     vendors: 'vendors'
 };
 
-// Lint
-gulp.task('jscs', function () {
-    return gulp.src(paths.lint)
-        .pipe(jscs());
-});
-
-gulp.task('eslint', function () {
-    return gulp.src(paths.lint)
+gulp.task('eslint-server', function () {
+    return gulp.src(paths.lintServer)
         .pipe(eslint())
         .pipe(eslint.format())
-        .pipe(eslint.failOnError());
+        .pipe(eslint.failAfterError());
 });
 
-gulp.task('lint', ['jscs', 'eslint']);
+gulp.task('eslint-client', function () {
+    return gulp.src(paths.lintClient)
+        .pipe(eslint('./.eslintrc-client'))
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
+});
+
+gulp.task('lint', ['eslint-server', 'eslint-client']);
 
 // Test
 gulp.task('mocha', function () {

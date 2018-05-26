@@ -5,7 +5,7 @@
         {block: 'location'},
         {
             block: 'events',
-            elem: 'channels'
-        }
-    ]
+            elem: 'channels',
+        },
+    ],
 }]);

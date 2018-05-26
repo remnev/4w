@@ -2,8 +2,7 @@
 
 modules.define('checkouter',
 ['i-bem__dom', 'events__channels', 'bh', 'jquery'],
-function (provide, BEMDOM, channel, bh, $) {
-
+function(provide, BEMDOM, channel, bh, $) {
     provide(BEMDOM.decl(this.name, {
         deliveryDateAnotherValue: '',
         deliveryDateValue: '',
@@ -16,22 +15,22 @@ function (provide, BEMDOM, channel, bh, $) {
 
         onSetMod: {
             js: {
-                inited: function () {
+                inited: function() {
                     channel('order').on('checkout', this.checkoutHandler, this);
-                }
-            }
+                },
+            },
         },
 
-        checkoutHandler: function () {
+        checkoutHandler: function() {
             var addressPlaceholders = {
                 dim: 'Улица, дом, подъезд',
                 cym: '',
-                dbtc: 'Город'
+                dbtc: 'Город',
             };
             var deliveryDateTitles = {
                 dim: 'Дата доставки',
                 cym: 'Дата самовывоза',
-                dbtc: 'Дата отгрузки в ТК'
+                dbtc: 'Дата отгрузки в ТК',
             };
             var closestDateToDeliver = this.getClosestDateToDeliver();
             var bemjson = {
@@ -43,7 +42,7 @@ function (provide, BEMDOM, channel, bh, $) {
                 typeOfPaymentOptions: this.getTypeOfPaymentOptions(),
                 deliveryDateTitles: deliveryDateTitles,
                 closestDateToDeliver: closestDateToDeliver,
-                addressPlaceholders: addressPlaceholders
+                addressPlaceholders: addressPlaceholders,
             };
 
             BEMDOM.update(this.domElem, bh.apply(bemjson));
@@ -91,17 +90,17 @@ function (provide, BEMDOM, channel, bh, $) {
             this.modal.setMod('visible');
         },
 
-        closeModal: function () {
+        closeModal: function() {
             this.modal.delMod('visible');
 
             return this;
         },
 
-        typeOfPaymentRGChangeHandler: function () {
+        typeOfPaymentRGChangeHandler: function() {
             this.typeOfPayment = this.typeOfPaymentRG.getVal();
         },
 
-        typeOfGettingRGChangeHandler: function () {
+        typeOfGettingRGChangeHandler: function() {
             var disabledRadio;
             var typeOfGetting = this.typeOfGetting = this.typeOfGettingRG.getVal();
 
@@ -109,7 +108,7 @@ function (provide, BEMDOM, channel, bh, $) {
                 this.typeOfPaymentRG
                     .setVal('cc')
                     .findBlocksInside('radio')
-                    .filter(function (radio) {
+                    .filter(function(radio) {
                         return radio.getVal() === 'cache';
                     })[0]
                     .setMod('disabled');
@@ -137,7 +136,7 @@ function (provide, BEMDOM, channel, bh, $) {
             this.deliveryDateTd.text(this.deliveryDateTitles[typeOfGetting]);
         },
 
-        getClosestDateToDeliver: function () {
+        getClosestDateToDeliver: function() {
             var orderItems = this.findBlockOutside('page').findBlockInside('order').getOrderItems();
             var maxRemainingTimeForItem = 1; // in days
 
@@ -148,6 +147,11 @@ function (provide, BEMDOM, channel, bh, $) {
                 .add(maxRemainingTimeForItem, 'd')
                 .format('DD MMMM YYYY');
 
+            /**
+             * Detects the biggest value of time to delivery and store it to maxRemainingTimeForItem
+             *
+             * @param  {Object} item
+             */
             function checkMaxTtd(item) {
                 if (item.ttd > maxRemainingTimeForItem) {
                     maxRemainingTimeForItem = item.ttd;
@@ -155,7 +159,7 @@ function (provide, BEMDOM, channel, bh, $) {
             }
         },
 
-        deliveryDateChange: function () {
+        deliveryDateChange: function() {
             var val = this.deliveryDateSelect.getVal();
 
             if (val === 'another') {
@@ -174,7 +178,7 @@ function (provide, BEMDOM, channel, bh, $) {
         },
 
         /* eslint-disable complexity, no-fallthrough */
-        deliveryDateAnotherInputChange: function () {
+        deliveryDateAnotherInputChange: function() {
             var val = this.deliveryDateAnotherInput.getVal();
 
             switch (val.length) {
@@ -269,7 +273,7 @@ function (provide, BEMDOM, channel, bh, $) {
         },
         /* eslint-enable complexity, no-fallthrough */
 
-        deliveryDateAnotherInputBlur: function () {
+        deliveryDateAnotherInputBlur: function() {
             var val = this.deliveryDateAnotherInput.getVal();
 
             if (/\d{2}\.\d{2}\.\d{4}/.test(val) || val === '') {
@@ -286,7 +290,7 @@ function (provide, BEMDOM, channel, bh, $) {
                 .checkInputs();
         },
 
-        addressInputBlur: function () {
+        addressInputBlur: function() {
             var val = this.addressInput.getVal();
 
             this.deliveryAddress = val;
@@ -300,7 +304,7 @@ function (provide, BEMDOM, channel, bh, $) {
             this.checkInputs();
         },
 
-        buyerNameInputBlur: function () {
+        buyerNameInputBlur: function() {
             var val = this.buyerNameInput.getVal();
 
             this.buyerNameValue = val;
@@ -314,7 +318,7 @@ function (provide, BEMDOM, channel, bh, $) {
             this.checkInputs();
         },
 
-        phoneInputBlur: function () {
+        phoneInputBlur: function() {
             var val = this.phoneInput.getVal();
 
             if (val === '' || val.length < 5 || !/\d/.test(val)) {
@@ -328,7 +332,7 @@ function (provide, BEMDOM, channel, bh, $) {
             this.checkInputs();
         },
 
-        emailInputBlur: function () {
+        emailInputBlur: function() {
             var val = this.emailInput.getVal();
 
             if (val === '' || !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(val)) {
@@ -342,7 +346,7 @@ function (provide, BEMDOM, channel, bh, $) {
             this.checkInputs();
         },
 
-        returnToOrder: function () {
+        returnToOrder: function() {
             this
                 .closeModal()
                 .findBlockOutside('page')
@@ -352,7 +356,7 @@ function (provide, BEMDOM, channel, bh, $) {
         },
 
         /* eslint-disable complexity */
-        checkInputs: function () {
+        checkInputs: function() {
             var typeOfGetting = this.typeOfGettingRG.getVal();
 
             if (typeOfGetting === 'cym'
@@ -360,7 +364,6 @@ function (provide, BEMDOM, channel, bh, $) {
                 && this.buyerNameValue
                 && this.phoneValue
                 && this.emailValue) {
-
                 this.nextButton.delMod('disabled');
 
                 return;
@@ -371,7 +374,6 @@ function (provide, BEMDOM, channel, bh, $) {
                 && this.buyerNameValue
                 && this.phoneValue
                 && this.emailValue) {
-
                 this.nextButton.delMod('disabled');
 
                 return;
@@ -380,38 +382,38 @@ function (provide, BEMDOM, channel, bh, $) {
             this.nextButton.setMod('disabled');
         },
 
-        showConfirmOrderModal: function () {
+        showConfirmOrderModal: function() {
             this.closeModal();
 
             channel('order').emit('confirm');
         },
 
-        getPickedParams: function () {
+        getPickedParams: function() {
             var pickedParams = [
                 {
                     title: 'Общая стоимость (руб.)',
                     value: this
                         .findBlockOutside('page')
                         .findBlockInside('order')
-                        .getOrderCoast() + (this.typeOfGettingRG.getVal() === 'dim' ? 500 : 0)
+                        .getOrderCoast() + (this.typeOfGettingRG.getVal() === 'dim' ? 500 : 0),
                 },
                 {
                     title: 'Получение товара',
                     value: this
                         .getTypeOfGettingOptions()
-                        .filter(function (option) {
+                        .filter(function(option) {
                             return option.val === this.typeOfGetting;
                         }, this)[0]
-                        .text
+                        .text,
                 },
                 {
                     title: 'Оплата',
                     value: this
                         .getTypeOfPaymentOptions()
-                        .filter(function (option) {
+                        .filter(function(option) {
                             return option.val === this.typeOfPaymentRG.getVal();
                         }, this)[0]
-                        .text
+                        .text,
                 },
                 {
                     title: 'Дата доставки/самовывоза',
@@ -419,60 +421,60 @@ function (provide, BEMDOM, channel, bh, $) {
                         .toLocaleString('ru', {
                             year: 'numeric',
                             month: 'long',
-                            day: 'numeric'
-                        })
+                            day: 'numeric',
+                        }),
                 },
                 this.deliveryAddress ? {
                     title: 'Адрес доставки',
-                    value: this.deliveryAddress
+                    value: this.deliveryAddress,
                 } : null,
                 {
                     title: 'Имя получателя',
-                    value: this.buyerNameValue
+                    value: this.buyerNameValue,
                 },
                 {
                     title: 'Мобильный телефон',
-                    value: this.phoneValue
+                    value: this.phoneValue,
                 },
                 {
                     title: 'Электронная почта',
-                    value: this.emailValue
+                    value: this.emailValue,
                 },
                 {
                     title: 'Комментарий к заказу',
-                    value: this.commentaryTextarea.getVal()
-                }
+                    value: this.commentaryTextarea.getVal(),
+                },
 
             ];
 
-            return $.grep(pickedParams, function (item) {
+            return $.grep(pickedParams, function(item) {
                 // filter a holes
                 return item;
             });
         },
 
-        getTypeOfGettingOptions: function () {
+        getTypeOfGettingOptions: function() {
             return [
                 {
                     val: 'dim',
-                    text: 'Доставка по Москве'
+                    text: 'Доставка по Москве',
                 },
                 {
                     val: 'cym',
-                    text: 'Самовывоз со склада в Москве'
+                    text: 'Самовывоз со склада в Москве',
                 },
                 {
                     val: 'dbtc',
-                    text: 'Доставка транспортной компанией'
-                }
+                    text: 'Доставка транспортной компанией',
+                },
             ];
         },
 
-        getTypeOfPaymentOptions: function () {
+        getTypeOfPaymentOptions: function() {
             return [
                 {
                     val: 'cache',
-                    text: 'Через банк онлайн'
+                    text: 'Через банк онлайн',
                 },
                 // todo: restore when we'll support legal requirements
                 // {
@@ -481,10 +483,9 @@ function (provide, BEMDOM, channel, bh, $) {
                 // },
                 {
                     val: 'uncache',
-                    text: 'Безнал (запрос счета)'
-                }
+                    text: 'Безнал (запрос счета)',
+                },
             ];
-        }
+        },
     }));
-
 });

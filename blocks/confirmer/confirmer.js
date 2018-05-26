@@ -2,18 +2,17 @@
 
 modules.define('confirmer',
 ['i-bem__dom', 'events__channels', 'bh'],
-function (provide, BEMDOM, channel, bh) {
-
+function(provide, BEMDOM, channel, bh) {
     provide(BEMDOM.decl(this.name, {
         onSetMod: {
             js: {
-                inited: function () {
+                inited: function() {
                     channel('order').on('confirm', this.confirmHandler, this);
-                }
-            }
+                },
+            },
         },
 
-        confirmHandler: function () {
+        confirmHandler: function() {
             var orderBlock = this
                 .findBlockOutside('page')
                 .findBlockInside('order');
@@ -36,23 +35,23 @@ function (provide, BEMDOM, channel, bh) {
                         discount: {
                             base: {
                                 laminate: 0,
-                                pure: 0
+                                pure: 0,
                             },
                             number: {
                                 laminate: {
                                     laminate: 0,
-                                    pure: 0
+                                    pure: 0,
                                 },
                                 pure: {
                                     laminate: 0,
-                                    pure: 0
-                                }
-                            }
-                        }
+                                    pure: 0,
+                                },
+                            },
+                        },
                     }) : '',
                 orderParamsBemjson: checkouterBlock
                     .getPickedParams()
-                    .map(this.generateOrderParamBemjson)
+                    .map(this.generateOrderParamBemjson),
             }));
 
             this.modal = this.findElem('modal').bem('modal');
@@ -67,13 +66,13 @@ function (provide, BEMDOM, channel, bh) {
             this.modal.setMod('visible');
         },
 
-        closeModal: function () {
+        closeModal: function() {
             this.modal.delMod('visible');
 
             return this;
         },
 
-        returnToCheckout: function () {
+        returnToCheckout: function() {
             this
                 .closeModal()
                 .findBlockOutside('page')
@@ -82,7 +81,7 @@ function (provide, BEMDOM, channel, bh) {
                 .setMod('visible');
         },
 
-        generateOrderItemBemjson: function (data) {
+        generateOrderItemBemjson: function(data) {
             var priceType = data.isLaminate ? 'laminate' : 'pure';
             var discount = this.calculateDiscount(data.price, priceType, data.number, data.discount);
             var price = Math.floor(data.price - discount);
@@ -98,38 +97,38 @@ function (provide, BEMDOM, channel, bh) {
                             block: 'confirmer',
                             elem: 'order-item-title',
                             content: data.productName +
-                                (data.color ? ', ' + data.color.name + (data.size ? ', ' + data.size : '') : '')
-                        }
+                                (data.color ? ', ' + data.color.name + (data.size ? ', ' + data.size : '') : ''),
+                        },
                     },
                     {
                         tag: 'td',
                         content: {
                             block: 'confirmer',
                             elem: 'order-item-count',
-                            content: data.number
-                        }
+                            content: data.number,
+                        },
                     },
                     {
                         tag: 'td',
                         content: {
                             block: 'confirmer',
                             elem: 'order-item-price',
-                            content: price
-                        }
+                            content: price,
+                        },
                     },
                     {
                         tag: 'td',
                         content: {
                             block: 'confirmer',
                             elem: 'order-item-coast',
-                            content: data.number * price
-                        }
-                    }
-                ]
+                            content: data.number * price,
+                        },
+                    },
+                ],
             };
         },
 
-        generateOrderParamBemjson: function (data) {
+        generateOrderParamBemjson: function(data) {
             if (!data) {
                 return null;
             }
@@ -141,23 +140,23 @@ function (provide, BEMDOM, channel, bh) {
                 content: [
                     {
                         tag: 'td',
-                        content: data.title
+                        content: data.title,
                     },
                     {
                         tag: 'td',
-                        content: data.value
-                    }
-                ]
+                        content: data.value,
+                    },
+                ],
             };
         },
 
-        confirmOrder: function () {
+        confirmOrder: function() {
             this.closeModal();
 
             channel('order').emit('send');
         },
 
-        calculateDiscount: function (basePrice, priceType, number, discountData) {
+        calculateDiscount: function(basePrice, priceType, number, discountData) {
             var baseDiscount = basePrice * 0.01 * discountData.base[priceType];
             var numberDiscount = 0;
 
@@ -166,7 +165,6 @@ function (provide, BEMDOM, channel, bh) {
             }
 
             return baseDiscount + numberDiscount;
-        }
+        },
     }));
-
 });

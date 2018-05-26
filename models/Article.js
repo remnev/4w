@@ -1,36 +1,36 @@
 'use strict';
 
-var keystone = require('keystone');
-var Types = keystone.Field.Types;
+const keystone = require('keystone');
+const Types = keystone.Field.Types;
 
-var Article = new keystone.List('Article', {
+const Article = new keystone.List('Article', {
     label: 'Артикул',
     singular: 'Артикул',
-    plural: 'Артикулы'
+    plural: 'Артикулы',
 });
 
 Article.add({
     name: {
         type: String,
         required: true,
-        index: true
+        index: true,
     },
     price: {
         pure: {type: Number},
-        laminate: {type: Number}
+        laminate: {type: Number},
     },
     size: {
         units: {type: String},
-        value: {type: String}
+        value: {type: String},
     },
     weight: {
         type: Number,
         format: false,
-        note: 'в кг'
+        note: 'в кг',
     },
     dimensions: {
         type: String,
-        note: 'в см, длина/ширина/высота в упаковке'
+        note: 'в см, длина/ширина/высота в упаковке',
     },
     belongsTo: {
         type: Types.Select,
@@ -51,9 +51,9 @@ Article.add({
             'pens',
             'sealant-tape',
             'thermometer',
-            'linker-for-rehau'
-        ]
-    }
+            'linker-for-rehau',
+        ],
+    },
 });
 
 Article.register();

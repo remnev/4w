@@ -3,6 +3,6 @@
         {block: 'link'},
         {block: 'image'},
         {elem: 'title'},
-        {elem: 'items'}
-    ]
+        {elem: 'items'},
+    ],
 });

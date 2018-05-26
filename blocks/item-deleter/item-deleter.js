@@ -3,11 +3,10 @@
 modules.define(
 'i-bem__dom',
 ['events__channels', 'jquery'],
-function (provide, channel, $, BEMDOM) {
-
+function(provide, channel, $, BEMDOM) {
     BEMDOM.decl('item-deleter', {}, {
-        live: function () {
-            this.liveBindTo('click', function () {
+        live: function() {
+            this.liveBindTo('click', function() {
                 var itemId = this
                     .domElem
                     .closest('.order__add-to-order-modal-item')
@@ -15,9 +14,8 @@ function (provide, channel, $, BEMDOM) {
 
                 channel('order').emit('delete-item', itemId);
             });
-        }
+        },
     });
 
     provide(BEMDOM);
-
 });

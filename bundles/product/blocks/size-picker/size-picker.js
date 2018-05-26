@@ -3,26 +3,25 @@
 modules.define(
 'i-bem__dom',
 ['events__channels', 'location', 'next-tick'],
-function (provide, channel, location, nextTick, BEMDOM) {
-
+function(provide, channel, location, nextTick, BEMDOM) {
     BEMDOM.decl('size-picker', {
         onSetMod: {
             js: {
-                inited: function () {
+                inited: function() {
                     this.radioGroup = this.findBlockInside('radio-group');
 
                     this.radioGroup.on('change', this.sizeChangeHandler, this);
 
                     if (this.radioGroup.getVal()) {
-                        nextTick(function () {
+                        nextTick(function() {
                             this.radioGroup.emit('change');
                         }.bind(this));
                     }
-                }
-            }
+                },
+            },
         },
 
-        sizeChangeHandler: function () {
+        sizeChangeHandler: function() {
             var val = JSON.parse(this.radioGroup.getVal());
 
             this
@@ -32,11 +31,10 @@ function (provide, channel, location, nextTick, BEMDOM) {
             channel('size-picker').emit('sizeChange', val);
 
             location.change({
-                params: {size: val.size.value}
+                params: {size: val.size.value},
             });
-        }
+        },
     });
 
     provide(BEMDOM);
-
 });

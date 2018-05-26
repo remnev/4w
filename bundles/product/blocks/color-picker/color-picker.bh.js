@@ -2,9 +2,9 @@
 
 var f = require('util').format;
 
-module.exports = function (bh) {
+module.exports = function(bh) {
     /* eslint-disable complexity */
-    bh.match('color-picker', function (ctx) {
+    bh.match('color-picker', function(ctx) {
         var data = ctx.tParam('data');
         var colorType = data.query['color-type'];
         var color = data.query.color;
@@ -18,7 +18,7 @@ module.exports = function (bh) {
         ctx
             .js({
                 colorType: Array.isArray(colorType) ? colorType[0] : colorType,
-                color: Array.isArray(color) ? color[0] : color
+                color: Array.isArray(color) ? color[0] : color,
             })
             .content([
                 {
@@ -26,16 +26,16 @@ module.exports = function (bh) {
                     content: [
                         'Выберите цвет ',
                         {
-                            elem: 'pickedColor'
-                        }
-                    ]
+                            elem: 'pickedColor',
+                        },
+                    ],
                 },
                 {
                     elem: 'title',
                     mods: {
-                        invisible: !productData.showPurePVC
+                        invisible: !productData.showPurePVC,
                     },
-                    content: 'Белый'
+                    content: 'Белый',
                 },
                 {
                     elem: 'colors',
@@ -44,57 +44,64 @@ module.exports = function (bh) {
                         mods: {
                             'no-laminate': true,
                             'color-type': 'pure',
-                            size: 'l'
+                            'size': 'l',
                         },
                         attrs: {
                             'data-title': 'Белый',
-                            'data-code': null
-                        }
-                    }
+                            'data-code': null,
+                        },
+                    },
                 },
                 {
                     elem: 'title',
                     mods: {
-                        invisible: colors.available.length === 0
+                        invisible: colors.available.length === 0,
                     },
-                    content: 'Цвета по Renolit, в наличии'
+                    content: 'Цвета по Renolit, в наличии',
                 },
                 {
                     elem: 'colors',
-                    content: colors.available.map(generateColorBemjson.bind(null, true))
+                    content: colors.available.map(generateColorBemjson.bind(null, true)),
                 },
                 {
                     elem: 'title',
                     mods: {
-                        invisible: colors.onRequest.length === 0
+                        invisible: colors.onRequest.length === 0,
                     },
-                    content: f('Цвета по Renolit, под заказ %s дн.', productData.deliveryOptions.days.onRequest)
+                    content: f('Цвета по Renolit, под заказ %s дн.', productData.deliveryOptions.days.onRequest),
                 },
                 {
                     elem: 'colors',
-                    content: colors.onRequest.map(generateColorBemjson.bind(null, false))
-                }
+                    content: colors.onRequest.map(generateColorBemjson.bind(null, false)),
+                },
             ]);
     });
 
+    /**
+     * Takes a color elem bemjson
+     *
+     * @param  {Boolean} isAvailable
+     * @param  {Object}  data
+     * @return {Object}
+     */
     function generateColorBemjson(isAvailable, data) {
         return {
             elem: 'color',
             mods: {
-                size: isAvailable ? 'l' : 's',
-                'color-type': 'laminate'
+                'size': isAvailable ? 'l' : 's',
+                'color-type': 'laminate',
             },
             attrs: {
                 'data-title': data.name,
                 'data-code': data.code,
-                style: f('background-image: url(\'/public/images/colors/%s.jpg\');', data.code)
+                'style': f('background-image: url(\'/public/images/colors/%s.jpg\');', data.code),
             },
             content: [
                 {
                     elem: 'colorCode',
-                    content: data.code
-                }
-            ]
+                    content: data.code,
+                },
+            ],
         };
     }
 };

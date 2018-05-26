@@ -4,13 +4,13 @@ var url = require('url');
 var moment = require('moment');
 var format = require('util').format;
 
-module.exports = function (bh) {
-    bh.match('footer', function (ctx) {
+module.exports = function(bh) {
+    bh.match('footer', function(ctx) {
         var data = ctx.tParam('data');
-        var profProducts = data.products.filter(function (item) {
+        var profProducts = data.products.filter(function(item) {
             return item.type === 'prof';
         });
-        var homeProducts = data.products.filter(function (item) {
+        var homeProducts = data.products.filter(function(item) {
             return item.type === 'home';
         });
 
@@ -22,18 +22,18 @@ module.exports = function (bh) {
                     content: [
                         {
                             elem: 'title',
-                            content: 'Для профессионалов:'
-                        }
-                    ].concat(profProducts.map(generateLink))
+                            content: 'Для профессионалов:',
+                        },
+                    ].concat(profProducts.map(generateLink)),
                 },
                 {
                     elem: 'section',
                     content: [
                         {
                             elem: 'title',
-                            content: 'Для дома:'
-                        }
-                    ].concat(homeProducts.map(generateLink))
+                            content: 'Для дома:',
+                        },
+                    ].concat(homeProducts.map(generateLink)),
                 },
                 {
                     elem: 'section',
@@ -41,24 +41,24 @@ module.exports = function (bh) {
                         {
                             block: 'link',
                             url: '/delivery/',
-                            content: 'Доставка во все регионы'
+                            content: 'Доставка во все регионы',
                         },
                         {
                             block: 'link',
                             url: '/payment/',
-                            content: 'Любые виды оплаты'
+                            content: 'Любые виды оплаты',
                         },
                         {
                             block: 'link',
                             url: '/warranty/',
-                            content: 'Гарантия и возврат'
+                            content: 'Гарантия и возврат',
                         },
                         {
                             block: 'link',
                             url: '/contacts/',
-                            content: 'Адреса офиса и склада'
-                        }
-                    ]
+                            content: 'Адреса офиса и склада',
+                        },
+                    ],
                 },
                 {
                     elem: 'section',
@@ -68,7 +68,7 @@ module.exports = function (bh) {
                             url: url.format({
                                 protocol: 'http',
                                 hostname: 'market.yandex.ru',
-                                pathname: '/shop/346454/reviews'
+                                pathname: '/shop/346454/reviews',
                             }),
                             content: {
                                 block: 'image',
@@ -79,28 +79,34 @@ module.exports = function (bh) {
                                     query: {
                                         id: 346454,
                                         action: 'image',
-                                        size: 0
-                                    }
+                                        size: 0,
+                                    },
                                 }),
                                 attrs: {
                                     border: 0,
                                     width: 88,
-                                    height: 31
-                                }
-                            }
+                                    height: 31,
+                                },
+                            },
                         },
-                        '4window – магазин оконных принадлежностей ООО "Проформ" © ' + moment().year()
-                    ]
-                }
-            ]
+                        '4window – магазин оконных принадлежностей ООО "Проформ" © ' + moment().year(),
+                    ],
+                },
+            ],
         });
     });
 };
 
+/**
+ * Takes a link bemjson
+ *
+ * @param  {Object} data
+ * @return {Object}
+ */
 function generateLink(data) {
     return {
         block: 'link',
         url: format('/products/%s/', data.slug),
-        content: data.name
+        content: data.name,
     };
 }

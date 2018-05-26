@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = function (bh) {
-    bh.match('content', function (ctx) {
+module.exports = function(bh) {
+    bh.match('content', function(ctx) {
         var data = ctx.tParam('data').productData;
 
         ctx.content([
             {
                 elem: 'left-column',
-                content: {block: 'products-menu'}
+                content: {block: 'products-menu'},
             },
             {
                 elem: 'right-column',
@@ -15,21 +15,21 @@ module.exports = function (bh) {
                     {
                         elem: 'header',
                         tag: 'h1',
-                        content: data.name
+                        content: data.name,
                     },
                     {
                         elem: 'description',
-                        content: data.description
+                        content: data.description,
                     },
                     {block: 'photo-slider'},
                     data.showPriceTable && {block: 'pricer'},
                     {block: 'filter'},
                     {
                         elem: 'about-product',
-                        content: data.aboutProduct
-                    }
-                ]
-            }
+                        content: data.aboutProduct,
+                    },
+                ],
+            },
         ]);
     });
 };

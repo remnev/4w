@@ -1,9 +1,9 @@
 'use strict';
 
-var keystone = require('keystone');
+const keystone = require('keystone');
 
-var PageProduct = new keystone.List('PageProduct', {
-    label: 'Страница Продукта'
+const PageProduct = new keystone.List('PageProduct', {
+    label: 'Страница Продукта',
 });
 
 PageProduct.add(
@@ -12,13 +12,13 @@ PageProduct.add(
     {
         seo: {
             title: {type: String},
-            description: {type: String}
-        }
+            description: {type: String},
+        },
     },
     'Настройки страницы',
     {
         slug: {type: String},
-        name: {type: String}
+        name: {type: String},
     }
 );
 

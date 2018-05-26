@@ -2,25 +2,24 @@
 
 modules.define('color-picker',
 ['i-bem__dom', 'events__channels', 'jquery', 'location'],
-function (provide, BEMDOM, channel, $, location) {
-
+function(provide, BEMDOM, channel, $, location) {
     provide(BEMDOM.decl(this.name, {
         onSetMod: {
             js: {
-                inited: function () {
+                inited: function() {
                     this.$colors = this.elem('color');
 
                     this._pickColorOnInit();
 
                     this.bindTo('color', 'click', this.colorClickHandler);
-                }
-            }
+                },
+            },
         },
 
         onElemSetMod: {
             color: {
                 active: {
-                    true: function (elem) {
+                    'true': function(elem) {
                         var title = elem.data('title');
                         var code = elem.data('code');
 
@@ -34,24 +33,24 @@ function (provide, BEMDOM, channel, $, location) {
                             title: title,
                             code: code,
                             isLaminate: !this.hasMod(elem, 'no-laminate'),
-                            isOnRequest: this.hasMod(elem, 'size', 's')
+                            isOnRequest: this.hasMod(elem, 'size', 's'),
                         };
 
                         channel('color-picker').emit('colorChange', this.pickedColor);
                     },
-                    '': function () {
+                    '': function() {
                         this
                             .delMod(this.$colors, 'inactive')
                             .delMod('picked')
                             .elem('pickedColor').empty();
 
                         channel('color-picker').emit('colorClear');
-                    }
-                }
-            }
+                    },
+                },
+            },
         },
 
-        colorClickHandler: function (e) {
+        colorClickHandler: function(e) {
             var $color = $(e.currentTarget);
 
             this.pickColor($color);
@@ -64,13 +63,13 @@ function (provide, BEMDOM, channel, $, location) {
             }
         },
 
-        pickColor: function ($color) {
+        pickColor: function($color) {
             this
                 .toggleMod($color, 'active')
                 .delMod($color, 'inactive');
         },
 
-        _pickColorOnInit: function () {
+        _pickColorOnInit: function() {
             var $pureColors = this.elem('color', 'color-type', 'pure');
             var $laminateColors = this.elem('color', 'color-type', 'laminate');
             var colorToPick;
@@ -92,7 +91,7 @@ function (provide, BEMDOM, channel, $, location) {
             this.pickColor(colorToPick);
         },
 
-        _setQueryParams: function (colorType, colorCode) {
+        _setQueryParams: function(colorType, colorCode) {
             var params = {'color-type': colorType};
 
             if (colorCode) {
@@ -106,22 +105,21 @@ function (provide, BEMDOM, channel, $, location) {
             return this;
         },
 
-        _delQueryParams: function (params) {
+        _delQueryParams: function(params) {
             var query = location.getUri().queryParams;
 
-            params.forEach(function (param) {
+            params.forEach(function(param) {
                 delete query[param];
             });
 
             location.change({
                 params: query,
-                forceParams: true
+                forceParams: true,
             });
 
             return this;
         },
 
-        pickedColor: null
+        pickedColor: null,
     }));
-
 });

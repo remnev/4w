@@ -2,6 +2,6 @@
 
 exports.blocks = [
     {
-        name: 'page'
-    }
+        name: 'page',
+    },
 ];

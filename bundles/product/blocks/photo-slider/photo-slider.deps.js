@@ -1,6 +1,6 @@
 ([{
     shouldDeps: [
         {block: 'image'},
-        {block: 'jquery'}
-    ]
+        {block: 'jquery'},
+    ],
 }]);

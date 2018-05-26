@@ -1,12 +1,12 @@
 'use strict';
 
-var keystone = require('keystone');
+const keystone = require('keystone');
 
-var YandexMarketInfo = new keystone.List('YandexMarketInfo', {
+const YandexMarketInfo = new keystone.List('YandexMarketInfo', {
     label: 'Настройки магазина в Яндекс Маркете',
     plural: 'Настройки магазина в Яндекс Маркете',
     nodelete: true,
-    nocreate: true
+    nocreate: true,
 });
 
 YandexMarketInfo.add({
@@ -16,13 +16,13 @@ YandexMarketInfo.add({
     deliveryOptions: {
         days: {
             type: Number,
-            format: false
+            format: false,
         },
         cost: {
             type: Number,
-            format: false
-        }
-    }
+            format: false,
+        },
+    },
 });
 
 YandexMarketInfo.register();

@@ -3,12 +3,11 @@
 modules.define(
 'i-bem__dom',
 ['events__channels', 'jquery'],
-function (provide, channel, $, BEMDOM) {
-
+function(provide, channel, $, BEMDOM) {
     BEMDOM.decl('title', {
         onSetMod: {
             js: {
-                inited: function () {
+                inited: function() {
                     var $header = this.findBlockOutside('header').elem('top-line');
 
                     this.headerBottom = $header.offset().top + $header.height();
@@ -17,11 +16,11 @@ function (provide, channel, $, BEMDOM) {
                     $(window)
                         .scroll(this.checkLogoPosition.bind(this))
                         .scroll();
-                }
-            }
+                },
+            },
         },
 
-        checkLogoPosition: function () {
+        checkLogoPosition: function() {
             if (this.isLogoCoveredByHeader()) {
                 channel('main-menu').emit('logo-is-covered-by-header');
             } else {
@@ -29,13 +28,12 @@ function (provide, channel, $, BEMDOM) {
             }
         },
 
-        isLogoCoveredByHeader: function () {
+        isLogoCoveredByHeader: function() {
             var logoTop = this.offsetTop - $(window).scrollTop();
 
             return logoTop <= this.headerBottom;
-        }
+        },
     });
 
     provide(BEMDOM);
-
 });

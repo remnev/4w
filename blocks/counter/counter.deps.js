@@ -1,5 +1,5 @@
 ([{
     shouldDeps: [
-        {block: 'input'}
-    ]
+        {block: 'input'},
+    ],
 }]);

@@ -2,18 +2,18 @@
 
 var format = require('util').format;
 
-module.exports = function (bh) {
-    bh.match('pricer', function (ctx) {
+module.exports = function(bh) {
+    bh.match('pricer', function(ctx) {
         var data = ctx.tParam('data').productData;
         var bemjson = [
             {
                 elem: 'title',
                 tag: 'h2',
-                content: 'Цены'
+                content: 'Цены',
             },
             data.valueForPrice && {
                 elem: 'value-for-price',
-                content: format('(%s)', data.valueForPrice)
+                content: format('(%s)', data.valueForPrice),
             },
             {
                 elem: 'table',
@@ -28,44 +28,49 @@ module.exports = function (bh) {
                                 content: [
                                     {
                                         tag: 'td',
-                                        content: 'Артикул'
+                                        content: 'Артикул',
                                     },
                                     {
                                         tag: 'td',
-                                        content: 'Размер'
+                                        content: 'Размер',
                                     },
                                     {
                                         tag: 'td',
-                                        content: 'Цена, белый ПВХ'
+                                        content: 'Цена, белый ПВХ',
                                     },
                                     data.numberDiscount.pure.number > 0 && {
                                         tag: 'td',
-                                        content: format('Цена от %s шт, белый ПВХ', data.numberDiscount.pure.number)
+                                        content: format('Цена от %s шт, белый ПВХ', data.numberDiscount.pure.number),
                                     },
                                     {
                                         tag: 'td',
-                                        content: 'Цена, цветной'
+                                        content: 'Цена, цветной',
                                     },
                                     data.numberDiscount.laminate.number > 0 && {
                                         tag: 'td',
-                                        content: format('Цена от %s шт, цветной', data.numberDiscount.laminate.number)
-                                    }
-                                ]
-                            }
-                        ]
+                                        content: format('Цена от %s шт, цветной', data.numberDiscount.laminate.number),
+                                    },
+                                ],
+                            },
+                        ],
                     },
                     {
                         elem: 'tbody',
                         tag: 'tbody',
-                        content: data.articles.map(generateRowBemjson)
-                    }
-                ]
-            }
+                        content: data.articles.map(generateRowBemjson),
+                    },
+                ],
+            },
         ];
 
         ctx.content(bemjson);
 
-        /* eslint-disable complexity */
+        /**
+         * Takes an article bemjson
+         *
+         * @param  {Object} article
+         * @return {Object}
+         */
         function generateRowBemjson(article) {
             var purePriceValue = format('%s руб.', article.price.pure);
             var laminatePriceValue = format('%s руб.', article.price.laminate);
@@ -76,14 +81,14 @@ module.exports = function (bh) {
                 purePriceValue = [
                     {
                         tag: 'strike',
-                        content: article.price.pure
+                        content: article.price.pure,
                     },
                     ' ',
                     {
                         tag: 'b',
-                        content: Math.floor(article.price.pure - article.price.pure * .01 * data.baseDiscount.pure)
+                        content: Math.floor(article.price.pure - article.price.pure * .01 * data.baseDiscount.pure),
                     },
-                    ' руб.'
+                    ' руб.',
                 ];
             }
 
@@ -91,7 +96,7 @@ module.exports = function (bh) {
                 laminatePriceValue = [
                     {
                         tag: 'strike',
-                        content: article.price.laminate
+                        content: article.price.laminate,
                     },
                     ' ',
                     {
@@ -99,9 +104,9 @@ module.exports = function (bh) {
                         content: Math.floor(
                             article.price.laminate -
                             article.price.laminate * .01 * data.baseDiscount.laminate
-                        )
+                        ),
                     },
-                    ' руб.'
+                    ' руб.',
                 ];
             }
 
@@ -114,7 +119,7 @@ module.exports = function (bh) {
                             article.price.pure * .01 * data.baseDiscount.pure
                         )
                     ),
-                    ' руб.'
+                    ' руб.',
                 ];
             }
 
@@ -127,7 +132,7 @@ module.exports = function (bh) {
                             article.price.laminate * .01 * data.baseDiscount.laminate
                         )
                     ),
-                    ' руб.'
+                    ' руб.',
                 ];
             }
 
@@ -136,29 +141,29 @@ module.exports = function (bh) {
                 content: [
                     {
                         tag: 'td',
-                        content: article.name
+                        content: article.name,
                     },
                     {
                         tag: 'td',
-                        content: format('%s %s', article.size.value, article.size.units)
+                        content: format('%s %s', article.size.value, article.size.units),
                     },
                     {
                         tag: 'td',
-                        content: purePriceValue
+                        content: purePriceValue,
                     },
                     data.numberDiscount.pure.number > 0 && {
                         tag: 'td',
-                        content: purePriceValueFromAmount
+                        content: purePriceValueFromAmount,
                     },
                     {
                         tag: 'td',
-                        content: laminatePriceValue
+                        content: laminatePriceValue,
                     },
                     data.numberDiscount.laminate.number > 0 && {
                         tag: 'td',
-                        content: laminatePriceValueFromAmount
-                    }
-                ]
+                        content: laminatePriceValueFromAmount,
+                    },
+                ],
             };
         }
     });

@@ -3,11 +3,10 @@
 modules.define(
 'i-bem__dom',
 ['events__channels', 'jquery'],
-function (provide, channel, $, BEMDOM) {
-
+function(provide, channel, $, BEMDOM) {
     BEMDOM.decl({block: 'counter', modName: 'item-counter'}, {
 
-        inputChangeHandler: function () {
+        inputChangeHandler: function() {
             var itemId;
             var data;
 
@@ -19,20 +18,19 @@ function (provide, channel, $, BEMDOM) {
                 .index();
             data = {
                 itemId: itemId,
-                val: this.getVal()
+                val: this.getVal(),
             };
 
             channel('order').emit('change-item-number', data);
-        }
+        },
 
     }, {
 
-        live: function () {
+        live: function() {
             this.liveInitOnEvent('pointerover');
-        }
+        },
 
     });
 
     provide(BEMDOM);
-
 });

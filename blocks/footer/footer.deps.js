@@ -1,6 +1,6 @@
 ({
     mustDeps: [
         {block: 'link'},
-        {block: 'image'}
-    ]
+        {block: 'image'},
+    ],
 });

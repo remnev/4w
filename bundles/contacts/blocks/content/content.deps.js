@@ -5,8 +5,8 @@
             mods: {
                 theme: 'islands',
                 size: 'm',
-                pseudo: true
-            }
-        }
-    ]
+                pseudo: true,
+            },
+        },
+    ],
 }]);

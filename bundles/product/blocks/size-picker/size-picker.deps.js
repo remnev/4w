@@ -5,14 +5,14 @@
             mods: {
                 theme: 'islands',
                 type: 'button',
-                size: 'm'
-            }
+                size: 'm',
+            },
         },
         {
             block: 'events',
-            elem: 'channels'
+            elem: 'channels',
         },
         {block: 'location'},
-        {block: 'next-tick'}
-    ]
+        {block: 'next-tick'},
+    ],
 }]);

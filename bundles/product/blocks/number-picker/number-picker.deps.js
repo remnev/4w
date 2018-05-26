@@ -3,19 +3,19 @@
         {block: 'counter'},
         {
             block: 'events',
-            elem: 'channels'
+            elem: 'channels',
         },
         {
             block: 'functions',
-            elem: 'debounce'
+            elem: 'debounce',
         },
         {
             block: 'button',
             mods: {
                 theme: 'islands',
                 size: 'xl',
-                view: 'action'
-            }
-        }
-    ]
+                view: 'action',
+            },
+        },
+    ],
 }]);

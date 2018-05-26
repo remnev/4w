@@ -2,8 +2,8 @@
     shouldDeps: [
         {
             block: 'events',
-            elem: 'channels'
+            elem: 'channels',
         },
-        {block: 'jquery'}
-    ]
+        {block: 'jquery'},
+    ],
 }]);

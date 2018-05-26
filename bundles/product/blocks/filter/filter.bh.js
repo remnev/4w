@@ -2,16 +2,16 @@
 
 var format = require('util').format;
 
-module.exports = function (bh) {
-    bh.match('filter', function (ctx) {
+module.exports = function(bh) {
+    bh.match('filter', function(ctx) {
         var data = ctx.tParam('data').productData;
         var contentBemjson = [
             {
                 elem: 'title',
                 tag: 'h2',
-                content: format('Купить %s', data.name.toLowerCase())
+                content: format('Купить %s', data.name.toLowerCase()),
             },
-            {block: 'color-picker'}
+            {block: 'color-picker'},
         ];
 
         if (data.articles.length > 1) {
@@ -22,7 +22,7 @@ module.exports = function (bh) {
 
         ctx
             .js({
-                singleArticle: data.articles.length > 1 ? null : data.articles[0]
+                singleArticle: data.articles.length > 1 ? null : data.articles[0],
             })
             .content(contentBemjson);
     });
