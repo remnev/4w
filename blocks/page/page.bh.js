@@ -2,8 +2,8 @@
 
 var f = require('util').format;
 
-module.exports = function (bh) {
-    bh.match('root', function (ctx) {
+module.exports = function(bh) {
+    bh.match('root', function(ctx) {
         var data = ctx.json().data;
 
         ctx.tParam('data', data);
@@ -15,29 +15,29 @@ module.exports = function (bh) {
             head: [
                 {
                     elem: 'css',
-                    url: f('/bundles/%s/_%s.css', data.bundleName, data.bundleName)
+                    url: f('/bundles/%s/_%s.css', data.bundleName, data.bundleName),
                 },
                 {
                     elem: 'js',
-                    url: f('/bundles/%s/_%s.browser.js', data.bundleName, data.bundleName)
+                    url: f('/bundles/%s/_%s.browser.js', data.bundleName, data.bundleName),
                 },
                 // todo: move the moment to a bundle
                 {
                     elem: 'js',
-                    url: 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js'
+                    url: 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js',
                 },
                 {
                     elem: 'js',
-                    url: 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/ru.js'
+                    url: 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/ru.js',
                 },
                 {
                     elem: 'meta',
                     attrs: {
                         name: 'description',
                         // todo: `data.seo` deprecated
-                        content: data.page ? data.page.seo.description : data.seo.description
-                    }
-                }
+                        content: data.page ? data.page.seo.description : data.seo.description,
+                    },
+                },
             ],
             content: [
                 {block: 'header'},
@@ -53,16 +53,16 @@ module.exports = function (bh) {
                         webvisor: true,
                         clickmap: true,
                         trackLinks: true,
-                        accurateTrackBounce: true
-                    }
+                        accurateTrackBounce: true,
+                    },
                 },
                 {
                     block: 'google-tag-manager',
                     params: {
-                        id: 'GTM-TGV26S'
-                    }
-                }
-            ]
+                        id: 'GTM-TGV26S',
+                    },
+                },
+            ],
         };
     });
 };

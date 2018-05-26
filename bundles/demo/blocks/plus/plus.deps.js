@@ -2,7 +2,7 @@
     mustDeps: [
         {
             block: 'events',
-            elem: 'channels'
-        }
-    ]
+            elem: 'channels',
+        },
+    ],
 });

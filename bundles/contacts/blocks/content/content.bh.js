@@ -1,43 +1,43 @@
 'use strict';
 
-module.exports = function (bh) {
-    bh.match('content', function (ctx) {
+module.exports = function(bh) {
+    bh.match('content', function(ctx) {
         var data = ctx.tParam('data').page;
 
         ctx.content([
             {
                 elem: 'header',
                 tag: 'h1',
-                content: data.title
+                content: data.title,
             },
             {
                 elem: 'description',
-                content: data.text
+                content: data.text,
             },
             {
                 elem: 'map',
-                content: data.map
+                content: data.map,
             },
             {
                 elem: 'panorama',
-                content: data.panorama
+                content: data.panorama,
             },
             {
                 block: 'link',
                 mods: {
                     theme: 'islands',
                     size: 'm',
-                    pseudo: true
+                    pseudo: true,
                 },
                 mix: {
                     block: 'content',
-                    elem: 'print-map'
+                    elem: 'print-map',
                 },
                 attrs: {
-                    onclick: 'print()'
+                    onclick: 'print()',
                 },
-                content: 'Распечатать схему проезда'
-            }
+                content: 'Распечатать схему проезда',
+            },
         ]);
     });
 };

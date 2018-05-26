@@ -1,12 +1,12 @@
 'use strict';
 
-var keystone = require('keystone');
-var Types = keystone.Field.Types;
+const keystone = require('keystone');
+const Types = keystone.Field.Types;
 
-var PageContacts = new keystone.List('PageContacts', {
+const PageContacts = new keystone.List('PageContacts', {
     label: 'Страница о Контактах',
     nodelete: true,
-    nocreate: true
+    nocreate: true,
 });
 
 PageContacts.add(
@@ -14,8 +14,8 @@ PageContacts.add(
     {
         seo: {
             title: {type: String},
-            description: {type: String}
-        }
+            description: {type: String},
+        },
     },
     'Содержимое страницы',
     {
@@ -23,20 +23,20 @@ PageContacts.add(
         text: {
             type: Types.Html,
             wysiwyg: true,
-            height: 500
+            height: 500,
         },
         map: {type: String},
-        panorama: {type: String}
+        panorama: {type: String},
     },
     {
         modifiedAt: {
             type: Types.Date,
-            hidden: true
-        }
+            hidden: true,
+        },
     }
 );
 
-PageContacts.schema.pre('save', function (next) {
+PageContacts.schema.pre('save', function(next) {
     if (this.isModified()) {
         this.modifiedAt = new Date();
     }

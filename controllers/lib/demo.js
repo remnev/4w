@@ -1,12 +1,11 @@
 'use strict';
-// TODO: jsdoc
 // TODO: test
-var keystone = require('keystone');
-var bundleName = __filename.match(/.*\/(.+).js$/)[1];
+const keystone = require('keystone');
+const bundleName = __filename.match(/.*\/(.+).js$/)[1];
 
-module.exports = function (req, res) {
-    var view = new keystone.View(req, res);
-    var locals = res.locals;
+module.exports = function(req, res) {
+    const view = new keystone.View(req, res);
+    const locals = res.locals;
 
     locals.bundleName = bundleName;
     locals.bemjson = {block: 'root'};

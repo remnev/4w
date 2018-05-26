@@ -4,17 +4,17 @@
         {
             block: 'tasks',
             elem: 'task',
-            tech: 'bh'
-        }
-    ]
+            tech: 'bh',
+        },
+    ],
 }, {
     mustDeps: [
         {
             block: 'events',
-            elem: 'channels'
-        }
+            elem: 'channels',
+        },
     ],
     shouldDeps: [
-        {elem: 'task'}
-    ]
+        {elem: 'task'},
+    ],
 }]);

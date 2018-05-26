@@ -1,12 +1,11 @@
 'use strict';
-// TODO: jsdoc
 
-var path = require('path');
-var glob = require('glob');
-var controllers = {};
+const path = require('path');
+const glob = require('glob');
+const controllers = {};
 
-glob.sync(path.join(__dirname, 'lib/*.js')).forEach(function (pathToController) {
-    var id = pathToController.match(/.*\/(.+).js$/)[1];
+glob.sync(path.join(__dirname, 'lib/*.js')).forEach(function(pathToController) {
+    const id = pathToController.match(/.*\/(.+).js$/)[1];
 
     controllers[id] = require(pathToController);
 });

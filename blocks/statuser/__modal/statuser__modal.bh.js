@@ -1,37 +1,36 @@
 'use strict';
 
-module.exports = function (bh) {
-
-    bh.match('statuser__modal_type_send', function () {
+module.exports = function(bh) {
+    bh.match('statuser__modal_type_send', function() {
         var bemjson = {
             block: 'modal',
             mods: {theme: 'islands'},
             mix: {
                 block: 'statuser',
                 elem: 'modal',
-                mods: {type: 'send'}
+                mods: {type: 'send'},
             },
             content: [
                 {
                     block: 'statuser',
                     elem: 'title',
-                    content: 'Отправляем данные заказа'
+                    content: 'Отправляем данные заказа',
                 },
                 {
                     block: 'spin',
                     mods: {
                         theme: 'islands',
                         size: 'm',
-                        visible: true
-                    }
-                }
-            ]
+                        visible: true,
+                    },
+                },
+            ],
         };
 
         return bemjson;
     });
 
-    bh.match('statuser__modal_type_success', function (ctx) {
+    bh.match('statuser__modal_type_success', function(ctx) {
         var data = ctx.json().data;
         var bemjson = {
             block: 'modal',
@@ -39,13 +38,13 @@ module.exports = function (bh) {
             mix: {
                 block: 'statuser',
                 elem: 'modal',
-                mods: {type: 'success'}
+                mods: {type: 'success'},
             },
             content: [
                 {
                     block: 'statuser',
                     elem: 'title',
-                    content: 'Заказ отправлен'
+                    content: 'Заказ отправлен',
                 },
                 {
                     block: 'statuser',
@@ -55,8 +54,8 @@ module.exports = function (bh) {
                         'Подробности заказа отправлены на указанный вами почтовый ящик ' + data.buyerEmail + '. ',
                         'Наш менеджер свяжется с вами в ближайшее время для подтверждения заказа.',
                         data.isPaymentRequired ? '</br>Теперь вы можете оплатить заказ с помощью банковской карты.' +
-                        ' Нажмите кнопку "Оплатить"' : ''
-                    ]
+                        ' Нажмите кнопку "Оплатить"' : '',
+                    ],
                 },
                 {
                     block: 'statuser',
@@ -67,30 +66,30 @@ module.exports = function (bh) {
                             mods: {
                                 theme: 'islands',
                                 size: 'm',
-                                view: data.isPaymentRequired ? 'pseudo' : 'action'
+                                view: data.isPaymentRequired ? 'pseudo' : 'action',
                             },
                             mix: {
                                 block: 'statuser',
-                                elem: 'close'
+                                elem: 'close',
                             },
-                            text: 'Закрыть окно'
+                            text: 'Закрыть окно',
                         },
                         data.isPaymentRequired ? {
                             block: 'button',
                             mods: {
                                 theme: 'islands',
                                 size: 'm',
-                                view: 'action'
+                                view: 'action',
                             },
                             mix: {
                                 block: 'statuser',
-                                elem: 'pay'
+                                elem: 'pay',
                             },
-                            text: 'Оплатить'
-                        } : ''
-                    ]
-                }
-            ]
+                            text: 'Оплатить',
+                        } : '',
+                    ],
+                },
+            ],
         };
 
         if (data.isPaymentRequired) {
@@ -100,7 +99,7 @@ module.exports = function (bh) {
                 tag: 'form',
                 attrs: {
                     action: 'https://money.yandex.ru/eshop.xml',
-                    type: 'post'
+                    type: 'post',
                 },
                 content: [
                     {
@@ -108,109 +107,109 @@ module.exports = function (bh) {
                         attrs: {
                             type: 'hidden',
                             name: 'shopId',
-                            value: '39148'
-                        }
+                            value: '39148',
+                        },
                     },
                     {
                         tag: 'input',
                         attrs: {
                             type: 'hidden',
                             name: 'scid',
-                            value: '26865'
-                        }
+                            value: '26865',
+                        },
                     },
                     {
                         tag: 'input',
                         attrs: {
                             type: 'hidden',
                             name: 'sum',
-                            value: data.orderCoast
-                        }
+                            value: data.orderCoast,
+                        },
                     },
                     {
                         tag: 'input',
                         attrs: {
                             type: 'hidden',
                             name: 'customerNumber',
-                            value: data.buyerEmail
-                        }
+                            value: data.buyerEmail,
+                        },
                     },
                     {
                         tag: 'input',
                         attrs: {
                             type: 'hidden',
                             name: 'paymentType',
-                            value: 'AC'
-                        }
+                            value: 'AC',
+                        },
                     },
                     {
                         tag: 'input',
                         attrs: {
                             type: 'hidden',
                             name: 'orderNumber',
-                            value: data.orderId
-                        }
+                            value: data.orderId,
+                        },
                     },
                     {
                         tag: 'input',
                         attrs: {
                             type: 'hidden',
                             name: 'custEmail',
-                            value: data.buyerEmail
-                        }
+                            value: data.buyerEmail,
+                        },
                     },
                     {
                         tag: 'input',
                         attrs: {
                             type: 'hidden',
                             name: 'cps_email',
-                            value: data.buyerEmail
-                        }
+                            value: data.buyerEmail,
+                        },
                     },
                     {
                         tag: 'input',
                         attrs: {
                             type: 'hidden',
                             name: 'custName',
-                            value: data.buyerName
-                        }
+                            value: data.buyerName,
+                        },
                     },
                     {
                         tag: 'input',
                         attrs: {
-                            type: 'submit'
+                            type: 'submit',
                         },
-                        content: 'ok'
-                    }
-                ]
+                        content: 'ok',
+                    },
+                ],
             });
         }
 
         return bemjson;
     });
 
-    bh.match('statuser__modal_type_fail', function () {
+    bh.match('statuser__modal_type_fail', function() {
         var bemjson = {
             block: 'modal',
             mods: {theme: 'islands'},
             mix: {
                 block: 'statuser',
                 elem: 'modal',
-                mods: {type: 'fail'}
+                mods: {type: 'fail'},
             },
             content: [
                 {
                     block: 'statuser',
                     elem: 'title',
-                    content: 'Произошла ошибка отправки заказа'
+                    content: 'Произошла ошибка отправки заказа',
                 },
                 {
                     block: 'statuser',
                     elem: 'text',
                     content: [
                         'Попробуйте отправить еще раз. ',
-                        'Если ошибка повторяется, свяжитесь с нами по телефону или электронной почте.'
-                    ]
+                        'Если ошибка повторяется, свяжитесь с нами по телефону или электронной почте.',
+                    ],
                 },
                 {
                     block: 'statuser',
@@ -220,33 +219,32 @@ module.exports = function (bh) {
                             block: 'button',
                             mods: {
                                 theme: 'islands',
-                                size: 'm'
+                                size: 'm',
                             },
                             mix: {
                                 block: 'statuser',
-                                elem: 'close'
+                                elem: 'close',
                             },
-                            text: 'Закрыть окно'
+                            text: 'Закрыть окно',
                         },
                         {
                             block: 'button',
                             mods: {
                                 theme: 'islands',
                                 size: 'm',
-                                view: 'action'
+                                view: 'action',
                             },
                             mix: {
                                 block: 'statuser',
-                                elem: 'retry'
+                                elem: 'retry',
                             },
-                            text: 'Попробовать еще раз'
-                        }
-                    ]
-                }
-            ]
+                            text: 'Попробовать еще раз',
+                        },
+                    ],
+                },
+            ],
         };
 
         return bemjson;
     });
-
 };

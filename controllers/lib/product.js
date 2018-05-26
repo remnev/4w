@@ -1,16 +1,15 @@
 'use strict';
-// TODO: jsdoc
 // TODO: test
-var keystone = require('keystone');
-var f = require('util').format;
-var _ = require('lodash');
-var Promise = require('bluebird');
-var bundleName = __filename.match(/.*\/(.+).js$/)[1];
+const keystone = require('keystone');
+const f = require('util').format;
+const _ = require('lodash');
+const Promise = require('bluebird');
+const bundleName = __filename.match(/.*\/(.+).js$/)[1];
 
-module.exports = function (req, res) {
-    var view = new keystone.View(req, res);
-    var locals = res.locals;
-    var selectedFields = [
+module.exports = function(req, res) {
+    const view = new keystone.View(req, res);
+    const locals = res.locals;
+    const selectedFields = [
         'slug',
         'name',
         'articles',
@@ -24,7 +23,7 @@ module.exports = function (req, res) {
         'baseDiscount',
         'numberDiscount',
         'deliveryOptions',
-        'valueForPrice'
+        'valueForPrice',
     ];
 
     locals.bundleName = bundleName;
@@ -39,8 +38,8 @@ module.exports = function (req, res) {
             .sort('sortWeight')
             .exec()
     )
-        .then(function (products) {
-            var currentProduct = products.filter(function (product) {
+        .then(function(products) {
+            const currentProduct = products.filter(function(product) {
                 return product.slug === req.params.productSlug;
             })[0];
 
@@ -63,42 +62,42 @@ module.exports = function (req, res) {
                 breadcrumbs: [
                     {
                         title: 'Главная',
-                        url: '/'
+                        url: '/',
                     },
                     {
                         title: 'Каталог продукции',
-                        url: '/products/'
+                        url: '/products/',
                     },
                     {
                         title: currentProduct.name,
-                        url: f('/products/%s/', currentProduct.slug)
-                    }
+                        url: f('/products/%s/', currentProduct.slug),
+                    },
                 ],
                 productsMenu: [
                     {
                         name: 'Для профессионалов',
                         slug: 'prof',
-                        links: products.filter(function (product) {
+                        links: products.filter(function(product) {
                             return product.type === 'prof';
-                        })
+                        }),
                     },
                     {
                         name: 'Для дома',
                         slug: 'home',
-                        links: products.filter(function (product) {
+                        links: products.filter(function(product) {
                             return product.type === 'home';
-                        })
-                    }
-                ]
+                        }),
+                    },
+                ],
             });
         })
         .done(
-            function (data) {
+            function(data) {
                 _.assign(locals, data);
 
                 view.render(bundleName);
             },
-            function (err) {
+            function(err) {
                 res
                     .status(err.message === 'not found' ? 404 : 500)
                     .send(err.message);

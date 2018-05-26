@@ -1,13 +1,13 @@
 'use strict';
-// TODO: jsdoc
-// TODO: test
-var keystone = require('keystone');
-var Promise = require('bluebird');
-var bundleName = __filename.match(/.*\/(.+).js$/)[1];
 
-module.exports = function (req, res) {
-    var view = new keystone.View(req, res);
-    var locals = res.locals;
+// TODO: test
+const keystone = require('keystone');
+const Promise = require('bluebird');
+const bundleName = __filename.match(/.*\/(.+).js$/)[1];
+
+module.exports = function(req, res) {
+    const view = new keystone.View(req, res);
+    const locals = res.locals;
 
     locals.bundleName = bundleName;
     locals.bemjson = {block: 'root'};
@@ -26,38 +26,44 @@ module.exports = function (req, res) {
             .find({state: 'published'})
             .select('name slug photos type')
             .sort('sortWeight')
-            .exec()
+            .exec(),
     })
-        .done(function (data) {
+        .done(function(data) {
             locals.baseInfo = data.baseInfo;
             locals.page = data.page;
             locals.products = {
                 prof: {
                     title: 'Товары для профессионалов',
                     items: data.products
-                        .filter(function (product) {
+                        .filter(function(product) {
                             return product.type === 'prof';
                         })
-                        .map(getProductData)
+                        .map(getProductData),
                 },
                 home: {
                     title: 'Товары для дома',
                     items: data.products
-                        .filter(function (product) {
+                        .filter(function(product) {
                             return product.type === 'home';
                         })
-                        .map(getProductData)
-                }
+                        .map(getProductData),
+                },
             };
 
             view.render(bundleName);
         });
 
+    /**
+     * Takes a product representation
+     *
+     * @param  {Object} product
+     * @return {Object}
+     */
     function getProductData(product) {
         return {
             title: product.name,
             slug: product.slug,
-            photo: product.photos[0]
+            photo: product.photos[0],
         };
     }
 };

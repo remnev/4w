@@ -3,7 +3,7 @@
     mustDeps: [
         {
             block: 'modal',
-            tech: 'bh'
+            tech: 'bh',
         },
         {
             block: 'button',
@@ -11,60 +11,60 @@
                 theme: 'islands',
                 size: 'm',
                 view: ['pseudo', 'action'],
-                disabled: true
+                disabled: true,
             },
-            tech: 'bh'
+            tech: 'bh',
         },
         {
             block: 'radio-group',
             mods: {
                 theme: 'islands',
                 size: 's',
-                type: 'button'
+                type: 'button',
             },
-            tech: 'bh'
+            tech: 'bh',
         },
         {
             block: 'select',
             mods: {
                 mode: 'radio',
                 theme: 'islands',
-                size: 's'
+                size: 's',
             },
-            tech: 'bh'
+            tech: 'bh',
         },
         {
             block: 'input',
             mods: {
                 theme: 'islands',
-                size: 's'
+                size: 's',
             },
-            tech: 'bh'
+            tech: 'bh',
         },
         {
             block: 'textarea',
             mods: {
                 theme: 'islands',
-                size: 's'
+                size: 's',
             },
-            tech: 'bh'
+            tech: 'bh',
         },
         {
             block: 'checkouter',
             elem: 'modal',
-            tech: 'bh'
-        }
-    ]
+            tech: 'bh',
+        },
+    ],
 }, {
     shouldDeps: [
         {
             block: 'events',
-            elem: 'channels'
+            elem: 'channels',
         },
         {block: 'bh'},
         {
             block: 'modal',
-            mods: {theme: 'islands'}
+            mods: {theme: 'islands'},
         },
         {
             block: 'button',
@@ -72,39 +72,39 @@
                 theme: 'islands',
                 size: 'm',
                 view: ['pseudo', 'action'],
-                disabled: true
-            }
+                disabled: true,
+            },
         },
         {
             block: 'radio-group',
             mods: {
                 theme: 'islands',
                 size: 's',
-                type: 'button'
-            }
+                type: 'button',
+            },
         },
         {
             block: 'select',
             mods: {
                 mode: 'radio',
                 theme: 'islands',
-                size: 's'
-            }
+                size: 's',
+            },
         },
         {
             block: 'input',
             mods: {
                 theme: 'islands',
-                size: 's'
-            }
+                size: 's',
+            },
         },
         {
             block: 'textarea',
             mods: {
                 theme: 'islands',
-                size: 's'
-            }
+                size: 's',
+            },
         },
-        {block: 'jquery'}
-    ]
+        {block: 'jquery'},
+    ],
 }]);

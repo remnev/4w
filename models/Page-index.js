@@ -1,13 +1,13 @@
 'use strict';
 
-var keystone = require('keystone');
-var Types = keystone.Field.Types;
+const keystone = require('keystone');
+const Types = keystone.Field.Types;
 
-var PageIndex = new keystone.List('PageIndex', {
+const PageIndex = new keystone.List('PageIndex', {
     label: 'Главная страница',
     plural: 'Главная страница',
     nodelete: true,
-    nocreate: true
+    nocreate: true,
 });
 
 PageIndex.add(
@@ -15,18 +15,18 @@ PageIndex.add(
     {
         seo: {
             title: {type: String},
-            description: {type: String}
-        }
+            description: {type: String},
+        },
     },
     {
         modifiedAt: {
             type: Types.Date,
-            hidden: true
-        }
+            hidden: true,
+        },
     }
 );
 
-PageIndex.schema.pre('save', function (next) {
+PageIndex.schema.pre('save', function(next) {
     if (this.isModified()) {
         this.modifiedAt = new Date();
     }

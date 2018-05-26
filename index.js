@@ -1,9 +1,9 @@
 'use strict';
 
-var keystone = require('keystone');
-var app = keystone.express();
-var expressBem = require('express-bem')({path: './bundles'});
-var controllers = require('./controllers');
+const keystone = require('keystone');
+const app = keystone.express();
+const expressBem = require('express-bem')({path: './bundles'});
+const controllers = require('./controllers');
 
 require('dotenv').load();
 require('keystone-nodemailer')(keystone);
@@ -12,22 +12,22 @@ expressBem.bindTo(app);
 expressBem.engine('.server.bh.js', require('express-bem-bh/lib/engines/bh')({
     force: false,
     source: '?.server.bh.js',
-    dataKey: 'data'
+    dataKey: 'data',
 }));
 
 keystone.init({
-    name: '4window.ru',
-    brand: '4window.ru',
-    favicon: 'public/favicon.ico',
+    'name': '4window.ru',
+    'brand': '4window.ru',
+    'favicon': 'public/favicon.ico',
     'view engine': '.server.bh.js',
     'auto update': true,
-    session: true,
-    auth: true,
-    mongo: process.env.MONGO_URI,
+    'session': true,
+    'auth': true,
+    'mongo': process.env.MONGO_URI,
     'user model': 'User',
     'cookie secret': process.env.COOKIE_SECRET,
-    port: process.env.PORT,
-    emails: 'jade-templates/emails',
+    'port': process.env.PORT,
+    'emails': 'jade-templates/emails',
     'mandrill api key': 'foo',
     'email nodemailer': {
         host: process.env.SMTP_HOST,
@@ -35,19 +35,19 @@ keystone.init({
         secure: true,
         auth: {
             user: process.env.SMTP_AUTH_LOGIN,
-            pass: process.env.SMTP_AUTH_PASS
-        }
+            pass: process.env.SMTP_AUTH_PASS,
+        },
     },
     'cloudinary config': process.env.CLOUDINARY_URL,
     'cloudinary prefix': '4window',
     'wysiwyg menubar': true,
-    app: app
+    'app': app,
 });
 
 keystone.import('models');
 
 // TODO: move it to module
-keystone.pre('routes', function (req, res, next) {
+keystone.pre('routes', function(req, res, next) {
     res.locals.urlPath = req.path;
 
     next();
@@ -55,10 +55,10 @@ keystone.pre('routes', function (req, res, next) {
 
 keystone.pre('routes', require('body-parser').json());
 
-keystone.set('routes', function (app) { // eslint-disable-line no-shadow
+keystone.set('routes', function(app) { // eslint-disable-line no-shadow
     app.get('/demo', controllers.demo);
     app.get('/', controllers.index);
-    app.get('/products', function (req, res) {
+    app.get('/products', function(req, res) {
         res.redirect('/products/flat-strips-on-roll/');
     });
     app.get('/products/:productSlug', controllers.product);
@@ -72,11 +72,11 @@ keystone.set('routes', function (app) { // eslint-disable-line no-shadow
 });
 
 keystone.set('nav', {
-    users: 'users'
+    users: 'users',
 });
 
 keystone.start();
 
 process.on('uncaughtException', (err) => {
-    console.log('uncaughtException', err);
-})
+    console.log('uncaughtException', err); // eslint-disable-line no-console
+});

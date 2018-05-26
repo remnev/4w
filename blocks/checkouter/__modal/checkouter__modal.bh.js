@@ -1,19 +1,19 @@
 'use strict';
 
-module.exports = function (bh) {
-    bh.match('checkouter__modal', function (ctx, json) {
+module.exports = function(bh) {
+    bh.match('checkouter__modal', function(ctx, json) {
         return {
             block: 'modal',
             mods: {theme: 'islands'},
             mix: {
                 block: 'checkouter',
-                elem: 'modal'
+                elem: 'modal',
             },
             content: [
                 {
                     block: 'checkouter',
                     elem: 'title',
-                    content: 'Параметры заказа'
+                    content: 'Параметры заказа',
                 },
                 {
                     block: 'checkouter',
@@ -25,7 +25,7 @@ module.exports = function (bh) {
                             content: [
                                 {
                                     tag: 'td',
-                                    content: 'Получение товара'
+                                    content: 'Получение товара',
                                 },
                                 {
                                     tag: 'td',
@@ -34,24 +34,24 @@ module.exports = function (bh) {
                                         mods: {
                                             theme: 'islands',
                                             size: 's',
-                                            type: 'button'
+                                            type: 'button',
                                         },
                                         mix: {
                                             block: 'checkouter',
-                                            elem: 'type-of-getting'
+                                            elem: 'type-of-getting',
                                         },
                                         val: json.typeOfGetting,
-                                        options: json.typeOfGettingOptions
-                                    }
-                                }
-                            ]
+                                        options: json.typeOfGettingOptions,
+                                    },
+                                },
+                            ],
                         },
                         {
                             tag: 'tr',
                             content: [
                                 {
                                     tag: 'td',
-                                    content: 'Оплата'
+                                    content: 'Оплата',
                                 },
                                 {
                                     tag: 'td',
@@ -60,17 +60,17 @@ module.exports = function (bh) {
                                         mods: {
                                             theme: 'islands',
                                             size: 's',
-                                            type: 'button'
+                                            type: 'button',
                                         },
                                         mix: {
                                             block: 'checkouter',
-                                            elem: 'type-of-payment'
+                                            elem: 'type-of-payment',
                                         },
                                         val: json.typeOfPayment,
-                                        options: json.typeOfPaymentOptions
-                                    }
-                                }
-                            ]
+                                        options: json.typeOfPaymentOptions,
+                                    },
+                                },
+                            ],
                         },
                         {
                             tag: 'tr',
@@ -78,7 +78,7 @@ module.exports = function (bh) {
                                 {
                                     elem: 'delivery-date-td',
                                     tag: 'td',
-                                    content: json.deliveryDateTitles[json.typeOfGetting]
+                                    content: json.deliveryDateTitles[json.typeOfGetting],
                                 },
                                 {
                                     tag: 'td',
@@ -87,47 +87,47 @@ module.exports = function (bh) {
                                         mods: {
                                             mode: 'radio',
                                             theme: 'islands',
-                                            size: 's'
+                                            size: 's',
                                         },
                                         mix: {
                                             block: 'checkouter',
-                                            elem: 'delivery-date'
+                                            elem: 'delivery-date',
                                         },
                                         val: json.closestDateToDeliver,
                                         options: [
                                             {
                                                 val: json.closestDateToDeliver,
-                                                text: json.closestDateToDeliver
+                                                text: json.closestDateToDeliver,
                                             },
                                             {
                                                 val: addNumOfDaysToDate(1, json.closestDateToDeliver),
-                                                text: addNumOfDaysToDate(1, json.closestDateToDeliver)
+                                                text: addNumOfDaysToDate(1, json.closestDateToDeliver),
                                             },
                                             {
                                                 val: addNumOfDaysToDate(2, json.closestDateToDeliver),
-                                                text: addNumOfDaysToDate(2, json.closestDateToDeliver)
+                                                text: addNumOfDaysToDate(2, json.closestDateToDeliver),
                                             },
                                             {
                                                 val: 'another',
-                                                text: 'Другая дата (позже предложенных)'
-                                            }
-                                        ]
+                                                text: 'Другая дата (позже предложенных)',
+                                            },
+                                        ],
                                     },
                                     {
                                         block: 'input',
                                         mods: {
                                             theme: 'islands',
-                                            size: 's'
+                                            size: 's',
                                         },
                                         mix: {
                                             block: 'checkouter',
                                             elem: 'delivery-date-another',
-                                            mods: {hidden: true}
+                                            mods: {hidden: true},
                                         },
-                                        placeholder: 'ДД.ММ.ГГГГ'
-                                    }]
-                                }
-                            ]
+                                        placeholder: 'ДД.ММ.ГГГГ',
+                                    }],
+                                },
+                            ],
                         },
                         {
                             elem: 'address-tr',
@@ -135,7 +135,7 @@ module.exports = function (bh) {
                             content: [
                                 {
                                     tag: 'td',
-                                    content: 'Адрес доставки'
+                                    content: 'Адрес доставки',
                                 },
                                 {
                                     tag: 'td',
@@ -143,23 +143,23 @@ module.exports = function (bh) {
                                         block: 'input',
                                         mix: {
                                             block: 'checkouter',
-                                            elem: 'address-input'
+                                            elem: 'address-input',
                                         },
                                         mods: {
                                             theme: 'islands',
-                                            size: 's'
+                                            size: 's',
                                         },
-                                        placeholder: json.addressPlaceholders[json.typeOfGetting]
-                                    }
-                                }
-                            ]
+                                        placeholder: json.addressPlaceholders[json.typeOfGetting],
+                                    },
+                                },
+                            ],
                         },
                         {
                             tag: 'tr',
                             content: [
                                 {
                                     tag: 'td',
-                                    content: 'Имя получателя'
+                                    content: 'Имя получателя',
                                 },
                                 {
                                     tag: 'td',
@@ -167,22 +167,22 @@ module.exports = function (bh) {
                                         block: 'input',
                                         mix: {
                                             block: 'checkouter',
-                                            elem: 'buyer-name-input'
+                                            elem: 'buyer-name-input',
                                         },
                                         mods: {
                                             theme: 'islands',
-                                            size: 's'
-                                        }
-                                    }
-                                }
-                            ]
+                                            size: 's',
+                                        },
+                                    },
+                                },
+                            ],
                         },
                         {
                             tag: 'tr',
                             content: [
                                 {
                                     tag: 'td',
-                                    content: 'Мобильный телефон'
+                                    content: 'Мобильный телефон',
                                 },
                                 {
                                     tag: 'td',
@@ -190,23 +190,23 @@ module.exports = function (bh) {
                                         block: 'input',
                                         mods: {
                                             theme: 'islands',
-                                            size: 's'
+                                            size: 's',
                                         },
                                         mix: {
                                             block: 'checkouter',
-                                            elem: 'phone-input'
+                                            elem: 'phone-input',
                                         },
-                                        placeholder: '+7 (XXX) XXX-XX-XX'
-                                    }
-                                }
-                            ]
+                                        placeholder: '+7 (XXX) XXX-XX-XX',
+                                    },
+                                },
+                            ],
                         },
                         {
                             tag: 'tr',
                             content: [
                                 {
                                     tag: 'td',
-                                    content: 'Электронная почта'
+                                    content: 'Электронная почта',
                                 },
                                 {
                                     tag: 'td',
@@ -214,23 +214,23 @@ module.exports = function (bh) {
                                         block: 'input',
                                         mods: {
                                             theme: 'islands',
-                                            size: 's'
+                                            size: 's',
                                         },
                                         mix: {
                                             block: 'checkouter',
-                                            elem: 'email-input'
+                                            elem: 'email-input',
                                         },
-                                        placeholder: 'name@example.ru'
-                                    }
-                                }
-                            ]
+                                        placeholder: 'name@example.ru',
+                                    },
+                                },
+                            ],
                         },
                         {
                             tag: 'tr',
                             content: [
                                 {
                                     tag: 'td',
-                                    content: 'Комментарий к заказу'
+                                    content: 'Комментарий к заказу',
                                 },
                                 {
                                     tag: 'td',
@@ -238,21 +238,21 @@ module.exports = function (bh) {
                                         block: 'textarea',
                                         mods: {
                                             theme: 'islands',
-                                            size: 's'
+                                            size: 's',
                                         },
                                         mix: {
                                             block: 'checkouter',
-                                            elem: 'commentary-textarea'
+                                            elem: 'commentary-textarea',
                                         },
                                         attrs: {
-                                            rows: 5
+                                            rows: 5,
                                         },
-                                        placeholder: 'Например, доп. номер телефона, особенности проезда и т.д.'
-                                    }
-                                }
-                            ]
-                        }
-                    ]
+                                        placeholder: 'Например, доп. номер телефона, особенности проезда и т.д.',
+                                    },
+                                },
+                            ],
+                        },
+                    ],
                 },
                 {
                     block: 'checkouter',
@@ -263,26 +263,26 @@ module.exports = function (bh) {
                             mods: {
                                 theme: 'islands',
                                 size: 'm',
-                                view: 'pseudo'
+                                view: 'pseudo',
                             },
                             mix: {
                                 block: 'checkouter',
-                                elem: 'close-modal'
+                                elem: 'close-modal',
                             },
-                            text: 'Закрыть окно'
+                            text: 'Закрыть окно',
                         },
                         {
                             block: 'button',
                             mods: {
                                 theme: 'islands',
                                 size: 'm',
-                                view: 'pseudo'
+                                view: 'pseudo',
                             },
                             mix: {
                                 block: 'checkouter',
-                                elem: 'back-to-order'
+                                elem: 'back-to-order',
                             },
-                            text: 'Назад к списку товаров'
+                            text: 'Назад к списку товаров',
                         },
                         {
                             block: 'button',
@@ -290,20 +290,27 @@ module.exports = function (bh) {
                                 theme: 'islands',
                                 size: 'm',
                                 view: 'action',
-                                disabled: true
+                                disabled: true,
                             },
                             mix: {
                                 block: 'checkouter',
-                                elem: 'next'
+                                elem: 'next',
                             },
-                            text: 'Далее'
-                        }
-                    ]
-                }
-            ]
+                            text: 'Далее',
+                        },
+                    ],
+                },
+            ],
         };
     });
 
+    /**
+     * Adds certain number of days to a date
+     *
+     * @param {String} num
+     * @param {Date} date
+     * @return {Date}
+     */
     function addNumOfDaysToDate(num, date) {
         var format = 'DD MMMM YYYY';
         var resultDate = moment(date, format).add(num, 'd');

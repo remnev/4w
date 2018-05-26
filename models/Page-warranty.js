@@ -1,13 +1,13 @@
 'use strict';
 
-var keystone = require('keystone');
-var Types = keystone.Field.Types;
+const keystone = require('keystone');
+const Types = keystone.Field.Types;
 
-var PageWarranty = new keystone.List('PageWarranty', {
+const PageWarranty = new keystone.List('PageWarranty', {
     label: 'Страница о Гарантии и возврате',
     plural: 'Страница о Гарантии и возврате',
     nodelete: true,
-    nocreate: true
+    nocreate: true,
 });
 
 PageWarranty.add(
@@ -15,8 +15,8 @@ PageWarranty.add(
     {
         seo: {
             title: {type: String},
-            description: {type: String}
-        }
+            description: {type: String},
+        },
     },
     'Содержимое страницы',
     {
@@ -24,18 +24,18 @@ PageWarranty.add(
         text: {
             type: Types.Html,
             wysiwyg: true,
-            height: 500
-        }
+            height: 500,
+        },
     },
     {
         modifiedAt: {
             type: Types.Date,
-            hidden: true
-        }
+            hidden: true,
+        },
     }
 );
 
-PageWarranty.schema.pre('save', function (next) {
+PageWarranty.schema.pre('save', function(next) {
     if (this.isModified()) {
         this.modifiedAt = new Date();
     }

@@ -3,41 +3,41 @@
     mustDeps: [
         {
             block: 'modal',
-            tech: 'bh'
+            tech: 'bh',
         },
         {
             block: 'button',
             mods: {
                 theme: 'islands',
                 size: 'm',
-                view: ['pseudo', 'action']
+                view: ['pseudo', 'action'],
             },
-            tech: 'bh'
+            tech: 'bh',
         },
         {
             block: 'confirmer',
             elem: 'modal',
-            tech: 'bh'
-        }
-    ]
+            tech: 'bh',
+        },
+    ],
 }, {
     shouldDeps: [
         {
             block: 'events',
-            elem: 'channels'
+            elem: 'channels',
         },
         {block: 'bh'},
         {
             block: 'modal',
-            mods: {theme: 'islands'}
+            mods: {theme: 'islands'},
         },
         {
             block: 'button',
             mods: {
                 theme: 'islands',
                 size: 'm',
-                view: ['pseudo', 'action']
-            }
-        }
-    ]
+                view: ['pseudo', 'action'],
+            },
+        },
+    ],
 }]);

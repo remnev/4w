@@ -3,14 +3,13 @@
 modules.define(
 'i-bem__dom',
 [],
-function (provide, BEMDOM) {
-
+function(provide, BEMDOM) {
     BEMDOM.decl('counter', {
         previousValue: 1,
 
         onSetMod: {
             js: {
-                inited: function () {
+                inited: function() {
                     this.input = this.findBlockInside('input');
 
                     this.bindTo('decrease', 'click', this.decreaseVal);
@@ -19,11 +18,11 @@ function (provide, BEMDOM) {
                     this.input
                         .on('change', this.inputChangeHandler, this)
                         .bindTo('control', 'focus', this.inputFocusHandler);
-                }
-            }
+                },
+            },
         },
 
-        decreaseVal: function () {
+        decreaseVal: function() {
             var val = this.getVal();
 
             if (val > 1) {
@@ -31,17 +30,17 @@ function (provide, BEMDOM) {
             }
         },
 
-        increaseVal: function () {
+        increaseVal: function() {
             var val = this.getVal();
 
             this.setVal(val + 1);
         },
 
-        getVal: function () {
+        getVal: function() {
             return parseInt(this.input.getVal(), 10);
         },
 
-        setVal: function (val) {
+        setVal: function(val) {
             this.input.setVal(val);
 
             this.emit('change');
@@ -49,7 +48,7 @@ function (provide, BEMDOM) {
             return this;
         },
 
-        inputChangeHandler: function () {
+        inputChangeHandler: function() {
             var val = this.getVal();
 
             if (isNaN(val) || val < 1) {
@@ -63,11 +62,10 @@ function (provide, BEMDOM) {
             this.previousValue = val;
         },
 
-        inputFocusHandler: function () {
+        inputFocusHandler: function() {
             this.findElem('control').select();
-        }
+        },
     });
 
     provide(BEMDOM);
-
 });

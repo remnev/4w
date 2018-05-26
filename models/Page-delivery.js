@@ -1,13 +1,13 @@
 'use strict';
 
-var keystone = require('keystone');
-var Types = keystone.Field.Types;
+const keystone = require('keystone');
+const Types = keystone.Field.Types;
 
-var PageDelivery = new keystone.List('PageDelivery', {
+const PageDelivery = new keystone.List('PageDelivery', {
     label: 'Страница о Доставке',
     plural: 'Страница о Доставке',
     nodelete: true,
-    nocreate: true
+    nocreate: true,
 });
 
 PageDelivery.add(
@@ -15,8 +15,8 @@ PageDelivery.add(
     {
         seo: {
             title: {type: String},
-            description: {type: String}
-        }
+            description: {type: String},
+        },
     },
     'Содержимое страницы',
     {
@@ -24,18 +24,18 @@ PageDelivery.add(
         text: {
             type: Types.Html,
             wysiwyg: true,
-            height: 500
-        }
+            height: 500,
+        },
     },
     {
         modifiedAt: {
             type: Types.Date,
-            hidden: true
-        }
+            hidden: true,
+        },
     }
 );
 
-PageDelivery.schema.pre('save', function (next) {
+PageDelivery.schema.pre('save', function(next) {
     if (this.isModified()) {
         this.modifiedAt = new Date();
     }

@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = function (bh) {
-    bh.match('number-picker', function (ctx) {
+module.exports = function(bh) {
+    bh.match('number-picker', function(ctx) {
         var data = ctx.tParam('data').productData;
 
         ctx
@@ -10,9 +10,9 @@ module.exports = function (bh) {
                 productSlug: data.slug,
                 productDiscount: {
                     base: data.baseDiscount,
-                    number: data.numberDiscount
+                    number: data.numberDiscount,
                 },
-                productTtd: data.deliveryOptions.days
+                productTtd: data.deliveryOptions.days,
             })
             .content([
                 {
@@ -20,9 +20,9 @@ module.exports = function (bh) {
                     content: [
                         'Выберите количество ',
                         {
-                            elem: 'pickedNumber'
-                        }
-                    ]
+                            elem: 'pickedNumber',
+                        },
+                    ],
                 },
                 {
                     elem: 'form',
@@ -31,34 +31,34 @@ module.exports = function (bh) {
                             block: 'counter',
                             mix: {
                                 block: 'number-picker',
-                                elem: 'number'
-                            }
+                                elem: 'number',
+                            },
                         },
                         {
                             elem: 'multiply',
-                            content: '×'
+                            content: '×',
                         },
                         {
                             block: 'input',
                             mods: {disabled: true},
                             mix: {
                                 block: 'number-picker',
-                                elem: 'price'
-                            }
+                                elem: 'price',
+                            },
                         },
                         {
                             elem: 'equal',
-                            content: '='
+                            content: '=',
                         },
                         {
                             block: 'input',
                             mods: {disabled: true},
                             mix: {
                                 block: 'number-picker',
-                                elem: 'coast'
-                            }
-                        }
-                    ]
+                                elem: 'coast',
+                            },
+                        },
+                    ],
                 },
                 {
                     elem: 'order-description',
@@ -66,15 +66,15 @@ module.exports = function (bh) {
                     content: [
                         {
                             elem: 'order-description-title',
-                            content: 'Вы подготовили к заказу:'
+                            content: 'Вы подготовили к заказу:',
                         },
                         {elem: 'order-description-item'},
                         {elem: 'order-description-laminate'},
                         {elem: 'order-description-color'},
                         {elem: 'order-description-size'},
                         {elem: 'order-description-number'},
-                        {elem: 'order-description-coast'}
-                    ]
+                        {elem: 'order-description-coast'},
+                    ],
                 },
                 {
                     block: 'button',
@@ -82,15 +82,14 @@ module.exports = function (bh) {
                         theme: 'islands',
                         size: 'xl',
                         view: 'action',
-                        disabled: true
+                        disabled: true,
                     },
                     mix: {
                         block: 'number-picker',
-                        elem: 'submit'
+                        elem: 'submit',
                     },
-                    text: 'В заказ'
-                }
+                    text: 'В заказ',
+                },
             ]);
     });
-
 };

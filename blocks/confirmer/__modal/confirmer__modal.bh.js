@@ -1,19 +1,19 @@
 'use strict';
 
-module.exports = function (bh) {
-    bh.match('confirmer__modal', function (ctx) {
+module.exports = function(bh) {
+    bh.match('confirmer__modal', function(ctx) {
         var bemjson = {
             block: 'modal',
             mods: {theme: 'islands'},
             mix: {
                 block: 'confirmer',
-                elem: 'modal'
+                elem: 'modal',
             },
             content: [
                 {
                     block: 'confirmer',
                     elem: 'title',
-                    content: 'Подтверждение заказа'
+                    content: 'Подтверждение заказа',
                 },
                 {
                     block: 'confirmer',
@@ -25,31 +25,31 @@ module.exports = function (bh) {
                             content: [
                                 {
                                     tag: 'td',
-                                    content: 'Наименование'
+                                    content: 'Наименование',
                                 },
                                 {
                                     tag: 'td',
-                                    content: 'Количество (шт.)'
+                                    content: 'Количество (шт.)',
                                 },
                                 {
                                     tag: 'td',
-                                    content: 'Цена (руб.)'
+                                    content: 'Цена (руб.)',
                                 },
                                 {
                                     tag: 'td',
-                                    content: 'Стоимость (руб.)'
-                                }
-                            ]
+                                    content: 'Стоимость (руб.)',
+                                },
+                            ],
                         },
                         ctx.json().orderItemsBemjson,
-                        ctx.json().orderDeliveryItemBemjson
-                    ]
+                        ctx.json().orderDeliveryItemBemjson,
+                    ],
                 },
                 {
                     block: 'confirmer',
                     elem: 'params-list',
                     tag: 'table',
-                    content: ctx.json().orderParamsBemjson
+                    content: ctx.json().orderParamsBemjson,
                 },
                 {
                     block: 'confirmer',
@@ -60,46 +60,45 @@ module.exports = function (bh) {
                             mods: {
                                 theme: 'islands',
                                 size: 'm',
-                                view: 'pseudo'
+                                view: 'pseudo',
                             },
                             mix: {
                                 block: 'confirmer',
-                                elem: 'close-modal'
+                                elem: 'close-modal',
                             },
-                            text: 'Закрыть окно'
+                            text: 'Закрыть окно',
                         },
                         {
                             block: 'button',
                             mods: {
                                 theme: 'islands',
                                 size: 'm',
-                                view: 'pseudo'
+                                view: 'pseudo',
                             },
                             mix: {
                                 block: 'confirmer',
-                                elem: 'back-to-checkout'
+                                elem: 'back-to-checkout',
                             },
-                            text: 'Назад к параметрам заказа'
+                            text: 'Назад к параметрам заказа',
                         },
                         {
                             block: 'button',
                             mods: {
                                 theme: 'islands',
                                 size: 'm',
-                                view: 'action'
+                                view: 'action',
                             },
                             mix: {
                                 block: 'confirmer',
-                                elem: 'confirm'
+                                elem: 'confirm',
                             },
-                            text: 'Подтвердить заказ'
-                        }
-                    ]
-                }
-            ]
+                            text: 'Подтвердить заказ',
+                        },
+                    ],
+                },
+            ],
         };
 
         return bemjson;
     });
-
 };

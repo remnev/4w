@@ -2,18 +2,17 @@
 
 modules.define('statuser',
 ['i-bem__dom', 'events__channels', 'bh', 'jquery'],
-function (provide, BEMDOM, channel, bh, $) {
-
+function(provide, BEMDOM, channel, bh, $) {
     provide(BEMDOM.decl(this.name, {
         onSetMod: {
             js: {
-                inited: function () {
+                inited: function() {
                     channel('order').on('send', this.sendHandler, this);
-                }
-            }
+                },
+            },
         },
 
-        sendHandler: function () {
+        sendHandler: function() {
             // clear old modals
             if (this.modalTypeSuccess) {
                 BEMDOM.destruct(this.modalTypeSuccess.domElem);
@@ -26,7 +25,7 @@ function (provide, BEMDOM, channel, bh, $) {
             BEMDOM.update(this.domElem, bh.apply({
                 block: 'statuser',
                 elem: 'modal',
-                mods: {type: 'send'}
+                mods: {type: 'send'},
             }));
 
             this.modalTypeSend = this.findElem('modal', 'type', 'send').bem('modal');
@@ -47,13 +46,13 @@ function (provide, BEMDOM, channel, bh, $) {
                 typeOfPayment: this.checkouterBlock.typeOfPayment,
                 email: this.checkouterBlock.emailValue,
                 buyerName: this.checkouterBlock.buyerNameValue,
-                csrf: 'todo'
+                csrf: 'todo',
             })
             .done($.proxy(this._sendDone, this))
             .fail($.proxy(this._sendFail, this));
         },
 
-        _sendDone: function (data) {
+        _sendDone: function(data) {
             BEMDOM.destruct(this.modalTypeSend.domElem);
 
             BEMDOM.update(this.domElem, bh.apply({
@@ -64,18 +63,18 @@ function (provide, BEMDOM, channel, bh, $) {
                     orderId: data.orderId,
                     buyerEmail: data.buyerEmail,
                     isPaymentRequired: data.isPaymentRequired,
-                    orderCoast: data.orderCoast
-                }
+                    orderCoast: data.orderCoast,
+                },
             }));
 
             this.modalTypeSuccess = this.findElem('modal', 'type', 'success').bem('modal');
             this.paymentForm = this.findElem('payment-form');
 
-            this.bindTo('close', 'click', function () {
+            this.bindTo('close', 'click', function() {
                 this.modalTypeSuccess.delMod('visible');
             });
 
-            this.bindTo('pay', 'click', function () {
+            this.bindTo('pay', 'click', function() {
                 this.paymentForm.submit();
             });
 
@@ -85,7 +84,7 @@ function (provide, BEMDOM, channel, bh, $) {
             this.modalTypeSuccess.setMod('visible');
         },
 
-        _sendFail: function () {
+        _sendFail: function() {
             var retryElem;
             var closeElem;
 
@@ -94,7 +93,7 @@ function (provide, BEMDOM, channel, bh, $) {
             BEMDOM.update(this.domElem, bh.apply({
                 block: 'statuser',
                 elem: 'modal',
-                mods: {type: 'fail'}
+                mods: {type: 'fail'},
             }));
 
             retryElem = this.findElem('retry');
@@ -104,12 +103,11 @@ function (provide, BEMDOM, channel, bh, $) {
 
             this.bindTo(retryElem, 'click', this.sendHandler);
 
-            this.bindTo(closeElem, 'click', function () {
+            this.bindTo(closeElem, 'click', function() {
                 this.modalTypeFail.delMod('visible');
             });
 
             this.modalTypeFail.setMod('visible');
-        }
+        },
     }));
-
 });

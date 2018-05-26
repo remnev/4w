@@ -1,6 +1,6 @@
 ({
     shouldDeps: [
         {block: 'tasks'},
-        {block: 'plus'}
-    ]
+        {block: 'plus'},
+    ],
 });

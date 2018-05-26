@@ -4,7 +4,7 @@
         {block: 'jquery'},
         {
             block: 'events',
-            elem: 'channels'
-        }
-    ]
+            elem: 'channels',
+        },
+    ],
 });

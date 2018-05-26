@@ -2,12 +2,11 @@
 
 modules.define('number-picker',
 ['i-bem__dom', 'events__channels', 'functions__debounce'],
-function (provide, BEMDOM, channel, debounce) {
-
+function(provide, BEMDOM, channel, debounce) {
     provide(BEMDOM.decl(this.name, {
         onSetMod: {
             js: {
-                inited: function () {
+                inited: function() {
                     this.filter = this.findBlockOutside('filter');
                     this.counter = this.findBlockInside('counter');
                     this.colorPicker = this.filter.findBlockInside('color-picker');
@@ -33,14 +32,14 @@ function (provide, BEMDOM, channel, debounce) {
                     channel('color-picker').on('colorChange', this.colorChangeHandler, this);
                     channel('color-picker').on('colorClear', this.colorClearHandler, this);
                     channel('size-picker').on('sizeChange', this.sizeChangeHandler, this);
-                }
+                },
             },
-            picked: function (modName, modVal) {
+            picked: function(modName, modVal) {
                 this.submitButton.toggleMod('disabled', true, !modVal);
-            }
+            },
         },
 
-        numberChangeHandler: function () {
+        numberChangeHandler: function() {
             this.pickedNumber = this.counter.getVal();
 
             this
@@ -48,7 +47,7 @@ function (provide, BEMDOM, channel, debounce) {
                 .updateOrderDescription();
         },
 
-        sizeChangeHandler: function (e, data) {
+        sizeChangeHandler: function(e, data) {
             this.pickedArticle = data;
 
             this
@@ -56,7 +55,7 @@ function (provide, BEMDOM, channel, debounce) {
                 .updateOrderDescription();
         },
 
-        colorChangeHandler: function (e, data) {
+        colorChangeHandler: function(e, data) {
             this.pickedColor = data;
 
             this
@@ -64,13 +63,13 @@ function (provide, BEMDOM, channel, debounce) {
                 .updateOrderDescription();
         },
 
-        colorClearHandler: function () {
+        colorClearHandler: function() {
             this
                 .clearPrice()
                 .updateOrderDescription();
         },
 
-        updatePrice: function () {
+        updatePrice: function() {
             var priceType;
             var inputValue;
 
@@ -94,7 +93,7 @@ function (provide, BEMDOM, channel, debounce) {
             return this;
         },
 
-        clearPrice: function () {
+        clearPrice: function() {
             this.pickedColor = null;
 
             this.price.setVal('');
@@ -104,7 +103,7 @@ function (provide, BEMDOM, channel, debounce) {
             return this;
         },
 
-        updateCoast: function () {
+        updateCoast: function() {
             var number = this.counter.getVal();
             var price = this.price.getVal();
             var coast = number * price;
@@ -125,7 +124,7 @@ function (provide, BEMDOM, channel, debounce) {
         },
 
         /* eslint-disable complexity */
-        updateOrderDescription: function () {
+        updateOrderDescription: function() {
             var item = this.elem('order-description-item');
             var laminate = this.elem('order-description-laminate');
             var color = this.elem('order-description-color');
@@ -153,10 +152,9 @@ function (provide, BEMDOM, channel, debounce) {
             item.text(this.params.productName);
             number.text('В количестве ' + this.pickedNumber + ' шт');
             coast.text('На сумму ' + this.coast.getVal() + ' ₽');
-
         },
 
-        submitButtonClickHandler: function () {
+        submitButtonClickHandler: function() {
             var data = {
                 productName: this.params.productName,
                 productSlug: this.params.productSlug,
@@ -165,12 +163,12 @@ function (provide, BEMDOM, channel, debounce) {
                 number: this.pickedNumber,
                 price: this.priceVal,
                 discount: this.params.productDiscount,
-                articleName: this.pickedArticle.name
+                articleName: this.pickedArticle.name,
             };
 
             if (this.pickedColor) {
                 data.color = {
-                    name: this.pickedColor.title
+                    name: this.pickedColor.title,
                 };
 
                 data.isLaminate = this.pickedColor.isLaminate;
@@ -184,7 +182,7 @@ function (provide, BEMDOM, channel, debounce) {
             channel('number-picker').emit('submitClick', data);
         },
 
-        calculateDiscount: function (basePrice, priceType) {
+        calculateDiscount: function(basePrice, priceType) {
             var number = this.counter.getVal();
             var discountData = this.params.productDiscount;
             var baseDiscount = basePrice * 0.01 * discountData.base[priceType];
@@ -195,7 +193,6 @@ function (provide, BEMDOM, channel, debounce) {
             }
 
             return baseDiscount + numberDiscount;
-        }
+        },
     }));
-
 });
