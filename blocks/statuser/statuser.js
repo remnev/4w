@@ -1,4 +1,5 @@
 'use strict';
+/* global yaCounter29668245 */
 
 modules.define('statuser',
 ['i-bem__dom', 'events__channels', 'bh', 'jquery'],
