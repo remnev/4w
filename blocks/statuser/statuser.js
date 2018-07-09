@@ -53,6 +53,8 @@ function(provide, BEMDOM, channel, bh, $) {
         },
 
         _sendDone: function(data) {
+            yaCounter29668245.reachGoal('order-sent');
+
             BEMDOM.destruct(this.modalTypeSend.domElem);
 
             BEMDOM.update(this.domElem, bh.apply({
