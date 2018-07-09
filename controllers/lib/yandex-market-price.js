@@ -34,7 +34,10 @@ module.exports = function(req, res) {
             .select('name company url deliveryOptions')
             .exec(),
         offers: keystone.list('Product').model
-            .find({exportToYandexMarket: true})
+            .find({
+                exportToYandexMarket: true,
+                state: 'published',
+             })
             .select(selectedFields.join(' '))
             .populate('articles colors.available colors.onRequest')
             .exec(),

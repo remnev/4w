@@ -1,4 +1,5 @@
 'use strict';
+/* global yaCounter29668245 */
 
 modules.define('statuser',
 ['i-bem__dom', 'events__channels', 'bh', 'jquery'],
@@ -53,6 +54,8 @@ function(provide, BEMDOM, channel, bh, $) {
         },
 
         _sendDone: function(data) {
+            yaCounter29668245.reachGoal('order-sent');
+
             BEMDOM.destruct(this.modalTypeSend.domElem);
 
             BEMDOM.update(this.domElem, bh.apply({
