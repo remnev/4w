@@ -474,7 +474,7 @@ function(provide, BEMDOM, channel, bh, $) {
             return [
                 {
                     val: 'cache',
-                    text: 'Через банк онлайн',
+                    text: 'Наличные или банк. карта',
                 },
                 // todo: restore when we'll support legal requirements
                 // {
