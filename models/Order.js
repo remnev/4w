@@ -73,6 +73,7 @@ Order.schema.methods.sendOrderEmailToOffice = function(cb) {
             params: JSON.parse(this.params),
             coast: this.coast,
             typeOfGetting: this.typeOfGetting,
+            typeOfPayment: this.typeOfPayment,
         },
     }, cb);
 };
@@ -97,6 +98,7 @@ Order.schema.methods.sendOrderEmailToBuyer = function(cb) {
             params: JSON.parse(this.params),
             coast: this.coast,
             typeOfGetting: this.typeOfGetting,
+            typeOfPayment: this.typeOfPayment,
         },
     }, cb);
 };
