@@ -69,5 +69,22 @@ block body-contents
                         td(style="width: 10px; border-right: 1px solid #6481b0; border-top: 1px solid #6481b0;")
                         td(style="width: 10px; border-top: 1px solid #6481b0;")
                         td(style="border-top: 1px solid #6481b0;")= item.value
+            tr
+                td(style="border-top: 1px solid #6481b0;")
+                td(style="border-top: 1px solid #6481b0;")
+                td(style="border-top: 1px solid #6481b0;")
+                td(style="border-top: 1px solid #6481b0;")
 
-    div Наш менеджер свяжется с вами в ближайшее время для подтверждения заказа. Спасибо за заказ.
+    br
+    br
+
+    div(style="font-size: 11px;")
+
+        div Настоящим письмом мы подтверждаем заказ.
+
+        if data.typeOfPayment == 'uncache'
+            div В ближайшее время вы получите счет на оплату.
+        else
+            div В ближайшее время с Вами свяжется сотрудник нашего магазина.
+
+        div Благодарим Вас за заказ.
