@@ -23,24 +23,21 @@ Product.add(
         vendor: {
             type: String,
         },
+        coating: {
+            type: Types.Relationship,
+            ref: 'Coating',
+            many: true,
+        },
         articles: {
             type: Types.Relationship,
             ref: 'Article',
             many: true,
             filters: {belongsTo: ':slug'},
         },
-        showPurePVC: {
-            type: Types.Boolean,
-        },
-        colors: {
+        colorsRenolit: {
             available: {
                 type: Types.Relationship,
-                ref: 'Color',
-                many: true,
-            },
-            onRequest: {
-                type: Types.Relationship,
-                ref: 'Color',
+                ref: 'RenolitColor',
                 many: true,
             },
         },
@@ -201,8 +198,10 @@ Product.add(
             label: 'Можно заказать с доставкой',
         },
         yandexMarketDescription: {
-            type: Types.Textarea,
-            note: 'Максимум 150 символов. Остальное будет обрезано.',
+            type: Types.Html,
+            wysiwyg: true,
+            height: 100,
+            note: 'Максимум 3000 символов.',
         },
         yandexMarketSalesNotes: {
             type: String,

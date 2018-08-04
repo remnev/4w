@@ -56,7 +56,7 @@
         },
     ],
 }, {
-    shouldDeps: [
+    mustDeps: [
         {
             block: 'events',
             elem: 'channels',

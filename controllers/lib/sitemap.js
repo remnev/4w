@@ -11,7 +11,8 @@ module.exports = function(req, res) {
     Promise.props({
         offers: keystone.list('Product').model
             .find({state: 'published'})
-            .select('slug modifiedAt')
+            .select('slug modifiedAt coating')
+            .populate('coating')
             .exec(),
         pageIndex: keystone.list('PageIndex').model
             .findOne()
@@ -77,13 +78,7 @@ function getXml(data) {
             priority: 0.2,
         },
     ];
-    const urlsProducts = data.offers.map(function(offerData) {
-        return {
-            pathname: 'products/' + offerData.slug,
-            lastmod: offerData.modifiedAt.toISOString(),
-            priority: 0.3,
-        };
-    });
+    const urlsProducts = getProductsUrls(data.offers);
     const urlsData = urlsTextPages.concat(urlsProducts);
     const xml = builder
         .create('urlset', {encoding: 'UTF-8'})
@@ -119,4 +114,30 @@ function getUrl(data) {
             priority: data.priority,
         },
     };
+}
+
+/**
+ * @param  {Array} offers
+ * @return {Array}
+ */
+function getProductsUrls(offers) {
+    return offers.reduce((acc, {coating, slug, modifiedAt}) => {
+        acc.push({
+            pathname: `products/${slug}`,
+            lastmod: modifiedAt.toISOString(),
+            priority: 0.3,
+        });
+
+        if (coating.length) {
+            coating.forEach(({name}) => {
+                acc.push({
+                    pathname: `products/${slug}/${name}`,
+                    lastmod: modifiedAt.toISOString(),
+                    priority: 0.3,
+                });
+            });
+        }
+
+        return acc;
+    }, []);
 }

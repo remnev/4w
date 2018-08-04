@@ -3,15 +3,15 @@
 const keystone = require('keystone');
 const format = require('util').format;
 
-const Color = new keystone.List('Color', {
-    label: 'Цвет',
-    singular: 'Цвет',
-    plural: 'Цвета',
+const RenolitColor = new keystone.List('RenolitColor', {
+    label: 'Цвет renolit',
+    singular: 'Цвет renolit',
+    plural: 'Цвета renolit',
     map: {name: 'name'},
     defaultColumns: 'code, title',
 });
 
-Color.add({
+RenolitColor.add({
     code: {
         type: Number,
         format: false,
@@ -26,8 +26,8 @@ Color.add({
     // name: virtual
 });
 
-Color.schema.virtual('name').get(function() {
+RenolitColor.schema.virtual('name').get(function() {
     return format('%s %s', this.code, this.title);
 });
 
-Color.register();
+RenolitColor.register();

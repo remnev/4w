@@ -2,7 +2,9 @@
 
 module.exports = function(bh) {
     bh.match('content', function(ctx) {
-        var data = ctx.tParam('data').productData;
+        var data = ctx.tParam('data');
+        var productData = data.productData;
+        var coatingType = data.pathParams.coatingType;
 
         ctx.content([
             {
@@ -15,21 +17,41 @@ module.exports = function(bh) {
                     {
                         elem: 'header',
                         tag: 'h1',
-                        content: data.name,
+                        content: getHeaderText(productData, coatingType),
                     },
                     {
                         elem: 'description',
-                        content: data.description,
+                        content: productData.description,
                     },
                     {block: 'photo-slider'},
-                    data.showPriceTable && {block: 'pricer'},
+                    productData.showPriceTable && {block: 'pricer'},
                     {block: 'filter'},
                     {
                         elem: 'about-product',
-                        content: data.aboutProduct,
+                        content: productData.aboutProduct,
                     },
                 ],
             },
         ]);
     });
+
+    /**
+     * @param  {Object} productData
+     * @param  {String} productData.name
+     * @param  {String} coatingType
+     * @return {String} Header text
+     */
+    function getHeaderText(productData, coatingType) {
+        var text = productData.name;
+        var typeToText = {
+            renolit: ' (ламинация, палитра RENOLIT)',
+            ral: ' (покраска, палитра RAL)',
+        };
+
+        if (typeToText[coatingType]) {
+            text += typeToText[coatingType];
+        }
+
+        return bh.xmlEscape(text);
+    }
 };

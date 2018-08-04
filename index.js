@@ -61,7 +61,7 @@ keystone.set('routes', function(app) { // eslint-disable-line no-shadow
     app.get('/products', function(req, res) {
         res.redirect('/products/flat-strips-on-roll/');
     });
-    app.get('/products/:productSlug', controllers.product);
+    app.get('/products/:productSlug/:coatingType?', controllers.product);
     app.get('/contacts', controllers.contacts);
     app.get('/delivery', controllers.delivery);
     app.get('/payment', controllers.payment);

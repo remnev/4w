@@ -13,6 +13,7 @@
     "keystone-nodemailer": "https://github.com/bgag/keystone-nodemailer.git",
     "lodash": "^4.17.10",
     "moment": "^2.10.3",
+    "ral-to-hex": "0.0.0",
     "unique-id": "0.0.1",
     "xmlbuilder": "^10.0.0"
   },

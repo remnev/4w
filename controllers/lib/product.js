@@ -12,9 +12,9 @@ module.exports = function(req, res) {
     const selectedFields = [
         'slug',
         'name',
+        'coating',
         'articles',
-        'showPurePVC',
-        'colors',
+        'colorsRenolit',
         'description',
         'aboutProduct',
         'photos',
@@ -29,12 +29,14 @@ module.exports = function(req, res) {
     locals.bundleName = bundleName;
     locals.bemjson = {block: 'root'}; // todo: перенести в мидлварь
     locals.query = req.query;
+    locals.pathParams = req.params;
+    locals.colorsRal = require('ral-to-hex/colours');
 
     Promise.resolve(
         keystone.list('Product').model
             .find({state: 'published'})
             .select(selectedFields.join(' '))
-            .populate('colors.available colors.onRequest articles')
+            .populate('colorsRenolit.available articles coating')
             .sort('sortWeight')
             .exec()
     )
@@ -56,6 +58,11 @@ module.exports = function(req, res) {
                 page: keystone.list('PageProduct').model
                     .findOne({slug: req.params.productSlug})
                     .select('seo')
+                    .exec(),
+                colorsRenolit: keystone.list('RenolitColor').model
+                    .find()
+                    .select('code title')
+                    .sort('code')
                     .exec(),
                 productData: currentProduct,
                 products: products,

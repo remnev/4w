@@ -1,5 +1,5 @@
 ([{
-    shouldDeps: [
+    mustDeps: [
         {block: 'header'},
         {block: 'content'},
         {block: 'footer'},
