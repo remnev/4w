@@ -1,5 +1,5 @@
 ([{
-    shouldDeps: [
+    mustDeps: [
         {
             block: 'radio-group',
             mods: {

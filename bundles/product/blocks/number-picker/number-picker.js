@@ -123,23 +123,15 @@ function(provide, BEMDOM, channel, debounce) {
             return this;
         },
 
-        /* eslint-disable complexity */
         updateOrderDescription: function() {
             var item = this.elem('order-description-item');
-            var laminate = this.elem('order-description-laminate');
             var color = this.elem('order-description-color');
             var size = this.elem('order-description-size');
             var number = this.elem('order-description-number');
             var coast = this.elem('order-description-coast');
 
             if (this.pickedColor) {
-                color.text('Цвет ' + this.pickedColor.title);
-
-                if (this.pickedColor.isLaminate) {
-                    laminate.text('Ламинированный');
-                } else {
-                    laminate.text('Неламинированный');
-                }
+                color.text(this.pickedColor.title);
             }
 
             if (this.pickedArticle &&

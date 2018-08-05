@@ -11,8 +11,11 @@ module.exports = function(bh) {
                 tag: 'h2',
                 content: format('Купить %s', data.name.toLowerCase()),
             },
-            {block: 'color-picker'},
         ];
+
+        if (data.coating.length > 1) {
+            contentBemjson.push({block: 'color-picker'});
+        }
 
         if (data.articles.length > 1) {
             contentBemjson.push({block: 'size-picker'});

@@ -69,7 +69,6 @@ module.exports = function(bh) {
                             content: 'Вы подготовили к заказу:',
                         },
                         {elem: 'order-description-item'},
-                        {elem: 'order-description-laminate'},
                         {elem: 'order-description-color'},
                         {elem: 'order-description-size'},
                         {elem: 'order-description-number'},

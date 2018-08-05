@@ -1,125 +1,227 @@
 'use strict';
 
 modules.define('color-picker',
-['i-bem__dom', 'events__channels', 'jquery', 'location'],
-function(provide, BEMDOM, channel, $, location) {
+['i-bem__dom', 'events__channels', 'jquery', 'location', 'bh', 'uri', 'next-tick'],
+function(provide, BEMDOM, channel, $, location, bh, Uri, nextTick) {
     provide(BEMDOM.decl(this.name, {
         onSetMod: {
-            js: {
+            'js': {
                 inited: function() {
-                    this.$colors = this.elem('color');
+                    this.coatingType = this.findBlockOn('coating-type', 'radio-group');
+                    this.selects = {
+                        'picker-renolit': this.findBlockOn('picker-renolit', 'select'),
+                        'picker-ral': this.findBlockOn('picker-ral', 'select'),
+                    };
 
-                    this._pickColorOnInit();
+                    if (this.hasMod('picked', true)) {
+                        nextTick(function() {
+                            this.emitColorChange();
+                        }.bind(this));
+                    }
 
-                    this.bindTo('color', 'click', this.colorClickHandler);
+                    this.coatingType.on('change', this.onCoatingTypeChange, this);
+                    this.selects['picker-renolit'].on('change', this.onPickerRenolitChange, this);
+                    this.selects['picker-ral'].on('change', this.onPickerRalChange, this);
+                },
+            },
+            'picked': {
+                'true': function() {
+                    this.changePickedColorDescription();
+
+                    this.emitColorChange();
+                },
+                '': function() {
+                    BEMDOM.destruct(this.findElem('picked-color-description'), true);
+
+                    channel('color-picker').emit('colorClear');
+                },
+            },
+            'visible-picker': {
+                'pure-pvc': function() {
+                    BEMDOM.replace(this.findElem('color'), bh.apply({
+                        block: 'color-picker',
+                        elem: 'color',
+                        mods: {type: 'pure-pvc'},
+                    }));
                 },
             },
         },
 
-        onElemSetMod: {
-            color: {
-                active: {
-                    'true': function(elem) {
-                        var title = elem.data('title');
-                        var code = elem.data('code');
+        onCoatingTypeChange: function() {
+            var val = this.coatingType.getVal();
+            var isPurePVC = val === 'pure-pvc';
 
-                        this
-                            .delMod(this.$colors, 'active')
-                            .setMod(this.$colors, 'inactive')
-                            .setMod('picked')
-                            .elem('pickedColor').text('— "' + title + '"');
+            this.selects['picker-renolit'].setVal(null);
+            this.selects['picker-ral'].setVal(null);
 
-                        this.pickedColor = {
-                            title: title,
-                            code: code,
-                            isLaminate: !this.hasMod(elem, 'no-laminate'),
-                            isOnRequest: this.hasMod(elem, 'size', 's'),
-                        };
+            this.reflectCoatingTypeInUrl(val, this.params.productSlug);
 
-                        channel('color-picker').emit('colorChange', this.pickedColor);
-                    },
-                    '': function() {
-                        this
-                            .delMod(this.$colors, 'inactive')
-                            .delMod('picked')
-                            .elem('pickedColor').empty();
-
-                        channel('color-picker').emit('colorClear');
-                    },
-                },
-            },
+            this.setMod('visible-picker', val);
+            this.togglePicked(isPurePVC);
         },
 
-        colorClickHandler: function(e) {
-            var $color = $(e.currentTarget);
+        onPickerRenolitChange: function() {
+            var val = this.selects['picker-renolit'].getVal();
+            var isVal = Boolean(val);
+            var pickedColor = this.params.colors.renolit.filter(function(colorData) {
+                return colorData.code === val;
+            })[0];
 
-            this.pickColor($color);
+            this.togglePicked(isVal);
 
-            // reflect state in the URI
-            if (this.findElem('color', 'active', true).length) {
-                this._setQueryParams(this.getMod($color, 'color-type'), $color.data('code'));
-            } else {
-                this._delQueryParams(['color-type', 'color']);
+            if (isVal) {
+                BEMDOM.replace(this.findElem('color'), bh.apply({
+                    block: 'color-picker',
+                    elem: 'color',
+                    mods: {type: 'renolit'},
+                    data: pickedColor,
+                }));
             }
+
+            this.reflectColorInUrl(pickedColor);
         },
 
-        pickColor: function($color) {
+        onPickerRalChange: function() {
+            var val = this.selects['picker-ral'].getVal();
+            var isVal = Boolean(val);
+            var pickedColor = {
+                code: val,
+                hex: this.params.colors.ral[val],
+            };
+
+            this.togglePicked(isVal);
+
+            if (isVal) {
+                BEMDOM.replace(this.findElem('color'), bh.apply({
+                    block: 'color-picker',
+                    elem: 'color',
+                    mods: {type: 'ral'},
+                    data: pickedColor,
+                }));
+            }
+
+            this.reflectColorInUrl(pickedColor);
+        },
+
+        reflectCoatingTypeInUrl: function(coatingType, productSlug) {
+            var url = Uri.parse(window.location);
+
+            url.setPath(['products', productSlug, coatingType, ''].join('/'));
+
+            location.change({url: url.toString()});
+        },
+
+        reflectColorInUrl: function(color) {
+            var url = Uri.parse(window.location);
+
+            if (Object(color).code) {
+                url.replaceParam('color', color.code);
+            } else {
+                url.deleteParam('color');
+            }
+
+            location.change({url: url.toString()});
+        },
+
+        changePickedColorDescription: function() {
+            var coatingType = this.coatingType.getVal();
+
+            BEMDOM.replace(this.findElem('picked-color-description'), bh.apply({
+                block: 'color-picker',
+                elem: 'picked-color-description',
+                mods: {type: coatingType},
+                data: this.getColorDescriptionData(coatingType),
+            }));
+        },
+
+        getColorDescriptionData: function(coatingType) {
+            var data = {};
+            var coating = this.params.coating.filter(function(coatingData) {
+                return coatingData.name === coatingType;
+            })[0];
+
+            if (coatingType === 'pure-pvc') {
+                data = {coating: coating};
+            } else if (coatingType === 'renolit') {
+                var colorRenolit = this.selects['picker-' + coatingType].getVal();
+
+                data = {
+                    coating: coating,
+                    color: this.params.colors.renolit.filter(function(colorData) {
+                        return String(colorData.code) === String(colorRenolit);
+                    })[0],
+                };
+            } else if (coatingType === 'ral') {
+                var colorRal = this.selects['picker-' + coatingType].getVal();
+
+                data = {
+                    coating: coating,
+                    color: colorRal,
+                };
+            }
+
+            return data;
+        },
+
+        togglePicked(isPicked) {
             this
-                .toggleMod($color, 'active')
-                .delMod($color, 'inactive');
+                .delMod('picked')
+                .toggleMod('picked', true, isPicked);
         },
 
-        _pickColorOnInit: function() {
-            var $pureColors = this.elem('color', 'color-type', 'pure');
-            var $laminateColors = this.elem('color', 'color-type', 'laminate');
-            var colorToPick;
+        getPickedColorData: function() {
+            var coatingType = this.coatingType.getVal();
 
-            if (this.params.colorType === 'pure') {
-                colorToPick = $pureColors.eq(0);
-            } else if (this.params.colorType === 'laminate') {
-                if (this.params.color) {
-                    colorToPick = $laminateColors.filter('[data-code=' + this.params.color + ']');
-                } else {
-                    colorToPick = $laminateColors.eq(0);
-                }
+            return {
+                title: this.getPickedColorTitle(),
+                isLaminate: coatingType !== 'pure-pvc',
+                isOnRequest: this.getPickedColorIsOnRequest(),
+            };
+        },
+
+        emitColorChange: function() {
+            channel('color-picker').emit('colorChange', this.getPickedColorData());
+        },
+
+        getPickedColorTitle: function() {
+            var coatingType = this.coatingType.getVal();
+            var coating = this.params.coating.filter(function(coatingData) {
+                return coatingData.name === coatingType;
+            })[0];
+            var title = coating.title;
+
+            if (coatingType === 'renolit') {
+                var colorCodeRenolit = this.selects['picker-renolit'].getVal();
+                var color = this.params.colors.renolit.filter(function(colorData) {
+                    return String(colorData.code) === String(colorCodeRenolit);
+                })[0];
+
+                title += ' (код ' + color.code + ' "' + color.title + '")';
+            } else if (coatingType === 'ral') {
+                var colorCodeRal = this.selects['picker-ral'].getVal();
+
+                title += ' (код ' + colorCodeRal + ')';
             }
 
-            if (!colorToPick) {
-                return;
+            return title;
+        },
+
+        getPickedColorIsOnRequest: function() {
+            var coatingType = this.coatingType.getVal();
+
+            if (coatingType === 'renolit') {
+                var colorPicked = this.selects['picker-renolit'].getVal();
+
+                return !this.params.colors.renolitAvailable.some(function(colorOnRequest) {
+                    return colorOnRequest.code === colorPicked;
+                });
             }
 
-            this.pickColor(colorToPick);
-        },
-
-        _setQueryParams: function(colorType, colorCode) {
-            var params = {'color-type': colorType};
-
-            if (colorCode) {
-                params.color = colorCode;
-            } else {
-                this._delQueryParams(['color']);
+            if (coatingType === 'ral') {
+                return true;
             }
 
-            location.change({params: params});
-
-            return this;
+            return false;
         },
-
-        _delQueryParams: function(params) {
-            var query = location.getUri().queryParams;
-
-            params.forEach(function(param) {
-                delete query[param];
-            });
-
-            location.change({
-                params: query,
-                forceParams: true,
-            });
-
-            return this;
-        },
-
-        pickedColor: null,
     }));
 });
