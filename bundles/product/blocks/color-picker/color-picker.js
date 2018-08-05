@@ -163,7 +163,7 @@ function(provide, BEMDOM, channel, $, location, bh, Uri, nextTick) {
             return data;
         },
 
-        togglePicked(isPicked) {
+        togglePicked: function(isPicked) {
             this
                 .delMod('picked')
                 .toggleMod('picked', true, isPicked);
