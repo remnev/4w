@@ -51,9 +51,8 @@ function(provide, BEMDOM, channel, $, location, bh, Uri, nextTick) {
             var val = this.coatingType.getVal();
             var isPurePVC = val === 'pure-pvc';
 
-            Object.values(this.selects).forEach(function(select) {
-                select.setVal(null);
-            });
+            this.selects['picker-renolit'].setVal(null);
+            this.selects['picker-ral'].setVal(null);
 
             this.reflectCoatingTypeInUrl(val, this.params.productSlug);
 

@@ -122,18 +122,21 @@ function getUrl(data) {
  */
 function getProductsUrls(offers) {
     return offers.reduce((acc, {coating, slug, modifiedAt}) => {
+        const lastmod = modifiedAt.toISOString();
+        const priority = 0.3;
+
         acc.push({
             pathname: `products/${slug}`,
-            lastmod: modifiedAt.toISOString(),
-            priority: 0.3,
+            lastmod,
+            priority,
         });
 
         if (coating.length) {
             coating.forEach(({name}) => {
                 acc.push({
                     pathname: `products/${slug}/${name}`,
-                    lastmod: modifiedAt.toISOString(),
-                    priority: 0.3,
+                    lastmod,
+                    priority,
                 });
             });
         }

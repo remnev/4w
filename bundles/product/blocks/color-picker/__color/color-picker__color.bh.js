@@ -1,10 +1,6 @@
 'use strict';
 
 module.exports = function(bh) {
-    bh.match('color-picker__color', function(ctx, json) {
-        ctx.mods({size: 'l'});
-    });
-
     bh.match('color-picker__color_type_pure-pvc', function(ctx, json) {
         ctx.attrs({title: 'Образец цвета: Белый ПВХ без покрытия'});
     });
