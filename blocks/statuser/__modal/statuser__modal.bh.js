@@ -32,7 +32,8 @@ module.exports = function(bh) {
 
     bh.match('statuser__modal_type_success', function(ctx) {
         var data = ctx.json().data;
-        var bemjson = {
+
+        return {
             block: 'modal',
             mods: {theme: 'islands'},
             mix: {
@@ -54,7 +55,7 @@ module.exports = function(bh) {
                         'Подробности заказа отправлены на указанный вами почтовый ящик ' + data.buyerEmail + '. ',
                         'Наш менеджер свяжется с вами в ближайшее время для подтверждения заказа.',
                         data.isPaymentRequired ? '</br>Теперь вы можете оплатить заказ с помощью банковской карты.' +
-                        ' Нажмите кнопку "Оплатить"' : '',
+                        ' Нажмите кнопку "Перейти к оплате"' : '',
                     ],
                 },
                 {
@@ -85,107 +86,13 @@ module.exports = function(bh) {
                                 block: 'statuser',
                                 elem: 'pay',
                             },
-                            text: 'Оплатить',
+                            text: 'Перейти к оплате',
                         } : '',
                     ],
                 },
+                {cls: 'payment-preloader'},
             ],
         };
-
-        if (data.isPaymentRequired) {
-            bemjson.content.push({
-                block: 'statuser',
-                elem: 'payment-form',
-                tag: 'form',
-                attrs: {
-                    action: 'https://money.yandex.ru/eshop.xml',
-                    type: 'post',
-                },
-                content: [
-                    {
-                        tag: 'input',
-                        attrs: {
-                            type: 'hidden',
-                            name: 'shopId',
-                            value: '39148',
-                        },
-                    },
-                    {
-                        tag: 'input',
-                        attrs: {
-                            type: 'hidden',
-                            name: 'scid',
-                            value: '26865',
-                        },
-                    },
-                    {
-                        tag: 'input',
-                        attrs: {
-                            type: 'hidden',
-                            name: 'sum',
-                            value: data.orderCoast,
-                        },
-                    },
-                    {
-                        tag: 'input',
-                        attrs: {
-                            type: 'hidden',
-                            name: 'customerNumber',
-                            value: data.buyerEmail,
-                        },
-                    },
-                    {
-                        tag: 'input',
-                        attrs: {
-                            type: 'hidden',
-                            name: 'paymentType',
-                            value: 'AC',
-                        },
-                    },
-                    {
-                        tag: 'input',
-                        attrs: {
-                            type: 'hidden',
-                            name: 'orderNumber',
-                            value: data.orderId,
-                        },
-                    },
-                    {
-                        tag: 'input',
-                        attrs: {
-                            type: 'hidden',
-                            name: 'custEmail',
-                            value: data.buyerEmail,
-                        },
-                    },
-                    {
-                        tag: 'input',
-                        attrs: {
-                            type: 'hidden',
-                            name: 'cps_email',
-                            value: data.buyerEmail,
-                        },
-                    },
-                    {
-                        tag: 'input',
-                        attrs: {
-                            type: 'hidden',
-                            name: 'custName',
-                            value: data.buyerName,
-                        },
-                    },
-                    {
-                        tag: 'input',
-                        attrs: {
-                            type: 'submit',
-                        },
-                        content: 'ok',
-                    },
-                ],
-            });
-        }
-
-        return bemjson;
     });
 
     bh.match('statuser__modal_type_fail', function() {

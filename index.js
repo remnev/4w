@@ -4,6 +4,7 @@ const keystone = require('keystone');
 const app = keystone.express();
 const expressBem = require('express-bem')({path: './bundles'});
 const controllers = require('./controllers');
+const middlewares = require('./middlewares');
 
 require('dotenv').load();
 require('keystone-nodemailer')(keystone);
@@ -56,6 +57,7 @@ keystone.pre('routes', function(req, res, next) {
 keystone.pre('routes', require('body-parser').json());
 
 keystone.set('routes', function(app) { // eslint-disable-line no-shadow
+    app.use(middlewares.env);
     app.get('/demo', controllers.demo);
     app.get('/', controllers.index);
     app.get('/products', function(req, res) {

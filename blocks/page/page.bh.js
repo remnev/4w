@@ -5,6 +5,7 @@ var f = require('util').format;
 module.exports = function(bh) {
     bh.match('root', function(ctx) {
         var data = ctx.json().data;
+        var SBER_SCRIPT_URL = data.env.SBER_SCRIPT_URL;
 
         ctx.tParam('data', data);
 
@@ -29,6 +30,10 @@ module.exports = function(bh) {
                 {
                     elem: 'js',
                     url: 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/ru.js',
+                },
+                {
+                    elem: 'js',
+                    url: SBER_SCRIPT_URL,
                 },
                 {
                     elem: 'meta',
