@@ -33,7 +33,7 @@ module.exports = function(bh) {
                 },
                 {
                     elem: 'js',
-                    url: SBER_SCRIPT_URL
+                    url: SBER_SCRIPT_URL,
                 },
                 {
                     elem: 'meta',
