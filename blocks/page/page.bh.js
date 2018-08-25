@@ -5,6 +5,7 @@ var f = require('util').format;
 module.exports = function(bh) {
     bh.match('root', function(ctx) {
         var data = ctx.json().data;
+        var SBER_SCRIPT_URL = data.env.SBER_SCRIPT_URL;
 
         ctx.tParam('data', data);
 
@@ -32,7 +33,7 @@ module.exports = function(bh) {
                 },
                 {
                     elem: 'js',
-                    url: 'https://3dsec.sberbank.ru/demopayment/docsite/assets/js/ipay.js', // Todo prod url
+                    url: SBER_SCRIPT_URL
                 },
                 {
                     elem: 'meta',
