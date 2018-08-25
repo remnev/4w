@@ -31,6 +31,10 @@ module.exports = function(bh) {
                     url: 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/ru.js',
                 },
                 {
+                    elem: 'js',
+                    url: 'https://3dsec.sberbank.ru/demopayment/docsite/assets/js/ipay.js', // Todo prod url
+                },
+                {
                     elem: 'meta',
                     attrs: {
                         name: 'description',

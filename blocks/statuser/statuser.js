@@ -1,5 +1,5 @@
 'use strict';
-/* global yaCounter29668245 */
+/* global yaCounter29668245 IPAY ipayCheckout */
 
 modules.define('statuser',
 ['i-bem__dom', 'events__channels', 'bh', 'jquery'],
@@ -70,15 +70,27 @@ function(provide, BEMDOM, channel, bh, $) {
                 },
             }));
 
-            this.modalTypeSuccess = this.findElem('modal', 'type', 'success').bem('modal');
-            this.paymentForm = this.findElem('payment-form');
+            this.modalTypeSuccess = this.findBlockOn(this.findElem('modal', 'type', 'success'), 'modal');
 
-            this.bindTo('close', 'click', function() {
+            this.bindTo(this.findElem('close'), 'click', function() {
                 this.modalTypeSuccess.delMod('visible');
             });
 
-            this.bindTo('pay', 'click', function() {
-                this.paymentForm.submit();
+            this.bindTo(this.findElem('pay'), 'click', function() {
+                new IPAY({api_token: this.params.SBER_API_TOKEN});
+
+                this.modalTypeSuccess.delMod('visible');
+
+                ipayCheckout({
+                    amount: data.orderCoast,
+                    currency: 'RUB',
+                    order_number: data.orderId,
+                    description: 'Оплата заказа №' + data.orderId,
+                }, function(order) {
+                    yaCounter29668245.reachGoal('order-paid-successfully', order);
+                }, function(order) {
+                    yaCounter29668245.reachGoal('order-paid-unsuccessfully', order);
+                });
             });
 
             // clear the order

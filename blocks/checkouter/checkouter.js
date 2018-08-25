@@ -476,11 +476,10 @@ function(provide, BEMDOM, channel, bh, $) {
                     val: 'cache',
                     text: 'Наличные или банк. карта',
                 },
-                // todo: restore when we'll support legal requirements
-                // {
-                //     val: 'cc',
-                //     text: 'Пластиковая карта'
-                // },
+                {
+                    val: 'cc',
+                    text: 'Банк. карта на сайте',
+                },
                 {
                     val: 'uncache',
                     text: 'Безнал (запрос счета)',
