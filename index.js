@@ -1,13 +1,14 @@
 'use strict';
 
+const express = require('express');
+const app = express();
 const keystone = require('keystone');
-const app = keystone.express();
 const expressBem = require('express-bem')({path: './bundles'});
-const controllers = require('./controllers');
-const middlewares = require('./middlewares');
+const importer = keystone.importer(__dirname);
+const controllers = importer('./controllers');
+const middlewares = importer('./middlewares');
 
 require('dotenv').load();
-require('keystone-nodemailer')(keystone);
 
 expressBem.bindTo(app);
 expressBem.engine('.server.bh.js', require('express-bem-bh/lib/engines/bh')({
@@ -28,57 +29,33 @@ keystone.init({
     'user model': 'User',
     'cookie secret': process.env.COOKIE_SECRET,
     'port': process.env.PORT,
-    'emails': 'jade-templates/emails',
-    'mandrill api key': 'foo',
-    'email nodemailer': {
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
-        secure: true,
-        auth: {
-            user: process.env.SMTP_AUTH_LOGIN,
-            pass: process.env.SMTP_AUTH_PASS,
-        },
-    },
     'cloudinary config': process.env.CLOUDINARY_URL,
     'cloudinary prefix': '4window',
     'wysiwyg menubar': true,
-    'app': app,
 });
 
 keystone.import('models');
 
-// TODO: move it to module
-keystone.pre('routes', function(req, res, next) {
-    res.locals.urlPath = req.path;
-
-    next();
+app.use(require('body-parser').json());
+app.use(middlewares['url-path']());
+app.use(middlewares.env);
+app.get('/', controllers.index);
+app.get('/products', (req, res) => {
+    res.redirect('/products/flat-strips-on-roll/');
 });
+app.get('/products/:productSlug/:coatingType?', controllers.product);
+app.get('/contacts', controllers.contacts);
+app.get('/delivery', controllers.delivery);
+app.get('/payment', controllers.payment);
+app.get('/warranty', controllers.warranty);
+app.get('/yandex-market-price', controllers['yandex-market-price']);
+app.get('/sitemap.xml', controllers.sitemap);
+app.post('/api/send-order', controllers['api-send-order']);
 
-keystone.pre('routes', require('body-parser').json());
-
-keystone.set('routes', function(app) { // eslint-disable-line no-shadow
-    app.use(middlewares.env);
-    app.get('/demo', controllers.demo);
-    app.get('/', controllers.index);
-    app.get('/products', function(req, res) {
-        res.redirect('/products/flat-strips-on-roll/');
-    });
-    app.get('/products/:productSlug/:coatingType?', controllers.product);
-    app.get('/contacts', controllers.contacts);
-    app.get('/delivery', controllers.delivery);
-    app.get('/payment', controllers.payment);
-    app.get('/warranty', controllers.warranty);
-    app.get('/yandex-market-price', controllers['yandex-market-price']);
-    app.get('/sitemap.xml', controllers.sitemap);
-    app.post('/api/send-order', controllers['api-send-order']);
-});
 
 keystone.set('nav', {
     users: 'users',
 });
 
+keystone.set('routes', app);
 keystone.start();
-
-process.on('uncaughtException', (err) => {
-    console.log('uncaughtException', err); // eslint-disable-line no-console
-});

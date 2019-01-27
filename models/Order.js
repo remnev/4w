@@ -5,8 +5,22 @@ const format = require('util').format;
 const moment = require('moment');
 const uniqId = require('unique-id');
 const Promise = require('bluebird');
+const Email = require('keystone-email');
 const Types = keystone.Field.Types;
 
+const from = {
+    name: '4window — магазин оконных принадлежностей',
+    email: 'no-reply@4window.ru',
+};
+const nodemailerConfig = {
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: true,
+    auth: {
+        user: process.env.SMTP_AUTH_LOGIN,
+        pass: process.env.SMTP_AUTH_PASS,
+    },
+};
 const Order = new keystone.List('Order', {
     hidden: true,
     autokey: {
@@ -53,19 +67,45 @@ Order.schema.virtual('year-month').get(function() {
     return format('%s%s', moment(this.createdAt).format('YYww'), uniqId(2, '0123456789'));
 });
 
-Order.schema.methods.sendOrderEmailToOffice = function(cb) {
+Order.schema.methods.sendOrderEmailToOffice = function() {
     const items = JSON.parse(this.items).map(getItem);
-
-    new keystone.Email('order-email-to-office').send({
+    const email = new Email('pug-templates/emails/order-email-to-office.pug', {transport: 'nodemailer'});
+    const locals = {
+        data: {
+            orderId: this.orderId,
+            createdAt: moment(this.createdAt).format('DD.MM.YYYY'),
+            items: items,
+            params: JSON.parse(this.params),
+            coast: this.coast,
+            typeOfGetting: this.typeOfGetting,
+            typeOfPayment: this.typeOfPayment,
+        },
+    };
+    const options = {
+        subject: `Заказ №${this.orderId} — 4window.ru`,
         to: {
             name: '4window — магазин оконных принадлежностей',
             email: 'orders@4window.ru',
         },
-        from: {
-            name: '4window — магазин оконных принадлежностей',
-            email: 'no-reply@4window.ru',
-        },
-        subject: format('Заказ №%s — 4window.ru', this.orderId),
+        from,
+        nodemailerConfig,
+    };
+
+    return new Promise((res, rej) => {
+        email.send(locals, options, (error) => {
+            if (error) {
+                throw error;
+            }
+
+            res();
+        });
+    });
+};
+
+Order.schema.methods.sendOrderEmailToBuyer = function() {
+    const items = JSON.parse(this.items).map(getItem);
+    const email = new Email('pug-templates/emails/order-email-to-buyer.pug', {transport: 'nodemailer'});
+    const locals = {
         data: {
             orderId: this.orderId,
             createdAt: moment(this.createdAt).format('DD.MM.YYYY'),
@@ -75,32 +115,26 @@ Order.schema.methods.sendOrderEmailToOffice = function(cb) {
             typeOfGetting: this.typeOfGetting,
             typeOfPayment: this.typeOfPayment,
         },
-    }, cb);
-};
-
-Order.schema.methods.sendOrderEmailToBuyer = function(cb) {
-    const items = JSON.parse(this.items).map(getItem);
-
-    new keystone.Email('order-email-to-buyer').send({
+    };
+    const options = {
+        subject: `Заказ №${this.orderId} — 4window.ru`,
         to: {
             name: this.buyerEmail,
             email: this.buyerEmail,
         },
-        from: {
-            name: '4window — магазин оконных принадлежностей',
-            email: 'no-reply@4window.ru',
-        },
-        subject: format('Заказ №%s — 4window.ru', this.orderId),
-        data: {
-            orderId: this.orderId,
-            createdAt: moment(this.createdAt).format('DD.MM.YYYY'),
-            items: items,
-            params: JSON.parse(this.params),
-            coast: this.coast,
-            typeOfGetting: this.typeOfGetting,
-            typeOfPayment: this.typeOfPayment,
-        },
-    }, cb);
+        from,
+        nodemailerConfig,
+    };
+
+    return new Promise((res, rej) => {
+        email.send(locals, options, (error) => {
+            if (error) {
+                throw error;
+            }
+
+            res();
+        });
+    });
 };
 
 Order.schema.methods.calculateOrderCoast = function() {
@@ -150,17 +184,9 @@ Order.schema.pre('save', function(next) {
 });
 
 Order.schema.post('save', function() {
-    this.sendOrderEmailToOffice(function(sendToOfficeError) {
-        if (sendToOfficeError) {
-            throw sendToOfficeError;
-        }
-
-        this.sendOrderEmailToBuyer(function(sendToBuyerError) {
-            if (sendToBuyerError) {
-                throw sendToBuyerError;
-            }
-        });
-    }.bind(this));
+    this.sendOrderEmailToOffice()
+        .bind(this)
+        .then(this.sendOrderEmailToBuyer);
 });
 
 Order.register();

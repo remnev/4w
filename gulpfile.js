@@ -2,8 +2,6 @@
 
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
-var mocha = require('gulp-mocha');
-var istanbul = require('gulp-istanbul');
 var bower = require('gulp-bower');
 var vowFs = require('vow-fs');
 var del = require('del');
@@ -51,26 +49,6 @@ gulp.task('eslint-client', function () {
 });
 
 gulp.task('lint', ['eslint-server', 'eslint-client']);
-
-// Test
-gulp.task('mocha', function () {
-    return gulp.src(paths.test, {read: false})
-        .pipe(mocha());
-});
-
-gulp.task('istanbul', function (done) {
-    gulp.src(paths.coverage)
-        .pipe(istanbul())
-        .pipe(istanbul.hookRequire())
-        .on('finish', function () {
-            gulp.src(paths.test)
-                .pipe(mocha())
-                .pipe(istanbul.writeReports())
-                .on('end', done);
-        });
-});
-
-gulp.task('test', ['lint', 'istanbul']);
 
 // Vendors
 gulp.task('vendors', function () {
