@@ -2,7 +2,7 @@
     mustDeps: [
         {
             block: 'i-bem',
-            elem: 'dom'
+            elem: 'dom',
         },
         {block: 'main-menu'},
         {block: 'contacts'},
