@@ -15,6 +15,7 @@ var paths = {
         '.enb/*.js',
         'controllers/**/*.js',
         'models/**/*.js',
+        'middlewares/**/*.js',
         'index.js'
     ],
     lintClient: [

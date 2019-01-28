@@ -91,7 +91,7 @@ Order.schema.methods.sendOrderEmailToOffice = function() {
         nodemailerConfig,
     };
 
-    return new Promise((res, rej) => {
+    return new Promise((res) => {
         email.send(locals, options, (error) => {
             if (error) {
                 throw error;
@@ -126,7 +126,7 @@ Order.schema.methods.sendOrderEmailToBuyer = function() {
         nodemailerConfig,
     };
 
-    return new Promise((res, rej) => {
+    return new Promise((res) => {
         email.send(locals, options, (error) => {
             if (error) {
                 throw error;
