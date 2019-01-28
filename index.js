@@ -31,7 +31,6 @@ keystone.init({
     'port': process.env.PORT,
     'cloudinary config': process.env.CLOUDINARY_URL,
     'cloudinary prefix': '4window',
-    'wysiwyg menubar': true,
 });
 
 keystone.import('models');
