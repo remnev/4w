@@ -8,7 +8,7 @@ const Product = new keystone.List('Product', {
     singular: 'Продукт',
     plural: 'Продукты',
     defaultSort: 'sortWeight',
-    defaultColumns: 'type, sortWeight',
+    defaultColumns: 'name, type, sortWeight',
 });
 
 Product.add(

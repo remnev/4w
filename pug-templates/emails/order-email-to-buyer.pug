@@ -1,4 +1,4 @@
-extends /layouts/default
+extends ./layouts/default
 
 block body-contents
     h1 Заказ №#{data.orderId}
@@ -63,9 +63,28 @@ block body-contents
     table(style="width:100%; vertical-align: top; font-size: 11px;")
         tbody
             each item in data.params
-                if item.title !== 'Общая стоимость (руб.)'
+                if (item.title !== 'Общая стоимость (руб.)' && item.title !== 'Электронная почта')
                     tr
                         td(style="border-top: 1px solid #6481b0;")= item.title
                         td(style="width: 10px; border-right: 1px solid #6481b0; border-top: 1px solid #6481b0;")
                         td(style="width: 10px; border-top: 1px solid #6481b0;")
                         td(style="border-top: 1px solid #6481b0;")= item.value
+            tr
+                td(style="border-top: 1px solid #6481b0;")
+                td(style="border-top: 1px solid #6481b0;")
+                td(style="border-top: 1px solid #6481b0;")
+                td(style="border-top: 1px solid #6481b0;")
+
+    br
+    br
+
+    div(style="font-size: 11px;")
+
+        div Настоящим письмом мы подтверждаем заказ.
+
+        if data.typeOfPayment == 'uncache'
+            div В ближайшее время вы получите счет на оплату.
+        else
+            div В ближайшее время с Вами свяжется сотрудник нашего магазина.
+
+        div Благодарим Вас за заказ.
