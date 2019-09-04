@@ -87,7 +87,7 @@ module.exports = function(req, res) {
                             }
 
                             return category;
-                        },
+                        }),
                     },
                     'delivery-options': {
                         option: {
