@@ -76,11 +76,18 @@ module.exports = function(req, res) {
                         },
                     ],
                     'categories': {
-                        category: categories.map((text, id) => ({
-                            '@id': id + 1,
-                            '@parentId': id,
-                            '#text': text,
-                        })),
+                        category: categories.map((text, id) => {
+                            const category = {
+                                '@id': id + 1,
+                                '#text': text,
+                            };
+
+                            if (id > 0) {
+                                category['@parentId'] = id;
+                            }
+
+                            return category;
+                        }),
                     },
                     'delivery-options': {
                         option: {
