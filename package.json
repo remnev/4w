@@ -13,7 +13,7 @@
     "lodash": "^4.17.10",
     "moment": "^2.10.3",
     "nodemailer": "^5.1.1",
-    "pug": "^2.0.3",
+    "pug": "^3.0.1",
     "ral-to-hex": "0.0.0",
     "unique-id": "^1.0.2",
     "xmlbuilder": "^10.0.0"
