@@ -12,7 +12,7 @@
     "keystone-email": "https://github.com/miaowing/keystone-email.git",
     "lodash": "^4.17.10",
     "moment": "^2.10.3",
-    "nodemailer": "^5.1.1",
+    "nodemailer": "^6.4.16",
     "pug": "^2.0.3",
     "ral-to-hex": "0.0.0",
     "unique-id": "^1.0.2",
