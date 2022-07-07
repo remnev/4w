@@ -11,7 +11,7 @@
     "keystone": "^4.0.0",
     "keystone-email": "https://github.com/miaowing/keystone-email.git",
     "lodash": "^4.17.10",
-    "moment": "^2.10.3",
+    "moment": "^2.29.4",
     "nodemailer": "^5.1.1",
     "pug": "^2.0.3",
     "ral-to-hex": "0.0.0",
