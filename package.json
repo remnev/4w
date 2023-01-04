@@ -8,7 +8,7 @@
     "dotenv": "^6.2.0",
     "express-bem": "1.1.0",
     "express-bem-bh": "1.2.1",
-    "keystone": "^4.0.0",
+    "keystone": "^4.2.1",
     "keystone-email": "https://github.com/miaowing/keystone-email.git",
     "lodash": "^4.17.10",
     "moment": "^2.10.3",
